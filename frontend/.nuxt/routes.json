@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "name": "listings",
+    "path": "/listings",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listings.vue",
+    "chunkName": "pages/listings"
+  },
+  {
+    "name": "listings.vue",
+    "path": "/listings.vue",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listings.vue/index.vue",
+    "chunkName": "pages/listings.vue/index"
+  },
+  {
+    "name": "listings.vue-id",
+    "path": "/listings.vue/:id",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listings.vue/_id/index.vue",
+    "chunkName": "pages/listings.vue/_id/index"
+  }
+]
