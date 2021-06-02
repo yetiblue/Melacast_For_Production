@@ -8,9 +8,7 @@
     </v-col>
     <v-col class="pb-16" cols="12" sm="12" md="12" :lg="gridWidth" justify="end">
       <v-row class="mb-lg-n16 pl-4 pr-4 pl-sm-10 pl-lg-0 pr-sm-10 pr-lg-8" justify="start">
-        <v-col justify="end" v-for="n in displayGridCount" :key="n" cols="6" sm="4">
-          <slot name="cardSlot"></slot>
-        </v-col>
+        <slot name="cardSlot"></slot>
       </v-row>
     </v-col>
   </v-row>
@@ -18,7 +16,13 @@
 <script>
 export default {
   props: ["displayGridCount", "gridWidth"],
-  computed: {}
+  computed: {},
+  methods: {
+    navigateToPage() {
+      console.log("click");
+      this.$router.push(`/listings/${sortedListing.id}/`);
+    }
+  }
 };
 </script>
 <style>
