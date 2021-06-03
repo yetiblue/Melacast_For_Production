@@ -3,9 +3,8 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _07ce192b = () => interopDefault(import('../pages/listings.vue' /* webpackChunkName: "pages/listings" */))
-const _1f75c686 = () => interopDefault(import('../pages/listings.vue/index.vue' /* webpackChunkName: "pages/listings.vue/index" */))
-const _7d47a31e = () => interopDefault(import('../pages/listings.vue/_id/index.vue' /* webpackChunkName: "pages/listings.vue/_id/index" */))
+const _30e05924 = () => interopDefault(import('../pages/listings/index.vue' /* webpackChunkName: "pages/listings/index" */))
+const _bb54f14e = () => interopDefault(import('../pages/listings/_id/index.vue' /* webpackChunkName: "pages/listings/_id/index" */))
 
 // TODO: remove in Nuxt 3
 const emptyFn = () => {}
@@ -25,16 +24,12 @@ export const routerOptions = {
 
   routes: [{
     path: "/listings",
-    component: _07ce192b,
+    component: _30e05924,
     name: "listings"
   }, {
-    path: "/listings.vue",
-    component: _1f75c686,
-    name: "listings.vue"
-  }, {
-    path: "/listings.vue/:id",
-    component: _7d47a31e,
-    name: "listings.vue-id"
+    path: "/listings/:id",
+    component: _bb54f14e,
+    name: "listings-id"
   }],
 
   fallback: false

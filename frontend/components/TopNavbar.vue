@@ -1,6 +1,8 @@
 <template>
-  <v-toolbar elevation="0" dark>
-    <v-toolbar-title>MELACAST</v-toolbar-title>
+  <v-toolbar elevation="0">
+    <div>
+      <img class="mx-auto" height="200px" width="200px" src="../assets/images/horizontal.png" />
+    </div>
     <v-spacer></v-spacer>
 
     <div v-if="mobile">

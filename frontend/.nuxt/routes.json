@@ -2,22 +2,15 @@
   {
     "name": "listings",
     "path": "/listings",
-    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listings.vue",
-    "chunkName": "pages/listings",
-    "_name": "_07ce192b"
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listings/index.vue",
+    "chunkName": "pages/listings/index",
+    "_name": "_30e05924"
   },
   {
-    "name": "listings.vue",
-    "path": "/listings.vue",
-    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listings.vue/index.vue",
-    "chunkName": "pages/listings.vue/index",
-    "_name": "_1f75c686"
-  },
-  {
-    "name": "listings.vue-id",
-    "path": "/listings.vue/:id",
-    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listings.vue/_id/index.vue",
-    "chunkName": "pages/listings.vue/_id/index",
-    "_name": "_7d47a31e"
+    "name": "listings-id",
+    "path": "/listings/:id",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listings/_id/index.vue",
+    "chunkName": "pages/listings/_id/index",
+    "_name": "_bb54f14e"
   }
 ]
