@@ -219,7 +219,7 @@ class Directors(models.Model):
     # location = models.CharField(max_length=50, default="Where are you based?")
     # bio = models.TextField(default="3 Paragraphs, Feel free to brag!")
     # resume = models.FileField(upload_to='uploads/',null=True)
-    # headshot = models.ImageField(upload_to='images/',default="Please title: FIRSTNAME_LASTNAME")
+    # headshot = models.ImageField(upload_to='images/',default="Please title: FIRSTNAME_LASTNAME"
     # stillPhoto = models.ImageField(upload_to="images/",default='')
     # projects = models.BooleanField(default=False)
     # # looking = models.
@@ -262,7 +262,8 @@ class Listings(models.Model):
     title = models.TextField(max_length=300, default="")
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
-    location = models.CharField(max_length=50, default="")
+    state_location = models.CharField(max_length=50, default="")
+    city_location = models.CharField(max_length=100, default="")
     overview = models.TextField(default="null")
     studio = models.CharField(max_length=40)
     poster = models.FileField(upload_to='images/', default="///", null=True)
@@ -277,6 +278,8 @@ class Listings(models.Model):
                              default="null")
     director_email = models.CharField(max_length=255,
                                       default="null")
+    director_name = models.CharField(max_length=255,
+                                     default="null")
 
     Paid = "Paid"
     Volunteer = "Volunteer"
@@ -302,6 +305,8 @@ class Listings(models.Model):
 
 
 class FilmRoles(models.Model):
+    character_name = models.CharField(
+        max_length=100, default="Did not enter a Name", null=True)
     role_name = models.CharField(
         max_length=100, default="Did not enter a Name", null=True)
     ethnicity = models.CharField(

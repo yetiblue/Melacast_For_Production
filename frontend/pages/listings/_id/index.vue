@@ -1,14 +1,66 @@
 <template>
-  <v-app>
-    hello
-    <v-row>
-      <v-col>
-        <v-img height="50vh" width="100vw" :src="listings.poster"></v-img>
-      </v-col>
-    </v-row>
-  </v-app>
+  <div>
+    <TopNavbar />
+    <v-app>
+      <v-row>
+        <v-col>
+          <v-card>
+            <v-img
+              height="500px"
+              width="100vw"
+              gradient="to top right, rgba(191, 191, 191, .22), rgba(191, 191, 191, .1)"
+              :src="listings.poster"
+            >
+              <v-card-title
+                style="margin-top: 120px"
+                class="justify-center my-center white--text text-h2"
+              >{{listings.title}}</v-card-title>
+              <v-card-text
+                class="text-center my-center white--text mt-4 text-h6"
+              >Director: {{listings.director_name}} | {{listings.city_location}}, {{listings.state_location}} | {{listings.start_date}} - {{listings.end_date}}</v-card-text>
+            </v-img>
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="8">
+          <v-card flat class="ml-12 ml-md-16 pl-md-16">
+            <div :style="descriptionPaddingLeft">
+              <v-card-title>Project Description</v-card-title>
+              <v-card-text>{{listings.overview}}</v-card-text>
+              <v-card-subtitle>Casting Info:</v-card-subtitle>
+              <div v-for="role in roles" :key="role.id">
+                <v-card-text class="brown--text">{{role.role_name}}</v-card-text>
+                <v-card-text class="mt-n6">{{role.character_name}}</v-card-text>
+                <v-card-text class="mt-n6">{{role.description}}</v-card-text>
+              </div>
+            </div>
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="4">
+          <v-card flat class="ml-12 ml-sm-16 mt-5">
+            <v-btn :width="buttonWidth" class="ml-3 brown white--text">Apply Now</v-btn>
+            <v-card-title class="text-subtitle-1">Crew Needed:</v-card-title>
+            <v-card-title class="text-sm-subtitle-2 text-md-subtitle-1">Production</v-card-title>
+            <v-card-text
+              v-for="splitCrew in splitCrewPositions"
+              :key="splitCrew.id"
+              class="mt-n2 mb-n8 text-subtitle-2"
+            >-{{splitCrew}}</v-card-text>
+            <v-card-title class="mt-4 text-sm-subtitle-2 text-md-subtitle-1">Post Production</v-card-title>
+            <v-card-text
+              v-for="splitPost in  splitPostProductionPositions"
+              :key="splitPost.id"
+              class="mt-n2 mb-n8 text-subtitle-2"
+            >-{{splitPost}}</v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-app>
+    <FooterComponent />
+  </div>
 </template>
 <script>
+import TopNavbar from "~/components/TopNavbar";
+import FooterComponent from "~/components/FooterComponent";
 // import Navigation from "~/components/Navigation.vue";
 // import SubscribeComponent from "~/components/SubscribeComponent.vue";
 export default {
@@ -21,8 +73,8 @@ export default {
     this.generateApplicantID(32, "0123456789");
   },
   components: {
-    // Navigation,
-    // SubscribeComponent
+    TopNavbar,
+    FooterComponent
   },
   async asyncData({ $axios, params, loggedInUser, store }) {
     const body = store.getters.loggedInUser.id;
@@ -68,6 +120,42 @@ export default {
         current.getFullYear();
       const dateTime = date;
       return dateTime;
+    },
+    // posterHeight() {
+    //   switch (this.$vuetify.breakpoint.name) {
+    //     case "md":
+    //       return "240px";
+    //     case "sm":
+    //       return "190px";
+    //     case "xs":
+    //       return "25vh";
+    //     case "lg":
+    //       return "280px";
+    //   }
+    // },
+    descriptionPaddingLeft() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "md":
+          return "100px";
+        case "sm":
+          return "190px";
+        case "xs":
+          return "25vh";
+        case "lg":
+          return "150px";
+      }
+    },
+    buttonWidth() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "md":
+          return "15vw";
+        case "sm":
+          return "15vw";
+        case "xs":
+          return "30vw";
+        case "lg":
+          return "15vw";
+      }
     }
   },
   methods: {

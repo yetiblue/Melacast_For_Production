@@ -80,13 +80,13 @@
         </threeColGrid>
       </template>
     </v-app>
-    <!-- <BottomFooterComponent /> -->
+    <BottomFooterComponent />
   </div>
 </template>
 <script>
 import SideBarComponent from "~/components/SideBarComponent";
 import TopNavbar from "~/components/TopNavbar";
-// import BottomFooterComponent from "~/components/BottomFooterComponent";
+import ooterComponent from "~/components/FooterComponent";
 import threeColGrid from "~/components/threeColGrid";
 export default {
   head() {
@@ -97,7 +97,7 @@ export default {
   components: {
     SideBarComponent,
     TopNavbar,
-
+    FooterComponent,
     threeColGrid
   },
   data() {
