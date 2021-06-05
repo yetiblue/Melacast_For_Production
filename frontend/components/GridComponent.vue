@@ -5,13 +5,13 @@
       <slot name="rowTitleTwo"></slot>
       <slot name="rowTitleThree"></slot>
     </v-col>
-    <v-col class="mb-n16 pr-16 pr-lg-0 mr-n4 mr-lg-0" cols="4" sm="2" lg="1">
+    <v-col class="mb-n16 pr-16 pr-lg-0 mr-n4 mr-lg-4 mr-sm-4 mr-md-n4" cols="4" sm="2" lg="1">
       <slot name="navButtonOne"></slot>
       <slot name="navButtonTwo"></slot>
       <slot name="navButtonThree"></slot>
     </v-col>
     <v-col class="pb-16" cols="12" sm="12" md="12" :lg="gridWidth" justify="end">
-      <v-row class="mt-2 mb-lg-n16 pl-4 pr-4 pl-sm-10 pl-lg-8 pr-sm-10 pr-lg-8" justify="start">
+      <v-row class="mt-2 mb-lg-n16 pl-4 pr-4 px-sm-10 pl-lg-8 pr-lg-8" justify="start">
         <slot name="cardSlot"></slot>
       </v-row>
     </v-col>

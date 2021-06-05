@@ -5,7 +5,7 @@
       <v-row flat justify="end">
         <v-spacer></v-spacer>
       </v-row>
-      <v-row class="mt-lg-n12 pb-lg-16 mb-lg-n16" justify="end" align="start">
+      <v-row class="mt-lg-n12 pb-n16 pb-lg-16 mb-lg-n16" justify="end" align="start">
         <v-col class="pt-11 pb-lg-n16 mt-sm-n16 mt-lg-0" cols="12" sm="12">
           <v-col class="mt-6">
             <v-card flat class="text-center text-lg-left ml-lg-n6">
@@ -38,7 +38,7 @@
       </v-form>
 
       <template>
-        <threeColGrid
+        <GridComponent
           :displayGridCount="displayGridCount"
           :gridWidth="gridWidth"
           :sortedArrayOfListings="sortedArrayOfListings"
@@ -49,7 +49,7 @@
           </template>
           <template #cardSlot>
             <template v-for="sortedListing in sortedArrayOfListings">
-              <v-col :key="sortedListing.id" justify="end" cols="6" sm="4">
+              <v-col :key="sortedListing.id" justify="end" cols="12" sm="4">
                 <v-card
                   :key="sortedListing.id"
                   :to="`/listings/${sortedListing.id}/`"
@@ -63,12 +63,12 @@
                     :src="sortedListing.poster"
                   >
                     <v-card-title
-                      class="mb-n5"
+                      class="text-body-1 text-md-subtitle-2 text-lg-h6 mb-n5"
                       align="end"
-                    >{{sortedListing.title}}{{sortedListing.id}}</v-card-title>
-                    <v-card-text class="mb-n5">{{sortedListing.overview}}</v-card-text>
+                    >{{sortedListing.title}}</v-card-title>
+                    <v-card-text class="mb-n5">{{sortedListing.tagline}}</v-card-text>
                     <v-card-text class="mb-5">
-                      {{ sortedListing.start_date }}
+                      {{ sortedListing.start_date }} -
                       {{ sortedListing.end_date }}
                     </v-card-text>
                     <v-row align="center" justify="end"></v-row>
@@ -77,7 +77,7 @@
               </v-col>
             </template>
           </template>
-        </threeColGrid>
+        </GridComponent>
       </template>
     </v-app>
     <FooterComponent />
@@ -87,7 +87,7 @@
 import SideBarComponent from "~/components/SideBarComponent";
 import TopNavbar from "~/components/TopNavbar";
 import FooterComponent from "~/components/FooterComponent";
-import threeColGrid from "~/components/threeColGrid";
+import GridComponent from "~/components/GridComponent";
 export default {
   head() {
     return {
@@ -98,7 +98,7 @@ export default {
     SideBarComponent,
     TopNavbar,
     FooterComponent,
-    threeColGrid
+    GridComponent
   },
   data() {
     return {
@@ -181,7 +181,7 @@ export default {
       ],
       sideHeight: `10vh`,
       gridWidth: "12",
-      state_location: "",
+      location: "",
       job_type: "",
       status: "",
       genre: "",

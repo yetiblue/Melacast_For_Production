@@ -22,16 +22,16 @@
       <v-form v-if="filterClicked" @submit.prevent="searchListings">
         <v-row class="pl-lg-9 px-sm-10">
           <v-col>
-            <v-select v-model="location" :items="states" label="Select Location"></v-select>
+            <v-select v-model="location" :items="states" label="Location (state)"></v-select>
           </v-col>
           <v-col>
-            <v-select v-model="genre" :items="genres" label="Genre"></v-select>
+            <v-select v-model="ethnicity" :items="ethnicities" label="Race Identity"></v-select>
           </v-col>
           <v-col>
-            <v-select v-model="status" :items="statuses" label="Job Type"></v-select>
+            <v-select v-model="group" :items="professions" label="Profession"></v-select>
           </v-col>
           <v-col>
-            <v-select v-model="job_type" :items="jobTypes" label="Time Commitment"></v-select>
+            <v-select v-model="age_range" :items="ageRanges" label="Age Range"></v-select>
           </v-col>
           <v-col cols="2">
             <v-btn type="submit" text class="brown mt-3">Search</v-btn>
@@ -40,7 +40,7 @@
       </v-form>
 
       <template>
-        <threeColGrid :displayGridCount="displayGridCount" :gridWidth="gridWidth">
+        <GridComponent :displayGridCount="displayGridCount" :gridWidth="gridWidth">
           <template #navButtonOne>
             <v-btn v-if="!filterClicked" @click="showFilters('open')" text>Filters</v-btn>
             <v-btn v-else @click="showFilters('close')" text>Close</v-btn>
@@ -63,7 +63,7 @@
                     <v-card-title
                       class="mb-n5"
                       align="end"
-                    >{{individualActor.firstname}}{{individualActor.lastname}}</v-card-title>
+                    >{{individualActor.firstname}} {{individualActor.middle}} {{individualActor.lastname}}</v-card-title>
                     <v-card-text class="mb-n5">{{individualActor.group}}</v-card-text>
                     <v-card-text class="mb-5">
                       Member Since
@@ -75,7 +75,7 @@
               </v-col>
             </template>
           </template>
-        </threeColGrid>
+        </GridComponent>
       </template>
     </v-app>
     <FooterComponent />
@@ -85,7 +85,7 @@
 import SideBarComponent from "~/components/SideBarComponent";
 import TopNavbar from "~/components/TopNavbar";
 import FooterComponent from "~/components/FooterComponent";
-import threeColGrid from "~/components/threeColGrid";
+import GridComponent from "~/components/GridComponent";
 import { mapGetters } from "vuex";
 
 export default {
@@ -95,7 +95,7 @@ export default {
     };
   },
   components: {
-    threeColGrid,
+    GridComponent,
     FooterComponent
     // ProfileGrid,
     // Navigation,
@@ -112,6 +112,18 @@ export default {
         return this.actors.sort((a, b) => b.id - a.id);
       } else {
         return this.actors.sort((a, b) => b.id - a.id);
+      }
+    },
+    gridHeight() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "md":
+          return "240px";
+        case "sm":
+          return "190px";
+        case "xs":
+          return "25vh";
+        case "lg":
+          return "480px";
       }
     }
   },
@@ -137,6 +149,105 @@ export default {
   },
   data() {
     return {
+      ethnicity: null,
+      location: null,
+      group: null,
+      age_range: null,
+      filterClicked: false,
+      professions: [
+        "",
+        "Directors",
+        "Actors",
+        "Dancers",
+        "Writers",
+        "Photographer",
+        "Post Production",
+        "Makeup Artist",
+        "Production"
+      ],
+      ethnicities: [
+        "",
+        "Hispanic/Latino",
+        "Native Hawaiian/Pacific Islander",
+        "Asian",
+        "Black/African American",
+        "Native American/Alaskan Native",
+        "Middle Eastern"
+      ],
+      ageRanges: [
+        "",
+        "18-24",
+        "25-29",
+        "30-34",
+        "35-39",
+        "40-44",
+        "45-49",
+        "50-54",
+        "55-59",
+        "60-64",
+        "65-69",
+        "70+"
+      ],
+      states: [
+        "",
+        "Alabama",
+        "Alaska",
+        "American Samoa",
+        "Arizona",
+        "Arkansas",
+        "California",
+        "Colorado",
+        "Connecticut",
+        "Delaware",
+        "District of Columbia",
+        "Florida",
+        "Georgia",
+        "Guam",
+        "Hawaii",
+        "Idaho",
+        "Illinois",
+        "Indiana",
+        "Iowa",
+        "Kansas",
+        "Kentucky",
+        "Louisiana",
+        "Maine",
+        "Maryland",
+        "Massachusetts",
+        "Michigan",
+        "Minnesota",
+        "Minor Outlying Islands",
+        "Mississippi",
+        "Missouri",
+        "Montana",
+        "Nebraska",
+        "Nevada",
+        "New Hampshire",
+        "New Jersey",
+        "New Mexico",
+        "New York",
+        "North Carolina",
+        "North Dakota",
+        "Northern Mariana Islands",
+        "Ohio",
+        "Oklahoma",
+        "Oregon",
+        "Pennsylvania",
+        "Puerto Rico",
+        "Rhode Island",
+        "South Carolina",
+        "South Dakota",
+        "Tennessee",
+        "Texas",
+        "U.S. Virgin Islands",
+        "Utah",
+        "Vermont",
+        "Virginia",
+        "Washington",
+        "West Virginia",
+        "Wisconsin",
+        "Wyoming"
+      ],
       gridWidth: "12",
       actors: [],
       user: [],
@@ -150,6 +261,14 @@ export default {
     };
   },
   methods: {
+    showFilters(openOrClose) {
+      console.log(openOrClose);
+      if (openOrClose == "open") {
+        this.filterClicked = true;
+      } else if (openOrClose == "close") {
+        this.filterClicked = false;
+      }
+    },
     applyFilters() {
       this.queryWithFilters();
     },

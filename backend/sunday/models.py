@@ -304,6 +304,8 @@ class Listings(models.Model):
                                 default="null")
     random_public_id = models.CharField(max_length=100, null=True)
     date_submitted = models.CharField(max_length=200, null=True)
+    tagline = models.CharField(max_length=255, null=True)
+
 
 
 class FilmRoles(models.Model):
@@ -337,6 +339,7 @@ class Memberlistings(models.Model):
     poster = models.FileField(upload_to='images/', default="///", null=True)
     overview = models.TextField(default="null")
     random_public_id = models.CharField(max_length=100, null=True)
+    tagline = models.CharField(max_length=255, null=True)
 
     Animation = "Animation"
     Documentary = "Documentary"
