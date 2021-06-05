@@ -17,7 +17,7 @@
               >{{listings.title}}</v-card-title>
               <v-card-text
                 class="text-center my-center white--text mt-4 text-h6"
-              >Director: {{listings.director_name}} | {{listings.city_location}}, {{listings.state_location}} | {{listings.start_date}} - {{listings.end_date}}</v-card-text>
+              >Director: {{listings.director_name}} | {{listings.city_location}}, {{listings.location}} | {{listings.start_date}} - {{listings.end_date}}</v-card-text>
             </v-img>
           </v-card>
         </v-col>

@@ -82,6 +82,8 @@ class Actors(models.Model):
         max_length=50, default="NO VALUE", blank=True, null=True)
 
     age = models.IntegerField(blank=True, null=True)
+    date_joined = models.CharField(max_length=50, default="none", null=True)
+
     age_range = models.CharField(max_length=50, default="none", null=False)
     Directors = 'Directors'
     Actors = 'Actors'
@@ -262,7 +264,7 @@ class Listings(models.Model):
     title = models.TextField(max_length=300, default="")
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
-    state_location = models.CharField(max_length=50, default="")
+    location = models.CharField(max_length=50, default="")
     city_location = models.CharField(max_length=100, default="")
     overview = models.TextField(default="null")
     studio = models.CharField(max_length=40)

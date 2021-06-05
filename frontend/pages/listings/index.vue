@@ -80,13 +80,13 @@
         </threeColGrid>
       </template>
     </v-app>
-    <BottomFooterComponent />
+    <FooterComponent />
   </div>
 </template>
 <script>
 import SideBarComponent from "~/components/SideBarComponent";
 import TopNavbar from "~/components/TopNavbar";
-import ooterComponent from "~/components/FooterComponent";
+import FooterComponent from "~/components/FooterComponent";
 import threeColGrid from "~/components/threeColGrid";
 export default {
   head() {
@@ -181,7 +181,7 @@ export default {
       ],
       sideHeight: `10vh`,
       gridWidth: "12",
-      location: "",
+      state_location: "",
       job_type: "",
       status: "",
       genre: "",

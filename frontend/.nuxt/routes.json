@@ -1,10 +1,52 @@
 [
   {
+    "name": "actors",
+    "path": "/actors",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/actors/index.vue",
+    "chunkName": "pages/actors/index",
+    "_name": "_59465c5d"
+  },
+  {
     "name": "listings",
     "path": "/listings",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listings/index.vue",
     "chunkName": "pages/listings/index",
     "_name": "_30e05924"
+  },
+  {
+    "name": "login",
+    "path": "/login",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/login.vue",
+    "chunkName": "pages/login",
+    "_name": "_7b15e85d"
+  },
+  {
+    "name": "registration",
+    "path": "/registration",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/registration/index.vue",
+    "chunkName": "pages/registration/index",
+    "_name": "_07af5f38"
+  },
+  {
+    "name": "registration-awaiting_confirmation",
+    "path": "/registration/awaiting_confirmation",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/registration/awaiting_confirmation.vue",
+    "chunkName": "pages/registration/awaiting_confirmation",
+    "_name": "_02e1ba2e"
+  },
+  {
+    "name": "registration-activate-token",
+    "path": "/registration/activate/:token?",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/registration/activate/_token.vue",
+    "chunkName": "pages/registration/activate/_token",
+    "_name": "_555b6708"
+  },
+  {
+    "name": "registration-activate-uid-token",
+    "path": "/registration/activate/:uid?/:token?",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/registration/activate/_uid/_token.vue",
+    "chunkName": "pages/registration/activate/_uid/_token",
+    "_name": "_36ef8426"
   },
   {
     "name": "listings-id",
