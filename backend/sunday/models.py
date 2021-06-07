@@ -109,6 +109,8 @@ class Actors(models.Model):
 
     group = models.CharField(
         max_length=50, choices=Group_choices, default="none", null=True)
+    city_location = models.CharField(
+        max_length=50, default="Where are you based?", null=True)
     location = models.CharField(
         max_length=50, default="Where are you based?", null=True)
     middle = models.CharField(max_length=30, default="", null=True)
@@ -129,6 +131,7 @@ class Actors(models.Model):
         max_length=300, default="no url", null=True)
 
     linkedIn = models.TextField(max_length=300, default="no url", null=True)
+    twitter = models.TextField(max_length=300, default="", null=True)
 
     project_types = models.TextField(
         max_length=200, default="no url", null=False)
@@ -152,6 +155,10 @@ class Actors(models.Model):
 
 
 class Photos(models.Model):
+    title = models.TextField(
+        max_length=250, default="no url", null=True)
+    year_created = models.TextField(
+        max_length=250, default="no url", null=True)
     photos = models.ImageField(upload_to='uploads/',
                                null=True, default="")
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -159,6 +166,10 @@ class Photos(models.Model):
 
 
 class WritingSamples(models.Model):
+    title = models.TextField(
+        max_length=250, default="no url", null=True)
+    year_created = models.TextField(
+        max_length=250, default="no url", null=True)
     samples = models.FileField(upload_to='uploads/',
                                null=True, default="")
     thumbnail = models.ImageField(upload_to='uploads/',
@@ -168,6 +179,10 @@ class WritingSamples(models.Model):
 
 
 class Reel(models.Model):
+    title = models.TextField(
+        max_length=250, default="no url", null=True)
+    year_created = models.TextField(
+        max_length=250, default="no url", null=True)
     reel = models.FileField(upload_to='uploads/',
                             null=True, default="")
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -305,7 +320,6 @@ class Listings(models.Model):
     random_public_id = models.CharField(max_length=100, null=True)
     date_submitted = models.CharField(max_length=200, null=True)
     tagline = models.CharField(max_length=255, null=True)
-
 
 
 class FilmRoles(models.Model):

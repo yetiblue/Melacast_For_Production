@@ -4,12 +4,7 @@
       <v-container justify="center">
         <v-card class="pa-8" flat>
           <div v-if="extraSmallMobile">
-            <v-img
-              class="mx-auto"
-              height="200px"
-              width="200px"
-              src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
-            ></v-img>
+            <v-img class="mx-auto" height="200px" width="200px" :src="actors.headshot"></v-img>
           </div>
           <div v-else>
             <v-img
@@ -17,7 +12,7 @@
               justify="center"
               height="200px"
               width="200px"
-              src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
+              :src="actors.headshot"
             ></v-img>
           </div>
 
@@ -33,7 +28,7 @@
       <div :style="{ height: sideHeight }">
         <!-- <div v-if="!mobile" > -->
         <v-card elevation="0" class="pb-lg-n16 pa-8">
-          <v-img src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"></v-img>
+          <v-img :src="actors.headshot"></v-img>
 
           <!-- navigation buttons -->
           <slot name="directorDesktopSlot"></slot>
@@ -47,7 +42,7 @@
 </template>
 <script>
 export default {
-  props: ["sideHeight"],
+  props: ["sideHeight", "actors"],
   computed: {
     height() {
       switch (this.$vuetify.breakpoint.name) {

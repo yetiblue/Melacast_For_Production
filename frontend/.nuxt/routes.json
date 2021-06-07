@@ -49,6 +49,13 @@
     "_name": "_36ef8426"
   },
   {
+    "name": "actors-id",
+    "path": "/actors/:id",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/actors/_id/index.vue",
+    "chunkName": "pages/actors/_id/index",
+    "_name": "_5a9ffe70"
+  },
+  {
     "name": "listings-id",
     "path": "/listings/:id",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listings/_id/index.vue",

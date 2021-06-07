@@ -10,6 +10,7 @@ const _07af5f38 = () => interopDefault(import('../pages/registration/index.vue' 
 const _02e1ba2e = () => interopDefault(import('../pages/registration/awaiting_confirmation.vue' /* webpackChunkName: "pages/registration/awaiting_confirmation" */))
 const _555b6708 = () => interopDefault(import('../pages/registration/activate/_token.vue' /* webpackChunkName: "pages/registration/activate/_token" */))
 const _36ef8426 = () => interopDefault(import('../pages/registration/activate/_uid/_token.vue' /* webpackChunkName: "pages/registration/activate/_uid/_token" */))
+const _5a9ffe70 = () => interopDefault(import('../pages/actors/_id/index.vue' /* webpackChunkName: "pages/actors/_id/index" */))
 const _bb54f14e = () => interopDefault(import('../pages/listings/_id/index.vue' /* webpackChunkName: "pages/listings/_id/index" */))
 
 // TODO: remove in Nuxt 3
@@ -56,6 +57,10 @@ export const routerOptions = {
     path: "/registration/activate/:uid?/:token?",
     component: _36ef8426,
     name: "registration-activate-uid-token"
+  }, {
+    path: "/actors/:id",
+    component: _5a9ffe70,
+    name: "actors-id"
   }, {
     path: "/listings/:id",
     component: _bb54f14e,

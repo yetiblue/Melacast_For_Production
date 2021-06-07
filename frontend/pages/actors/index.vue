@@ -5,7 +5,7 @@
       <v-row flat justify="end">
         <v-spacer></v-spacer>
       </v-row>
-      <v-row class="mt-lg-n12 pb-lg-16 mb-lg-n16" justify="end" align="start">
+      <v-row class="mt-lg-n12 mb-sm-n16 pb-lg-16" justify="end" align="start">
         <v-col class="pt-11 pb-lg-n16 mt-sm-n16 mt-lg-0" cols="12" sm="12">
           <v-col class="mt-6">
             <v-card flat class="text-center text-lg-left ml-lg-n6">
@@ -47,7 +47,7 @@
           </template>
           <template #cardSlot>
             <template v-for="individualActor in sortedOldest">
-              <v-col :key="individualActor .id" justify="end" cols="6" sm="4">
+              <v-col :key="individualActor.id" justify="end" cols="12" sm="4">
                 <v-card
                   :key="individualActor.id"
                   :to="`/actors/${individualActor.id}/`"
@@ -61,11 +61,13 @@
                     :src="individualActor.headshot"
                   >
                     <v-card-title
-                      class="mb-n5"
+                      class="mb-n6 text-lg-h5 text-subtitle-2"
                       align="end"
                     >{{individualActor.firstname}} {{individualActor.middle}} {{individualActor.lastname}}</v-card-title>
-                    <v-card-text class="mb-n5">{{individualActor.group}}</v-card-text>
-                    <v-card-text class="mb-5">
+                    <v-card-text
+                      class="mb-lg-n5 mb-n7 text-lg-h6 text-subtitle-1"
+                    >{{individualActor.group}}</v-card-text>
+                    <v-card-text class="mb-5 text-caption text-lg-subtitle-1">
                       Member Since
                       {{ individualActor.date_joined }}
                     </v-card-text>
@@ -96,11 +98,8 @@ export default {
   },
   components: {
     GridComponent,
-    FooterComponent
-    // ProfileGrid,
-    // Navigation,
-    // SubscribeComponent,
-    // Footer
+    FooterComponent,
+    TopNavbar
   },
   computed: {
     ...mapGetters(["loggedInUser"]),
@@ -117,13 +116,13 @@ export default {
     gridHeight() {
       switch (this.$vuetify.breakpoint.name) {
         case "md":
-          return "240px";
+          return "320px";
         case "sm":
-          return "190px";
+          return "240px";
         case "xs":
-          return "25vh";
+          return "35vh";
         case "lg":
-          return "480px";
+          return "465px";
       }
     }
   },
