@@ -1,6 +1,6 @@
 <template>
   <v-row class="pb-lg-16 mb-lg-n16" justify="end" align="start">
-    <v-col cols="8" sm="10" lg="9" class="pl-8 pl-sm-14 pl-lg-10">
+    <v-col cols="8" sm="10" lg="9" class="pl-8 pl-sm-6 pl-md-12 pl-lg-10">
       <slot name="rowTitleOne"></slot>
       <slot name="rowTitleTwo"></slot>
       <slot name="rowTitleThree"></slot>

@@ -12,11 +12,11 @@
               :src="listings.poster"
             >
               <v-card-title
-                style="margin-top: 120px"
-                class="justify-center my-center white--text text-h2"
+                style="margin-top: 190px"
+                class="justify-center my-center white--text text-h5 text-sm-h4 text-lg-h2"
               >{{listings.title}}</v-card-title>
               <v-card-text
-                class="text-center my-center white--text mt-4 text-h6"
+                class="text-center my-center white--text mt-sm-4 text-subtitle-1 text-sm-h6 text-lg-h5"
               >Director: {{listings.director_name}} | {{listings.city_location}}, {{listings.location}} | {{listings.start_date}} - {{listings.end_date}}</v-card-text>
             </v-img>
           </v-card>

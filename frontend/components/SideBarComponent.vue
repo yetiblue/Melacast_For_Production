@@ -28,7 +28,7 @@
       <div :style="{ height: sideHeight }">
         <!-- <div v-if="!mobile" > -->
         <v-card elevation="0" class="pb-lg-n16 pa-8">
-          <v-img :src="actors.headshot"></v-img>
+          <v-img height="200px" width="200px" :src="actors.headshot"></v-img>
 
           <!-- navigation buttons -->
           <slot name="directorDesktopSlot"></slot>
