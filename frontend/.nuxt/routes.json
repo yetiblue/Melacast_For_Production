@@ -7,6 +7,13 @@
     "_name": "_59465c5d"
   },
   {
+    "name": "dashboard",
+    "path": "/dashboard",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/dashboard/index.vue",
+    "chunkName": "pages/dashboard/index",
+    "_name": "_0696e88b"
+  },
+  {
     "name": "listings",
     "path": "/listings",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listings/index.vue",

@@ -38,6 +38,7 @@
           <!-- navigation buttons -->
           <slot name="directorDesktopSlot"></slot>
           <slot name="userDesktopSlot"></slot>
+
           <slot name="userDesktopProfile"></slot>
         </v-card>
       </div>
@@ -47,7 +48,7 @@
 </template>
 <script>
 export default {
-  props: ["sideHeight", "actors"],
+  props: ["sideHeight", "actors", "userButtons"],
   computed: {
     height() {
       switch (this.$vuetify.breakpoint.name) {
