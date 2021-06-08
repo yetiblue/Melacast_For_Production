@@ -4,11 +4,16 @@
       <v-container justify="center">
         <v-card class="pa-8" flat>
           <div v-if="extraSmallMobile">
-            <v-img class="mx-auto" height="200px" width="200px" :src="actors.headshot"></v-img>
+            <v-img
+              class="mx-auto center center"
+              height="200px"
+              width="200px"
+              :src="actors.headshot"
+            ></v-img>
           </div>
           <div v-else>
             <v-img
-              class="mx-auto"
+              class="mx-auto center center"
               justify="center"
               height="200px"
               width="200px"

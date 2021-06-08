@@ -11,15 +11,30 @@
         >
           <slot name="buttonControls"></slot>
           <slot name="footer">
-            <img class="imageLight" :src="photoList[currentImage].photos" alt />
-            <button @click="next">next</button>
-            <button @click="prev">prev</button>
-            <button
-              type="button"
-              class="btn-green"
-              @click="close"
-              aria-label="Close modal"
-            >Close me!</button>
+            <v-img
+              contain
+              class="justify-center align-center mt-16 imageLight"
+              :src="sortedPhotoList[currentImage].photos"
+              alt
+            />
+            <v-row class="mt-4">
+              <v-col cols="6">
+                <v-btn class="white--text" text block @click="next">Prev</v-btn>
+              </v-col>
+              <v-spacer></v-spacer>
+              <v-col cols="6">
+                <v-btn class="white--text" text block @click="prev">Next</v-btn>
+              </v-col>
+              <v-col cols="12">
+                <v-btn
+                  class="white--text mt-n6"
+                  text
+                  block
+                  @click="close"
+                  aria-label="Close modal"
+                >Close me!</v-btn>
+              </v-col>
+            </v-row>
           </slot>
         </div>
       </div>
@@ -29,13 +44,13 @@
 <script>
 export default {
   name: "modal",
-  props: ["currentImage", "photoList"],
+  props: ["currentImage", "sortedPhotoList"],
   methods: {
     close() {
       this.$emit("close");
     },
     next() {
-      if (this.currentImage < this.photoList.length - 1) {
+      if (this.currentImage < this.sortedPhotoList.length - 1) {
         this.currentImage++;
         console.log(this.currentImage);
       } else {
@@ -47,7 +62,7 @@ export default {
       if (this.currentImage > 0) {
         this.currentImage--;
       } else {
-        this.currentImage = this.photoList.length - 1;
+        this.currentImage = this.sortedPhotoList.length - 1;
       }
     }
   }
@@ -66,10 +81,10 @@ export default {
   align-items: center;
 }
 .imageLight {
-  max-height: 60%;
+  max-height: 80%;
 }
 .modal {
-  background: #ffffff;
+  background: rgba(0, 0, 0, 0.75);
   box-shadow: 2px 2px 20px 1px;
   overflow-x: auto;
   display: flex;

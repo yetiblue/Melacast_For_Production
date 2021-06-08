@@ -1,6 +1,9 @@
 <template>
   <div>
     <TopNavbar />
+    <div v-if="!hasPermission">
+      <SubscribeComponent />
+    </div>
     <v-app>
       <v-row flat justify="end">
         <SideBarComponent :actors="actors" :sideHeight="sideHeight">
@@ -111,9 +114,7 @@
                         class="mb-n4 text-lg-h5 text-subtitle-2"
                         align="end"
                       >{{reel.title}}</v-card-title>
-                      <v-card-text
-                        class="mb-lg-5 mb-7 text-lg-h6 text-subtitle-1"
-                      >{{reel.year_created}}</v-card-text>
+                      <v-card-text class="mb-lg-3 text-lg-h6 text-subtitle-1">{{reel.year_created}}</v-card-text>
                     </v-img>
                   </a>
                 </v-card>
@@ -136,8 +137,8 @@
                         align="end"
                       >{{writingSample.title}}</v-card-title>
                       <v-card-text
-                        class="mb-lg-5 mb-7 text-lg-h6 text-subtitle-1"
-                      >{{writingSample.year_created}}</v-card-text>
+                        class="mb-lg-3 text-lg-h6 text-subtitle-1"
+                      >>{{writingSample.year_created}}</v-card-text>
                     </v-img>
                   </a>
                 </v-card>
@@ -150,7 +151,7 @@
         <lightBoxGallery
           v-show="modalVisible"
           :currentImage="currentImage"
-          :photoList="photoList"
+          :sortedPhotoList="sortedPhotoList"
           @close="closeModal"
         ></lightBoxGallery>
         <GridComponent :gridWidth="gridWidth">
@@ -158,22 +159,20 @@
 
           <template #cardSlot>
             <template v-for="(photo,index) in sortedPhotoList">
-              <v-col :key="photo.id" justify="end" cols="12" sm="4">
+              <v-col v-if="!bg" :key="photo.id" justify="end" cols="12" sm="4">
                 <v-card :key="photo.id" :height="gridHeight" outlined title>
                   <v-img
                     @click=" lightboxEffect(index);
                       showModal()"
                     class="white--text align-end"
                     :height="gridHeight"
-                    :src="reel.thumbnail"
+                    :src="photo.photos"
                   >
                     <v-card-title
                       class="mb-n4 text-lg-h5 text-subtitle-2"
                       align="end"
                     >{{photo.title}}</v-card-title>
-                    <v-card-text
-                      class="mb-lg-5 mb-7 text-lg-h6 text-subtitle-1"
-                    >{{photo.year_created}}</v-card-text>
+                    <v-card-text class="mb-lg-3 text-lg-h6 text-subtitle-1">{{photo.year_created}}</v-card-text>
                   </v-img>
                 </v-card>
               </v-col>
@@ -191,7 +190,7 @@ import TopNavbar from "~/components/TopNavbar";
 import FooterComponent from "~/components/FooterComponent";
 import GridComponent from "~/components/GridComponent";
 import lightBoxGallery from "~/components/lightBoxGallery";
-// import SubscribeComponent from "~/components/SubscribeComponent.vue";
+import SubscribeComponent from "~/components/SubscribeComponent.vue";
 import { mapGetters } from "vuex";
 export default {
   head() {
@@ -204,7 +203,8 @@ export default {
     FooterComponent,
     TopNavbar,
     SideBarComponent,
-    lightBoxGallery
+    lightBoxGallery,
+    SubscribeComponent
   },
   computed: {
     forIpad() {
@@ -224,8 +224,8 @@ export default {
     sortedSampleList() {
       return this.sampleList.slice(0, 6);
     },
-    sortedPhotolist() {
-      return this.photoList.slice(0, 6);
+    sortedPhotoList() {
+      return this.photoList.slice(0, 9);
     },
     noProjectsYet() {
       if (

@@ -1,6 +1,9 @@
 <template>
   <div>
     <TopNavbar />
+    <div v-if="!hasPermission">
+      <SubscribeComponent />
+    </div>
     <v-app>
       <v-row>
         <v-col>
@@ -62,7 +65,7 @@
 import TopNavbar from "~/components/TopNavbar";
 import FooterComponent from "~/components/FooterComponent";
 // import Navigation from "~/components/Navigation.vue";
-// import SubscribeComponent from "~/components/SubscribeComponent.vue";
+import SubscribeComponent from "~/components/SubscribeComponent.vue";
 export default {
   head() {
     return {
@@ -74,7 +77,8 @@ export default {
   },
   components: {
     TopNavbar,
-    FooterComponent
+    FooterComponent,
+    SubscribeComponent
   },
   async asyncData({ $axios, params, loggedInUser, store }) {
     const body = store.getters.loggedInUser.id;
