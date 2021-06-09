@@ -28,6 +28,13 @@
     "_name": "_7b15e85d"
   },
   {
+    "name": "myapps",
+    "path": "/myapps",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/myapps.vue",
+    "chunkName": "pages/myapps",
+    "_name": "_9e92634c"
+  },
+  {
     "name": "registration",
     "path": "/registration",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/registration/index.vue",

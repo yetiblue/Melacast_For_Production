@@ -7,6 +7,7 @@ const _006e47a0 = () => interopDefault(import('../pages/community/index.vue' /* 
 const _0696e88b = () => interopDefault(import('../pages/dashboard/index.vue' /* webpackChunkName: "pages/dashboard/index" */))
 const _30e05924 = () => interopDefault(import('../pages/listings/index.vue' /* webpackChunkName: "pages/listings/index" */))
 const _7b15e85d = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
+const _9e92634c = () => interopDefault(import('../pages/myapps.vue' /* webpackChunkName: "pages/myapps" */))
 const _07af5f38 = () => interopDefault(import('../pages/registration/index.vue' /* webpackChunkName: "pages/registration/index" */))
 const _02e1ba2e = () => interopDefault(import('../pages/registration/awaiting_confirmation.vue' /* webpackChunkName: "pages/registration/awaiting_confirmation" */))
 const _555b6708 = () => interopDefault(import('../pages/registration/activate/_token.vue' /* webpackChunkName: "pages/registration/activate/_token" */))
@@ -46,6 +47,10 @@ export const routerOptions = {
     path: "/login",
     component: _7b15e85d,
     name: "login"
+  }, {
+    path: "/myapps",
+    component: _9e92634c,
+    name: "myapps"
   }, {
     path: "/registration",
     component: _07af5f38,
