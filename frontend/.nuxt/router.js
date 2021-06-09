@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _59465c5d = () => interopDefault(import('../pages/actors/index.vue' /* webpackChunkName: "pages/actors/index" */))
+const _006e47a0 = () => interopDefault(import('../pages/community/index.vue' /* webpackChunkName: "pages/community/index" */))
 const _0696e88b = () => interopDefault(import('../pages/dashboard/index.vue' /* webpackChunkName: "pages/dashboard/index" */))
 const _30e05924 = () => interopDefault(import('../pages/listings/index.vue' /* webpackChunkName: "pages/listings/index" */))
 const _7b15e85d = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
@@ -11,7 +11,7 @@ const _07af5f38 = () => interopDefault(import('../pages/registration/index.vue' 
 const _02e1ba2e = () => interopDefault(import('../pages/registration/awaiting_confirmation.vue' /* webpackChunkName: "pages/registration/awaiting_confirmation" */))
 const _555b6708 = () => interopDefault(import('../pages/registration/activate/_token.vue' /* webpackChunkName: "pages/registration/activate/_token" */))
 const _36ef8426 = () => interopDefault(import('../pages/registration/activate/_uid/_token.vue' /* webpackChunkName: "pages/registration/activate/_uid/_token" */))
-const _5a9ffe70 = () => interopDefault(import('../pages/actors/_id/index.vue' /* webpackChunkName: "pages/actors/_id/index" */))
+const _fccadaea = () => interopDefault(import('../pages/community/_id/index.vue' /* webpackChunkName: "pages/community/_id/index" */))
 const _bb54f14e = () => interopDefault(import('../pages/listings/_id/index.vue' /* webpackChunkName: "pages/listings/_id/index" */))
 
 // TODO: remove in Nuxt 3
@@ -31,9 +31,9 @@ export const routerOptions = {
   scrollBehavior,
 
   routes: [{
-    path: "/actors",
-    component: _59465c5d,
-    name: "actors"
+    path: "/community",
+    component: _006e47a0,
+    name: "community"
   }, {
     path: "/dashboard",
     component: _0696e88b,
@@ -63,9 +63,9 @@ export const routerOptions = {
     component: _36ef8426,
     name: "registration-activate-uid-token"
   }, {
-    path: "/actors/:id",
-    component: _5a9ffe70,
-    name: "actors-id"
+    path: "/community/:id",
+    component: _fccadaea,
+    name: "community-id"
   }, {
     path: "/listings/:id",
     component: _bb54f14e,

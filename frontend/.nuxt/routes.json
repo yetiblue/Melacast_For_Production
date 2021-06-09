@@ -1,10 +1,10 @@
 [
   {
-    "name": "actors",
-    "path": "/actors",
-    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/actors/index.vue",
-    "chunkName": "pages/actors/index",
-    "_name": "_59465c5d"
+    "name": "community",
+    "path": "/community",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/community/index.vue",
+    "chunkName": "pages/community/index",
+    "_name": "_006e47a0"
   },
   {
     "name": "dashboard",
@@ -56,11 +56,11 @@
     "_name": "_36ef8426"
   },
   {
-    "name": "actors-id",
-    "path": "/actors/:id",
-    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/actors/_id/index.vue",
-    "chunkName": "pages/actors/_id/index",
-    "_name": "_5a9ffe70"
+    "name": "community-id",
+    "path": "/community/:id",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/community/_id/index.vue",
+    "chunkName": "pages/community/_id/index",
+    "_name": "_fccadaea"
   },
   {
     "name": "listings-id",

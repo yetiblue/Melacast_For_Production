@@ -32,15 +32,22 @@
             </v-row>
           </template>
         </SideBarComponent>
-
-        <v-col class="grey mt-sm-n16 mt-lg-0" cols="12" sm="12" lg="10">
+        <v-col>
+          <v-card flat class="text-center text-lg-left ml-lg-n6">
+            <v-card-title class="justify-center justify-lg-start">
+              <h1 class="mb-2 pt-3 pl-lg-10 text-h4 brown--text">My Dashboard</h1>
+            </v-card-title>
+          </v-card>
+        </v-col>
+        <v-col class="mt-sm-n16 mt-lg-0" cols="12" sm="12" lg="12">
           <div v-if="isCrew">
             <GridComponent :gridWidth="gridWidth">
-              <template #rowTitleOne>Recommended</template>
-              <template #navButtonOne>
-                <v-btn text :to="`/listings`">View All</v-btn>
+              <template #rowTitleOne>
+                <h1 class="text-h6 ml-sm-n16 ml-md-0 pl-lg-6">Recommended</h1>
               </template>
-
+              <template #navButtonOne>
+                <v-btn class="mt-sm-n16 mt-md-0" text :to="`/listings`">View All</v-btn>
+              </template>
               <template #cardSlot>
                 <template v-for="crewRole in randomCrewRoleOrder.slice(0,4)">
                   <v-col :key="crewRole.id" justify="end" cols="12" sm="3">
@@ -52,12 +59,18 @@
                         :src="crewRole.poster"
                       >
                         <v-card-title
-                          class="mb-n4 text-lg-h5 text-subtitle-2"
+                          v-if="isPostProduction"
+                          class="mb-n4 text-subtitle-2 text-sm-caption text-md-subtitle-2"
                           align="end"
-                        >{{filmRole.role_name}}</v-card-title>
+                        >{{crewRole.post_production_positions}}</v-card-title>
+                        <v-card-title
+                          v-else
+                          class="mb-n4 text-subtitle-2 text-sm-caption text-md-subtitle-2"
+                          align="end"
+                        >{{crewRole.crew_positions}}</v-card-title>
 
                         <v-card-text
-                          class="mb-lg-3 text-lg-h6 text-subtitle-1"
+                          class="mb-lg-3 text-subtitle-2 text-sm-caption text-md-subtitle-2"
                         >{{crewRole.date_submitted}}</v-card-text>
                       </v-img>
                     </v-card>
@@ -65,40 +78,6 @@
                 </template>
               </template>
             </GridComponent>
-            <div v-if="appsExist">
-              <GridComponent :gridWidth="gridWidth">
-                <template #rowTitleOne>Sent Applications</template>
-                <template #navButtonTwo>
-                  <v-btn text :to="`/myapps`">View All</v-btn>
-                </template>
-                <template #cardSlot>
-                  <template v-for="application in applications.slice(0, 8)">
-                    <v-col :key="application.id" justify="end" cols="12" sm="3">
-                      <v-card :height="gridHeight" outlined title>
-                        <v-img
-                          class="white--text align-end"
-                          :height="gridHeight"
-                          :src="application.listing_thumbnail"
-                        >
-                          <v-card-title
-                            class="mb-n4 text-lg-h5 text-subtitle-2"
-                            align="end"
-                          >{{application.role}}</v-card-title>
-                          <v-card-title
-                            class="mb-n4 text-lg-h5 text-subtitle-2"
-                            align="end"
-                          >{{application.title}}</v-card-title>
-                          <v-card-text
-                            class="mb-lg-3 text-lg-h6 text-subtitle-1"
-                          >{{application.date_submitted}}</v-card-text>
-                        </v-img>
-                      </v-card>
-                    </v-col>
-                  </template>
-                </template>
-              </GridComponent>
-            </div>
-            <div v-else></div>
           </div>
         </v-col>
 
@@ -108,9 +87,11 @@
       </v-row>
       <div v-if="!isCrew">
         <GridComponent :gridWidth="gridWidth">
-          <template #rowTitleOne>Recommended</template>
+          <template #rowTitleOne>
+            <h1 class="text-h6 ml-sm-n16 ml-md-0 pl-lg-6">Recommended</h1>
+          </template>
           <template #navButtonOne>
-            <v-btn text :to="`/listings`">View All</v-btn>
+            <v-btn class="mt-sm-n16 mt-md-0" text :to="`/listings`">View All</v-btn>
           </template>
 
           <template #cardSlot>
@@ -123,13 +104,10 @@
                     @click="goToListing(filmRole.listing_public_id)"
                     :src="filmRole.role_thumbnail"
                   >
-                    <v-card-title
-                      class="mb-n4 text-lg-h5 text-subtitle-2"
-                      align="end"
-                    >{{filmRole.role_name}}</v-card-title>
+                    <v-card-title class="mb-n4 text-h6" align="end">{{filmRole.role_name}}</v-card-title>
 
                     <v-card-text
-                      class="mb-lg-3 text-lg-h6 text-subtitle-1"
+                      class="mb-lg-3 text-lg-subtitle-2 text-subtitle-2"
                     >{{filmRole.date_submitted}}</v-card-text>
                   </v-img>
                 </v-card>
@@ -137,40 +115,59 @@
             </template>
           </template>
         </GridComponent>
-        <div v-if="appsExist">
-          <GridComponent :gridWidth="gridWidth">
-            <template #rowTitleOne>Sent Applications</template>
-            <template #navButtonTwo>
-              <v-btn text :to="`/myapps`">View All</v-btn>
+      </div>
+      <div v-if="appsExist">
+        <GridComponent :gridWidth="gridWidth">
+          <template #rowTitleOne>
+            <h1 class="text-h6 pt-6 ml-sm-n16 ml-md-0 pl-lg-6">Sent Applications</h1>
+          </template>
+          <template #navButtonTwo>
+            <v-btn class="mt-sm-n16 pt-md-12 mt-md-0" text :to="`/myapps`">View All</v-btn>
+          </template>
+          <template #cardSlot>
+            <template v-for="application in applications.slice(0, 8)">
+              <v-col :key="application.id" justify="end" cols="12" sm="3">
+                <v-card :height="gridHeight" outlined title>
+                  <v-img
+                    class="white--text align-end"
+                    :height="gridHeight"
+                    :src="application.listing_thumbnail"
+                  >
+                    <v-card-title
+                      class="mb-n4 mt-2 text-lg-h6 text-sm-subtitle-2"
+                      align="end"
+                    >{{application.role}}</v-card-title>
+                    <v-card-title
+                      class="mb-n4 mt-n8 text-lg-h5 text-sm-subtitle-2"
+                      align="end"
+                    >{{application.title}}</v-card-title>
+                    <v-card-text
+                      class="mb-lg-3 mb-lg-n4 text-lg-subtitle-1 text-sm-subtitle-2"
+                    >{{application.date_submitted}}</v-card-text>
+                  </v-img>
+                </v-card>
+              </v-col>
             </template>
-            <template #cardSlot>
-              <template v-for="application in applications.slice(0, 8)">
-                <v-col :key="application.id" justify="end" cols="12" sm="3">
-                  <v-card :height="gridHeight" outlined title>
-                    <v-img
-                      class="white--text align-end"
-                      :height="gridHeight"
-                      :src="application.listing_thumbnail"
-                    >
-                      <v-card-title
-                        class="mb-n4 text-lg-h5 text-subtitle-2"
-                        align="end"
-                      >{{application.role}}</v-card-title>
-                      <v-card-title
-                        class="mb-n4 text-lg-h5 text-subtitle-2"
-                        align="end"
-                      >{{application.title}}</v-card-title>
-                      <v-card-text
-                        class="mb-lg-3 text-lg-h6 text-subtitle-1"
-                      >{{application.date_submitted}}</v-card-text>
-                    </v-img>
-                  </v-card>
-                </v-col>
-              </template>
-            </template>
-          </GridComponent>
-        </div>
-        <div v-else></div>
+          </template>
+        </GridComponent>
+      </div>
+      <div v-else>
+        <GridComponent :gridWidth="gridWidth">
+          <template #rowTitleOne>
+            <h1 class="text-h6 pt-6 ml-sm-n16 ml-md-0 pl-lg-6">Sent Applications</h1>
+          </template>
+          <template #navButtonTwo>
+            <v-btn class="mt-sm-n16 pt-md-12 mt-md-0" text :to="`/myapps`">View All</v-btn>
+          </template>
+          <template #cardSlot>
+            <v-spacer></v-spacer>
+            <v-card elevation="0" height="400px">
+              <v-card-title class="pt-16">No Submitted Applications Yet!</v-card-title>
+              <v-btn class="brown white--text" block :to="'/listings'">Visit Listings To Apply</v-btn>
+            </v-card>
+            <v-spacer></v-spacer>
+          </template>
+        </GridComponent>
       </div>
     </v-app>
     <FooterComponent />
@@ -332,13 +329,13 @@ export default {
     gridHeight() {
       switch (this.$vuetify.breakpoint.name) {
         case "md":
-          return "260px";
+          return "180px";
         case "sm":
-          return "190px";
+          return "150px";
         case "xs":
-          return "35vh";
+          return "30vh";
         case "lg":
-          return "270px";
+          return "210px";
       }
     }
   },
@@ -378,7 +375,7 @@ export default {
   data() {
     return {
       gridWidth: "10",
-      sideHeight: `20vh`,
+      sideHeight: `3vh`,
       hasPermission: true,
       applications: [],
       actor: [],

@@ -12,7 +12,7 @@
               <v-card-title class="justify-center">
                 <h1 class="mt-4 mb-2 pt-6 text-h4">Projects</h1>
               </v-card-title>
-              <v-card-subtitle class="text-center">Brief Bio Boo sdflkdsflkls</v-card-subtitle>
+              <v-card-subtitle class="text-center">Find your next project and join their team!</v-card-subtitle>
             </v-card>
           </v-col>
         </v-col>
