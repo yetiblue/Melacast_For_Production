@@ -12,8 +12,8 @@
             <v-card-title>{{actor[0].firstname}} {{actor[0].lastname}}</v-card-title>
             <v-card-subtitle>{{actor[0].group}}</v-card-subtitle>
             <v-btn class="mb-2" elevation="0" block>Dashboard</v-btn>
-            <v-btn class="mb-2" elevation="0" block>Applications</v-btn>
-            <v-btn class="pr-2 mb-1" elevation="0" block>Edit Profile</v-btn>
+            <v-btn class="mb-2" elevation="0" :to="'/myapps'" block>Applications</v-btn>
+            <v-btn class="pr-2 mb-1" elevation="0" :to="'/profile/edit'" block>Edit Profile</v-btn>
           </template>
 
           <template #userMobileProfile>
@@ -21,13 +21,13 @@
             <v-card-subtitle>{{actor[0].group}}</v-card-subtitle>
             <v-row>
               <v-col cols="12" sm="4">
-                <v-btn class="grey" elevation="0" block :to="'google.com'">Dashboard</v-btn>
+                <v-btn class="grey" elevation="0" block>Dashboard</v-btn>
               </v-col>
               <v-col cols="12" sm="4">
-                <v-btn elevation="0" block :to="'google.com'">Applications</v-btn>
+                <v-btn elevation="0" block :to="'/myapps'">Applications</v-btn>
               </v-col>
               <v-col cols="12" sm="4">
-                <v-btn elevation="0" block :to="'google.com'">Edit Profile</v-btn>
+                <v-btn elevation="0" block :to="'/profile/edit'">Edit Profile</v-btn>
               </v-col>
             </v-row>
           </template>
