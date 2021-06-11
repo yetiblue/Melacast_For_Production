@@ -13,6 +13,7 @@
     <v-col class="pb-16" cols="12" sm="12" md="12" :lg="gridWidth" justify="end">
       <v-row class="mt-2 mb-lg-n16 pl-4 pr-4 px-sm-10 pl-lg-8 pr-lg-8" justify="start">
         <slot name="cardSlot"></slot>
+        <slot name="cardSlot2"></slot>
       </v-row>
     </v-col>
   </v-row>

@@ -50,7 +50,7 @@
               <v-col :key="individualActor.id" justify="end" cols="12" sm="4">
                 <v-card
                   :key="individualActor.id"
-                  :to="`/actors/${individualActor.id}/`"
+                  :to="`/community/${individualActor.id}/`"
                   :height="gridHeight"
                   outlined
                   title

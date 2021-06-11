@@ -33,8 +33,23 @@
       <div :style="{ height: sideHeight }">
         <!-- <div v-if="!mobile" > -->
         <v-card elevation="0" class="pb-lg-n16 pa-8">
-          <v-img height="200px" width="200px" :src="actors.headshot"></v-img>
-
+          <lightBoxGallery
+            v-show="modalVisible"
+            :currentImage="currentImage"
+            :profilePic="actors.headshot"
+            :isProfilePic="isProfilePic"
+            @close="closeModal"
+          ></lightBoxGallery>
+          <v-hover>
+            <v-img
+              v-if="!bg"
+              height="200px"
+              width="200px"
+              @click=" lightboxEffect();
+                      showModal()"
+              :src="actors.headshot"
+            ></v-img>
+          </v-hover>
           <!-- navigation buttons -->
           <slot name="directorDesktopSlot"></slot>
           <slot name="userDesktopSlot"></slot>
@@ -47,8 +62,19 @@
   </v-col>
 </template>
 <script>
+import lightBoxGallery from "~/components/lightBoxGallery";
+
 export default {
   props: ["sideHeight", "actors", "userButtons"],
+  data() {
+    return {
+      currentImage: 0,
+      bg: false,
+      modalVisible: false,
+      isProfilePic: true
+    };
+  },
+  components: { lightBoxGallery },
   computed: {
     height() {
       switch (this.$vuetify.breakpoint.name) {
@@ -73,6 +99,21 @@ export default {
           return true;
           console.log("is small");
       }
+    }
+  },
+  methods: {
+    lightboxEffect() {
+      this.currentImage = 0;
+      this.bg = !this.bg;
+      console.log("clicky");
+    },
+    showModal() {
+      this.modalVisible = true;
+      console.log(this.modalVisible, "modal vis");
+    },
+    closeModal() {
+      this.modalVisible = false;
+      this.bg = !this.bg;
     }
   }
 };

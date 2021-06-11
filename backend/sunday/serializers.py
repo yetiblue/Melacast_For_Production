@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 
-from .models import Actors, WritingSamples, Reel, Listings, User_applications, Directors, User, DirectorApps, Notifications, Memberlistings, PersonalProjects, MemberActors, Photos, FilmRoles, StripeCustomer, AcceptedRoles, DeclinedRoles, Thumbnails
+from .models import Actors, crewCards, WritingSamples, Reel, Listings, User_applications, Directors, User, DirectorApps, Notifications, Memberlistings, PersonalProjects, MemberActors, Photos, FilmRoles, StripeCustomer, AcceptedRoles, DeclinedRoles, Thumbnails
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -33,6 +33,12 @@ class AcceptedRolesSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = AcceptedRoles
+
+
+class CrewCardsSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = crewCards
 
 
 class DeclinedRolesSerializer(serializers.ModelSerializer):

@@ -35,11 +35,25 @@
     "_name": "_9e92634c"
   },
   {
+    "name": "profile",
+    "path": "/profile",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/profile/index.vue",
+    "chunkName": "pages/profile/index",
+    "_name": "_5e28b860"
+  },
+  {
     "name": "registration",
     "path": "/registration",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/registration/index.vue",
     "chunkName": "pages/registration/index",
     "_name": "_07af5f38"
+  },
+  {
+    "name": "profile-edit",
+    "path": "/profile/edit",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/profile/edit.vue",
+    "chunkName": "pages/profile/edit",
+    "_name": "_00eadeec"
   },
   {
     "name": "registration-awaiting_confirmation",

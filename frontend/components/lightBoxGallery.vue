@@ -12,17 +12,31 @@
           <slot name="buttonControls"></slot>
           <slot name="footer">
             <v-img
+              v-if="!isProfilePic && !isCardsList"
               contain
               class="justify-center align-center mt-16 imageLight"
               :src="sortedPhotoList[currentImage].photos"
               alt
             />
+
+            <v-img
+              v-if="isProfilePic"
+              contain
+              class="justify-center align-center mt-16 imageLight"
+              :src="profilePic"
+              alt
+            />
+            <v-card v-if="isCardsList">
+              <v-img>
+                <v-card-title class="imageLight">{{cardsList[0].card_description}}</v-card-title>
+              </v-img>
+            </v-card>
             <v-row class="mt-4">
-              <v-col cols="6">
+              <v-col v-if="!isProfilePic" cols="6">
                 <v-btn class="white--text" text block @click="next">Prev</v-btn>
               </v-col>
               <v-spacer></v-spacer>
-              <v-col cols="6">
+              <v-col v-if="!isProfilePic" cols="6">
                 <v-btn class="white--text" text block @click="prev">Next</v-btn>
               </v-col>
               <v-col cols="12">
@@ -44,7 +58,14 @@
 <script>
 export default {
   name: "modal",
-  props: ["currentImage", "sortedPhotoList"],
+  props: [
+    "currentImage",
+    "sortedPhotoList",
+    "profilePic",
+    "isProfilePic",
+    "cardsList",
+    "isCardsList"
+  ],
   methods: {
     close() {
       this.$emit("close");
@@ -79,6 +100,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100000;
 }
 .imageLight {
   max-height: 80%;

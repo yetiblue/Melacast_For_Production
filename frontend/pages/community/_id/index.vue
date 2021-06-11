@@ -38,7 +38,9 @@
               elevation="0"
               block
             >Contact Me</v-btn>
-
+            <a target="_blank" :href="actors.resume">
+              <v-btn class="mb-2 brown white--text" elevation="0" block>Resume</v-btn>
+            </a>
             <v-card-title class="text-center">Languages</v-card-title>
 
             <v-card-text>{{actors.languages_spoken}}</v-card-text>
@@ -87,11 +89,12 @@
               <v-card-text>{{actors.bio}}</v-card-text>
             </v-card>
           </v-col>
+
           <v-col class="mt-16" v-if="noProjectsYet" cols="10">
-            <v-card-title class="justify-center">No Projects Yet?</v-card-title>
-            <v-card-actions class="justify-center">
+            <v-card-title class="justify-center">This User Hasn't Added Any Personal Projects Yet</v-card-title>
+            <!-- <v-card-actions class="justify-center">
               <v-btn class="justify-center">Click Here</v-btn>
-            </v-card-actions>
+            </v-card-actions>-->
           </v-col>
         </v-col>
 
@@ -99,11 +102,53 @@
 
         <!-- </v-row> -->
       </v-row>
+      <GridComponent v-if="!isWriter || !isPhotographer" :gridWidth="gridWidth">
+        <template v-if="!noProjectsYet" #rowTitleOne>My Reel</template>
 
-      <div v-if="isActorDirectororDancer">
+        <template #cardSlot2>
+          <v-col v-if="!bg" justify="end" cols="12">
+            <v-card :height="gridHeight" title>
+              <a :href="actors.reel" target="_blank">
+                <v-img
+                  class="mt-lg-n6 white--text align-end"
+                  :height="gridHeight"
+                  :src="actors.reel_thumbnail"
+                ></v-img>
+              </a>
+            </v-card>
+          </v-col>
+        </template>
+      </GridComponent>
+      <div v-if="isActorMakeuporDancer">
+        <lightBoxGallery
+          v-show="modalVisible"
+          :currentImage="currentImage"
+          :sortedPhotoList="sortedPhotoList"
+          @close="closeModal"
+        ></lightBoxGallery>
+        <GridComponent class="mt-lg-6" :gridWidth="gridWidth">
+          <template v-if="!noProjectsYet" #rowTitleOne>Additional Photos</template>
+
+          <template #cardSlot>
+            <template v-for="(photo,index) in photoList.slice(0,9)">
+              <v-col v-if="!bg" :key="photo.id" justify="end" cols="12" sm="4">
+                <v-card :key="photo.id" :height="gridHeight" outlined title>
+                  <v-img
+                    @click=" lightboxEffect(index);
+                      showModal()"
+                    class="white--text align-end"
+                    :height="gridHeight"
+                    :src="photo.photos"
+                  ></v-img>
+                </v-card>
+              </v-col>
+            </template>
+          </template>
+        </GridComponent>
+      </div>
+      <div v-if="isDirector">
         <GridComponent :gridWidth="gridWidth">
-          <template #rowTitleOne>My Work</template>
-
+          <template v-if="!noProjectsYet" #rowTitleOne>Additional Works</template>
           <template #cardSlot>
             <template v-for="reel in sortedReelList">
               <v-col :key="reel.id" justify="end" cols="12" sm="4">
@@ -123,15 +168,51 @@
           </template>
         </GridComponent>
       </div>
+      <div v-if="isCrewMember">
+        <lightBoxGallery
+          v-show="modalVisible"
+          :currentImage="currentImage"
+          :cardsList="cardsList"
+          :isCardsList="isCardsList"
+          @close="closeModal"
+        ></lightBoxGallery>
+        <GridComponent class="mt-lg-6" :gridWidth="gridWidth">
+          <template v-if="!noProjectsYet" #rowTitleOne>Past Works</template>
+
+          <template #cardSlot>
+            <template v-for="card in cardsList.slice(0,9)">
+              <v-col v-if="!bg" :key="card.id" justify="end" cols="12" sm="4">
+                <v-card :key="card.id" :height="gridHeight" outlined title>
+                  <v-img
+                    @click=" lightboxEffect(index);
+                      showModal()"
+                    class="white--text align-end"
+                    :height="gridHeight"
+                    :src="card.thumbnail"
+                  ></v-img>
+                  <v-card-title
+                    class="mb-n4 text-lg-h5 text-subtitle-2"
+                    align="end"
+                  >{{card.card_title}}</v-card-title>
+                </v-card>
+              </v-col>
+            </template>
+          </template>
+        </GridComponent>
+      </div>
       <div v-if="isWriter">
         <GridComponent :gridWidth="gridWidth">
-          <template #rowTitleOne>My Work</template>
+          <template v-if="!noProjectsYet" #rowTitleOne>My Work</template>
           <template #cardSlot>
             <template v-for="writingSample in sortedSampleList">
               <v-col :key="writingSample.id" justify="end" cols="12" sm="4">
                 <v-card :key="writingSample.id" :height="gridHeight" outlined title>
                   <a :href="writingSample.samples" target="_blank">
-                    <v-img class="white--text align-end" :height="gridHeight" :src="reel.thumbnail">
+                    <v-img
+                      class="white--text align-end"
+                      :height="gridHeight"
+                      :src="writingSample.thumbnail"
+                    >
                       <v-card-title
                         class="mb-n4 text-lg-h5 text-subtitle-2"
                         align="end"
@@ -155,7 +236,7 @@
           @close="closeModal"
         ></lightBoxGallery>
         <GridComponent :gridWidth="gridWidth">
-          <template #rowTitleOne>My Work</template>
+          <template v-if="!noProjectsYet" #rowTitleOne>My Work</template>
 
           <template #cardSlot>
             <template v-for="(photo,index) in sortedPhotoList">
@@ -193,11 +274,7 @@ import lightBoxGallery from "~/components/lightBoxGallery";
 import SubscribeComponent from "~/components/SubscribeComponent.vue";
 import { mapGetters } from "vuex";
 export default {
-  head() {
-    return {
-      title: "View Recipe"
-    };
-  },
+  head() {},
   components: {
     GridComponent,
     FooterComponent,
@@ -225,7 +302,7 @@ export default {
       return this.sampleList.slice(0, 6);
     },
     sortedPhotoList() {
-      return this.photoList.slice(0, 9);
+      return this.photoList.slice(0, 18);
     },
     noProjectsYet() {
       if (
@@ -236,12 +313,22 @@ export default {
         return true;
       }
     },
+    noReelYet() {
+      if (this.actors.reel == "") {
+        return true;
+      }
+    },
     isPhotographer() {
       if (this.actors.group == "Photographers") {
         return true;
       }
     },
-    isActorDirectororDancer() {
+    isDirector() {
+      if (this.actors.group == "Directors") {
+        return true;
+      }
+    },
+    isActorMakeuporDancer() {
       if (
         this.actors.group == "Actors" ||
         this.actors.group == "Directors" ||
@@ -279,7 +366,13 @@ export default {
   async asyncData({ $axios, params, store }) {
     const body = store.getters.loggedInUser.id;
     try {
-      const [actors, photoList, sampleList, reelList] = await Promise.all([
+      const [
+        actors,
+        photoList,
+        sampleList,
+        reelList,
+        cardsList
+      ] = await Promise.all([
         $axios.$get(`/api/v1/actors/${params.id}/`),
         $axios.$get(`/api/v1/photos/`, {
           params: {
@@ -295,9 +388,14 @@ export default {
           params: {
             user: params.id
           }
+        }),
+        $axios.$get(`/api/v1/crewcards/`, {
+          params: {
+            user: params.id
+          }
         })
       ]);
-      return { actors, photoList, sampleList, reelList };
+      return { actors, photoList, sampleList, reelList, cardsList };
     } catch (error) {
       if (error.response.status === 403) {
         const hasPermission = false;
@@ -328,6 +426,7 @@ export default {
   },
   data() {
     return {
+      isCardsList: true,
       gridWidth: "10",
       sideHeight: `20vh`,
       hasPermission: true,

@@ -119,6 +119,11 @@ class Actors(models.Model):
 
     resume = models.FileField(upload_to='uploads/',
                               null=True, default="no resume")
+    reel = models.FileField(upload_to='uploads/',
+                            null=True, default="")
+    reel_thumbnail = models.ImageField(upload_to='uploads/',
+                                       null=True, default="")
+
     headshot = models.ImageField(
         upload_to='images/', default="Please title: FIRSTNAME_LASTNAME", null=True)
     website = models.CharField(
@@ -189,6 +194,13 @@ class Reel(models.Model):
                              on_delete=models.PROTECT, default="1", null=True)
     thumbnail = models.ImageField(upload_to='uploads/',
                                   null=True, default="")
+
+
+class crewCards(models.Model):
+    card_description = models.TextField(default="")
+    thumbnail = models.ImageField(upload_to='uploads/',
+                                  null=True, default="")
+    card_title = models.TextField(default="")
 
 
 class MemberActors(models.Model):

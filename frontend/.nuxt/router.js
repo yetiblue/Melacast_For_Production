@@ -8,7 +8,9 @@ const _0696e88b = () => interopDefault(import('../pages/dashboard/index.vue' /* 
 const _30e05924 = () => interopDefault(import('../pages/listings/index.vue' /* webpackChunkName: "pages/listings/index" */))
 const _7b15e85d = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _9e92634c = () => interopDefault(import('../pages/myapps.vue' /* webpackChunkName: "pages/myapps" */))
+const _5e28b860 = () => interopDefault(import('../pages/profile/index.vue' /* webpackChunkName: "pages/profile/index" */))
 const _07af5f38 = () => interopDefault(import('../pages/registration/index.vue' /* webpackChunkName: "pages/registration/index" */))
+const _00eadeec = () => interopDefault(import('../pages/profile/edit.vue' /* webpackChunkName: "pages/profile/edit" */))
 const _02e1ba2e = () => interopDefault(import('../pages/registration/awaiting_confirmation.vue' /* webpackChunkName: "pages/registration/awaiting_confirmation" */))
 const _555b6708 = () => interopDefault(import('../pages/registration/activate/_token.vue' /* webpackChunkName: "pages/registration/activate/_token" */))
 const _36ef8426 = () => interopDefault(import('../pages/registration/activate/_uid/_token.vue' /* webpackChunkName: "pages/registration/activate/_uid/_token" */))
@@ -52,9 +54,17 @@ export const routerOptions = {
     component: _9e92634c,
     name: "myapps"
   }, {
+    path: "/profile",
+    component: _5e28b860,
+    name: "profile"
+  }, {
     path: "/registration",
     component: _07af5f38,
     name: "registration"
+  }, {
+    path: "/profile/edit",
+    component: _00eadeec,
+    name: "profile-edit"
   }, {
     path: "/registration/awaiting_confirmation",
     component: _02e1ba2e,
