@@ -4,21 +4,51 @@
       <v-container justify="center">
         <v-card class="pa-8" flat>
           <div v-if="extraSmallMobile">
-            <v-img
-              class="mx-auto center center"
-              height="200px"
-              width="200px"
-              :src="actors.headshot"
-            ></v-img>
+            <lightBoxGallery
+              v-show="modalVisible"
+              :currentImage="currentImage"
+              :profilePic="actors.headshot"
+              :isProfilePic="isProfilePic"
+              @close="closeModal"
+            ></lightBoxGallery>
+            <v-hover>
+              <v-img
+                class="mx-auto center center"
+                v-if="!bg"
+                height="200px"
+                width="200px"
+                @click=" lightboxEffect();
+                      showModal()"
+                :src="actors.headshot"
+              ></v-img>
+            </v-hover>
           </div>
           <div v-else>
-            <v-img
+            <lightBoxGallery
+              v-show="modalVisible"
+              :currentImage="currentImage"
+              :profilePic="actors.headshot"
+              :isProfilePic="isProfilePic"
+              @close="closeModal"
+            ></lightBoxGallery>
+            <v-hover>
+              <v-img
+                v-if="!bg"
+                class="mx-auto center center"
+                height="200px"
+                width="200px"
+                @click=" lightboxEffect();
+                      showModal()"
+                :src="actors.headshot"
+              ></v-img>
+            </v-hover>
+            <!-- <v-img
               class="mx-auto center center"
               justify="center"
               height="200px"
               width="200px"
               :src="actors.headshot"
-            ></v-img>
+            ></v-img>-->
           </div>
 
           <!-- navigation buttons -->

@@ -62,13 +62,19 @@
             </v-card-actions>
             <v-card-title class="justify-center">Project Interests</v-card-title>
             <v-card-text class="text-center">{{actors.project_types}}</v-card-text>
-            <v-card-actions class="justify-center">
+            <v-card-actions class="justify-center text-center">
               <v-btn
                 @click="copyText(actors.email)"
                 class="mb-2 brown mx-auto white--text"
                 elevation="0"
               >Contact Me</v-btn>
             </v-card-actions>
+            <v-card-actions class="justify-center">
+              <a target="_blank" :href="actors.resume">
+                <v-btn class="mb-2 brown white--text" elevation="0">Resume</v-btn>
+              </a>
+            </v-card-actions>
+
             <!-- MOVE LANGUAGES TO PROFILE CARD SECTION BELOW -->
             <!-- <v-card-title>Languages</v-card-title> -->
           </template>
@@ -103,9 +109,9 @@
         <!-- </v-row> -->
       </v-row>
       <GridComponent v-if="!isWriter || !isPhotographer" :gridWidth="gridWidth">
-        <template v-if="!noProjectsYet" #rowTitleOne>My Reel</template>
+        <template v-if="isDirector || isActorMakeuporDancer || isCrewMember" #rowTitleOne>My Reel</template>
 
-        <template #cardSlot2>
+        <template v-if="!noReelYet" #cardSlot2>
           <v-col v-if="!bg" justify="end" cols="12">
             <v-card :height="gridHeight" title>
               <a :href="actors.reel" target="_blank">
@@ -115,6 +121,13 @@
                   :src="actors.reel_thumbnail"
                 ></v-img>
               </a>
+            </v-card>
+          </v-col>
+        </template>
+        <template v-if="noReelYet" #cardSlot2>
+          <v-col v-if="!bg" justify="end" cols="12">
+            <v-card :height="gridHeight" title>
+              <v-card-title class="pt-16 justify-center">No Reel Added Yet</v-card-title>
             </v-card>
           </v-col>
         </template>
@@ -134,7 +147,7 @@
               <v-col v-if="!bg" :key="photo.id" justify="end" cols="12" sm="4">
                 <v-card :key="photo.id" :height="gridHeight" outlined title>
                   <v-img
-                    @click=" lightboxEffect(index);
+                    @click="lightboxEffect(index);
                       showModal()"
                     class="white--text align-end"
                     :height="gridHeight"
@@ -180,20 +193,18 @@
           <template v-if="!noProjectsYet" #rowTitleOne>Past Works</template>
 
           <template #cardSlot>
-            <template v-for="card in cardsList.slice(0,9)">
+            <template v-for="(card, index) in cardsList.slice(0,9)">
               <v-col v-if="!bg" :key="card.id" justify="end" cols="12" sm="4">
                 <v-card :key="card.id" :height="gridHeight" outlined title>
                   <v-img
-                    @click=" lightboxEffect(index);
+                    @click="lightboxEffect(index);
                       showModal()"
                     class="white--text align-end"
                     :height="gridHeight"
                     :src="card.thumbnail"
-                  ></v-img>
-                  <v-card-title
-                    class="mb-n4 text-lg-h5 text-subtitle-2"
-                    align="end"
-                  >{{card.card_title}}</v-card-title>
+                  >
+                    <v-card-title class="text-lg-h5 text-subtitle-2" align="end">{{card.card_title}}</v-card-title>
+                  </v-img>
                 </v-card>
               </v-col>
             </template>
@@ -219,7 +230,7 @@
                       >{{writingSample.title}}</v-card-title>
                       <v-card-text
                         class="mb-lg-3 text-lg-h6 text-subtitle-1"
-                      >>{{writingSample.year_created}}</v-card-text>
+                      >{{writingSample.year_created}}</v-card-text>
                     </v-img>
                   </a>
                 </v-card>
@@ -314,7 +325,11 @@ export default {
       }
     },
     noReelYet() {
-      if (this.actors.reel == "") {
+      if (
+        this.actors.reel == null &&
+        this.actors.group !== "Writers" &&
+        this.actors.group !== "Photographers"
+      ) {
         return true;
       }
     },
@@ -331,7 +346,7 @@ export default {
     isActorMakeuporDancer() {
       if (
         this.actors.group == "Actors" ||
-        this.actors.group == "Directors" ||
+        this.actors.group == "Makeup Artist" ||
         this.actors.group == "Dancers"
       ) {
         return true;

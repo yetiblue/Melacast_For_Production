@@ -26,18 +26,30 @@
               :src="profilePic"
               alt
             />
-            <v-card v-if="isCardsList">
-              <v-img>
-                <v-card-title class="imageLight">{{cardsList[0].card_description}}</v-card-title>
-              </v-img>
-            </v-card>
-            <v-row class="mt-4">
-              <v-col v-if="!isProfilePic" cols="6">
-                <v-btn class="white--text" text block @click="next">Prev</v-btn>
+            <v-row class="align-center mt-lg-16">
+              <v-card v-if="isCardsList" class="mt-lg-16 mb-lg-16">
+                <v-img height="30vh" class="black">
+                  <v-card-title
+                    class="mt-lg-8 pt-16 pb-lg-16 black text-caption text-sm-h6 text-md-h5 px-16 text-sm-h5 white--text"
+                  >{{cardsList[currentImage].card_description}}</v-card-title>
+                </v-img>
+              </v-card>
+            </v-row>
+            <v-row class="mt-4 mb-16">
+              <v-col v-if="!isProfilePic && !isCardsList" cols="6">
+                <v-btn class="white--text" text block @click="prev(forPhotoUse)">Prev</v-btn>
               </v-col>
               <v-spacer></v-spacer>
-              <v-col v-if="!isProfilePic" cols="6">
-                <v-btn class="white--text" text block @click="prev">Next</v-btn>
+              <v-col v-if="!isProfilePic && !isCardsList" cols="6">
+                <v-btn class="white--text" text block @click="next(orPhotoUse)">Next</v-btn>
+              </v-col>
+
+              <v-col v-if="isCardsList" cols="6">
+                <v-btn class="white--text" text block @click="prev(forCardsUse)">Prev</v-btn>
+              </v-col>
+              <v-spacer></v-spacer>
+              <v-col v-if="isCardsList" cols="6">
+                <v-btn class="white--text" text block @click="next(forCardsUse)">Next</v-btn>
               </v-col>
               <v-col cols="12">
                 <v-btn
@@ -66,24 +78,49 @@ export default {
     "cardsList",
     "isCardsList"
   ],
+  data() {
+    return { forPhotoUse: "photos", forCardsUse: "cards" };
+  },
   methods: {
     close() {
       this.$emit("close");
     },
-    next() {
-      if (this.currentImage < this.sortedPhotoList.length - 1) {
-        this.currentImage++;
-        console.log(this.currentImage);
+    next(itemList) {
+      if (itemList == "cards") {
+        if (this.currentImage < this.cardsList.length - 1) {
+          console.log(itemList, "itemlist");
+          this.currentImage++;
+          console.log(this.currentImage);
+        } else {
+          console.log(itemList, "itemlist");
+          this.currentImage = 0;
+          console.log(this.currentImage);
+        }
       } else {
-        this.currentImage = 0;
-        console.log(this.currentImage);
+        if (this.currentImage < this.sortedPhotoList.length - 1) {
+          console.log(itemList, "itemlist");
+          this.currentImage++;
+          console.log(this.currentImage);
+        } else {
+          console.log(itemList, "itemlist");
+          this.currentImage = 0;
+          console.log(this.currentImage);
+        }
       }
     },
-    prev() {
-      if (this.currentImage > 0) {
-        this.currentImage--;
+    prev(itemList) {
+      if (itemList == "cards") {
+        if (this.currentImage > 0) {
+          this.currentImage--;
+        } else {
+          this.currentImage = this.cardsList.length - 1;
+        }
       } else {
-        this.currentImage = this.sortedPhotoList.length - 1;
+        if (this.currentImage > 0) {
+          this.currentImage--;
+        } else {
+          this.currentImage = this.sortedPhotoList.length - 1;
+        }
       }
     }
   }
