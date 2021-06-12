@@ -27,7 +27,7 @@
         <v-col cols="12" sm="8">
           <v-card flat class="ml-12 ml-md-16 pl-md-16">
             <div :style="descriptionPaddingLeft">
-              <v-card-title>Project Description</v-card-title>
+              <v-card-title>Project Description {{rolesForForm}}</v-card-title>
               <v-card-text>{{listings.overview}}</v-card-text>
               <v-card-subtitle>Casting Info:</v-card-subtitle>
               <div v-for="role in roles" :key="role.id">
@@ -38,9 +38,67 @@
             </div>
           </v-card>
         </v-col>
+        <lightBoxGallery
+          :applicationForm="applicationForm"
+          v-show="modalVisible"
+          @close="closeModal"
+        >
+          <template #submitApplicationSlot>
+            <v-card class="px-16 px-sm-0" v-if="!secondCard" dark>
+              <v-card-title
+                class="text-caption text-sm-h6"
+              >The Directors Will Be Able to View Your Profile Also</v-card-title>
+              <v-form @submit.prevent="submitApplication()">
+                <v-row class="pl-lg-9 px-sm-10">
+                  <v-col cols="12">
+                    <v-select v-model="form.role" :items="role_names" label="Select a Role"></v-select>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field v-model="form.name" label="Enter Your Full Name"></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="form.company"
+                      label="Your Representation (if applicable)"
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col class="mb-lg-8" cols="12">
+                    <v-btn
+                      type="submit"
+                      block
+                      @click="showSecondCard"
+                      text
+                      class="brown mt-3"
+                    >Submit!</v-btn>
+                  </v-col>
+                </v-row>
+              </v-form>
+            </v-card>
+            <v-card class="px-16 px-sm-0" v-if="secondCard" dark>
+              <v-card-title>
+                Submitted Successfully! You Can View The Decision On Your
+                <br />
+                <a :href="'/myapps'">Applications Page</a>
+              </v-card-title>
+              <v-row>
+                <v-spacer></v-spacer>
+                <v-col cols="2">
+                  <v-btn
+                    block
+                    class="text-center brown mt-3"
+                    type="submit"
+                    @click="closeModal"
+                    text
+                  >Close</v-btn>
+                </v-col>
+              </v-row>
+            </v-card>
+          </template>
+        </lightBoxGallery>
         <v-col cols="12" sm="4">
           <v-card flat class="ml-12 ml-sm-16 mt-5">
-            <v-btn :width="buttonWidth" class="ml-3 brown white--text">Apply Now</v-btn>
+            <v-btn :width="buttonWidth" @click="showModal" class="ml-3 brown white--text">Apply Now</v-btn>
             <v-card-title class="text-subtitle-1">Crew Needed:</v-card-title>
             <v-card-title class="text-sm-subtitle-2 text-md-subtitle-1">Production</v-card-title>
             <v-card-text
@@ -65,6 +123,8 @@
 import TopNavbar from "~/components/TopNavbar";
 import FooterComponent from "~/components/FooterComponent";
 // import Navigation from "~/components/Navigation.vue";
+import lightBoxGallery from "~/components/lightBoxGallery";
+
 import SubscribeComponent from "~/components/SubscribeComponent.vue";
 export default {
   head() {
@@ -78,7 +138,8 @@ export default {
   components: {
     TopNavbar,
     FooterComponent,
-    SubscribeComponent
+    SubscribeComponent,
+    lightBoxGallery
   },
   async asyncData({ $axios, params, loggedInUser, store }) {
     const body = store.getters.loggedInUser.id;
@@ -107,6 +168,14 @@ export default {
     }
   },
   computed: {
+    rolesForForm() {
+      for (let i = 0; i < this.roles.length; i++) {
+        // return this.roles[i].role_name;
+        this.role_names.push(this.roles[i].role_name);
+        console.log(this.role_names, "role_names");
+        // console.log(this.roles[i].role_name);
+      }
+    },
     splitCrewPositions() {
       return this.listings.crew_positions.split(","); //seperates each word into a string
     },
@@ -163,31 +232,34 @@ export default {
     }
   },
   methods: {
+    showSecondCard() {
+      this.secondCard = !this.secondCard;
+    },
     submitApplication() {
       // for resume
       this.form.date_submitted = this.currentDateTime;
       this.form.listing_url = `/listings/${this.listings.id}`; //for linking back to the listing when viewing all listings in a grid
       this.form.listing_thumbnail = this.listings.poster;
       this.form.profile_picture = this.userInfo[0].headshot;
+      this.form.title = this.listings.title;
       this.$axios
         .post(`/api/v1/apps/`, this.form)
         .then(response => {
           console.log(response);
-          this.$router.push("/submitted");
         })
         .catch(error => {
           console.log(error);
         });
     },
-    populateApplicationTitleField() {
-      console.log(this.listings.title, "title");
-      this.form.title = this.listings.title;
-    },
-    grabRoleName() {
-      const input = this.$refs.roleList;
-      this.form.role = input;
-      console.log(this.form.role, "form role");
-    },
+    // populateApplicationTitleField() {
+    //   console.log(this.listings.title, "title");
+    //   this.form.title = this.listings.title;
+    // },
+    // grabRoleName() {
+    //   const input = this.$refs.roleList;
+    //   this.form.role = input;
+    //   console.log(this.form.role, "form role");
+    // },
     generateApplicantID(length, chars) {
       var result = "";
       for (var i = length; i > 0; --i) {
@@ -197,13 +269,27 @@ export default {
       this.form.random_public_id_of_applicant = result;
       this.form.random_public_id_of_listing = this.listings.random_public_id;
       console.log(this.form.random_public_id_of_applicant);
+    },
+    showModal() {
+      this.modalVisible = true;
+    },
+    closeModal() {
+      this.modalVisible = false;
+
+      this.secondCard = false;
     }
   },
   data() {
     return {
+      secondCard: false,
+      role_names: [],
+      applicationForm: true,
       hasPermission: true,
       applicationIsHidden: false,
       listings: [],
+      roles: [],
+      modalVisible: false,
+
       form: {
         name: null,
         role: null,

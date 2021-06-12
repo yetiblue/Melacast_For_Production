@@ -4,64 +4,73 @@
     <transition name="modal-fade">
       <div class="modal-backdrop">
         <div
+          v-if="applicationForm"
           class="modal"
           role="dialog"
           aria-labelledby="modalTitle"
           aria-describedby="modalDescription"
         >
-          <slot name="buttonControls"></slot>
-          <slot name="footer">
-            <v-img
-              v-if="!isProfilePic && !isCardsList"
-              contain
-              class="justify-center align-center mt-16 imageLight"
-              :src="sortedPhotoList[currentImage].photos"
-              alt
-            />
+          <slot name="submitApplicationSlot"></slot>
+        </div>
+        <div
+          v-else
+          class="modal"
+          role="dialog"
+          aria-labelledby="modalTitle"
+          aria-describedby="modalDescription"
+        >
+          <!-- used with photo galleries -->
+          <v-img
+            v-if="!isProfilePic && !isCardsList"
+            contain
+            class="justify-center align-center mt-16 imageLight"
+            :src="sortedPhotoList[currentImage].photos"
+            alt
+          />
+          <!-- used to enlarge profile pic on live profile page -->
+          <v-img
+            v-if="isProfilePic"
+            contain
+            class="justify-center align-center mt-16 imageLight"
+            :src="profilePic"
+            alt
+          />
+          <!-- display the cards used for crew member past works -->
+          <v-row class="align-center mt-lg-16">
+            <v-card v-if="isCardsList" class="mt-lg-16 mb-lg-16">
+              <v-img height="30vh" class="black">
+                <v-card-title
+                  class="mt-lg-8 pt-16 pb-lg-16 black text-caption text-sm-h6 text-md-h5 px-16 text-sm-h5 white--text"
+                >{{cardsList[currentImage].card_description}}</v-card-title>
+              </v-img>
+            </v-card>
+          </v-row>
+          <v-row class="mt-4 mb-16">
+            <v-col v-if="!isProfilePic && !isCardsList" cols="6">
+              <v-btn class="white--text" text block @click="prev(forPhotoUse)">Prev</v-btn>
+            </v-col>
+            <v-spacer></v-spacer>
+            <v-col v-if="!isProfilePic && !isCardsList" cols="6">
+              <v-btn class="white--text" text block @click="next(orPhotoUse)">Next</v-btn>
+            </v-col>
 
-            <v-img
-              v-if="isProfilePic"
-              contain
-              class="justify-center align-center mt-16 imageLight"
-              :src="profilePic"
-              alt
-            />
-            <v-row class="align-center mt-lg-16">
-              <v-card v-if="isCardsList" class="mt-lg-16 mb-lg-16">
-                <v-img height="30vh" class="black">
-                  <v-card-title
-                    class="mt-lg-8 pt-16 pb-lg-16 black text-caption text-sm-h6 text-md-h5 px-16 text-sm-h5 white--text"
-                  >{{cardsList[currentImage].card_description}}</v-card-title>
-                </v-img>
-              </v-card>
-            </v-row>
-            <v-row class="mt-4 mb-16">
-              <v-col v-if="!isProfilePic && !isCardsList" cols="6">
-                <v-btn class="white--text" text block @click="prev(forPhotoUse)">Prev</v-btn>
-              </v-col>
-              <v-spacer></v-spacer>
-              <v-col v-if="!isProfilePic && !isCardsList" cols="6">
-                <v-btn class="white--text" text block @click="next(orPhotoUse)">Next</v-btn>
-              </v-col>
-
-              <v-col v-if="isCardsList" cols="6">
-                <v-btn class="white--text" text block @click="prev(forCardsUse)">Prev</v-btn>
-              </v-col>
-              <v-spacer></v-spacer>
-              <v-col v-if="isCardsList" cols="6">
-                <v-btn class="white--text" text block @click="next(forCardsUse)">Next</v-btn>
-              </v-col>
-              <v-col cols="12">
-                <v-btn
-                  class="white--text mt-n6"
-                  text
-                  block
-                  @click="close"
-                  aria-label="Close modal"
-                >Close me!</v-btn>
-              </v-col>
-            </v-row>
-          </slot>
+            <v-col v-if="isCardsList" cols="6">
+              <v-btn class="white--text" text block @click="prev(forCardsUse)">Prev</v-btn>
+            </v-col>
+            <v-spacer></v-spacer>
+            <v-col v-if="isCardsList" cols="6">
+              <v-btn class="white--text" text block @click="next(forCardsUse)">Next</v-btn>
+            </v-col>
+            <v-col cols="12">
+              <v-btn
+                class="white--text mt-n6"
+                text
+                block
+                @click="close"
+                aria-label="Close modal"
+              >Close me!</v-btn>
+            </v-col>
+          </v-row>
         </div>
       </div>
     </transition>
@@ -76,7 +85,8 @@ export default {
     "profilePic",
     "isProfilePic",
     "cardsList",
-    "isCardsList"
+    "isCardsList",
+    "applicationForm"
   ],
   data() {
     return { forPhotoUse: "photos", forCardsUse: "cards" };
@@ -137,8 +147,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 100000;
+  z-index: 20;
 }
+
 .imageLight {
   max-height: 80%;
 }
