@@ -77,7 +77,7 @@
             :key="applicant.name"
           >
             <v-list-item-avatar>
-              <v-img :src="applicant.profile_picture"></v-img>
+              <v-img :src="applicant.listing_thumbnail"></v-img>
             </v-list-item-avatar>
             <!-- extra space for when there's 4 columns -->
 
