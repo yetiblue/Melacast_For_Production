@@ -82,6 +82,8 @@ class Actors(models.Model):
         max_length=50, default="NO VALUE", blank=True, null=True)
 
     age = models.IntegerField(blank=True, null=True)
+    date_joined = models.CharField(max_length=50, default="none", null=True)
+
     age_range = models.CharField(max_length=50, default="none", null=False)
     Directors = 'Directors'
     Actors = 'Actors'
@@ -107,6 +109,8 @@ class Actors(models.Model):
 
     group = models.CharField(
         max_length=50, choices=Group_choices, default="none", null=True)
+    city_location = models.CharField(
+        max_length=50, default="Where are you based?", null=True)
     location = models.CharField(
         max_length=50, default="Where are you based?", null=True)
     middle = models.CharField(max_length=30, default="", null=True)
@@ -115,6 +119,11 @@ class Actors(models.Model):
 
     resume = models.FileField(upload_to='uploads/',
                               null=True, default="no resume")
+    reel = models.FileField(upload_to='uploads/',
+                            null=True, default="")
+    reel_thumbnail = models.ImageField(upload_to='uploads/',
+                                       null=True, default="")
+
     headshot = models.ImageField(
         upload_to='images/', default="Please title: FIRSTNAME_LASTNAME", null=True)
     website = models.CharField(
@@ -127,6 +136,7 @@ class Actors(models.Model):
         max_length=300, default="no url", null=True)
 
     linkedIn = models.TextField(max_length=300, default="no url", null=True)
+    twitter = models.TextField(max_length=300, default="", null=True)
 
     project_types = models.TextField(
         max_length=200, default="no url", null=False)
@@ -150,6 +160,10 @@ class Actors(models.Model):
 
 
 class Photos(models.Model):
+    title = models.TextField(
+        max_length=250, default="no url", null=True)
+    year_created = models.TextField(
+        max_length=250, default="no url", null=True)
     photos = models.ImageField(upload_to='uploads/',
                                null=True, default="")
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -157,6 +171,10 @@ class Photos(models.Model):
 
 
 class WritingSamples(models.Model):
+    title = models.TextField(
+        max_length=250, default="no url", null=True)
+    year_created = models.TextField(
+        max_length=250, default="no url", null=True)
     samples = models.FileField(upload_to='uploads/',
                                null=True, default="")
     thumbnail = models.ImageField(upload_to='uploads/',
@@ -166,12 +184,23 @@ class WritingSamples(models.Model):
 
 
 class Reel(models.Model):
+    title = models.TextField(
+        max_length=250, default="no url", null=True)
+    year_created = models.TextField(
+        max_length=250, default="no url", null=True)
     reel = models.FileField(upload_to='uploads/',
                             null=True, default="")
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.PROTECT, default="1", null=True)
     thumbnail = models.ImageField(upload_to='uploads/',
                                   null=True, default="")
+
+
+class crewCards(models.Model):
+    card_description = models.TextField(default="")
+    thumbnail = models.ImageField(upload_to='uploads/',
+                                  null=True, default="")
+    card_title = models.TextField(default="")
 
 
 class MemberActors(models.Model):
@@ -219,7 +248,7 @@ class Directors(models.Model):
     # location = models.CharField(max_length=50, default="Where are you based?")
     # bio = models.TextField(default="3 Paragraphs, Feel free to brag!")
     # resume = models.FileField(upload_to='uploads/',null=True)
-    # headshot = models.ImageField(upload_to='images/',default="Please title: FIRSTNAME_LASTNAME")
+    # headshot = models.ImageField(upload_to='images/',default="Please title: FIRSTNAME_LASTNAME"
     # stillPhoto = models.ImageField(upload_to="images/",default='')
     # projects = models.BooleanField(default=False)
     # # looking = models.
@@ -263,6 +292,7 @@ class Listings(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     location = models.CharField(max_length=50, default="")
+    city_location = models.CharField(max_length=100, default="")
     overview = models.TextField(default="null")
     studio = models.CharField(max_length=40)
     poster = models.FileField(upload_to='images/', default="///", null=True)
@@ -277,6 +307,8 @@ class Listings(models.Model):
                              default="null")
     director_email = models.CharField(max_length=255,
                                       default="null")
+    director_name = models.CharField(max_length=255,
+                                     default="null")
 
     Paid = "Paid"
     Volunteer = "Volunteer"
@@ -299,9 +331,12 @@ class Listings(models.Model):
                                 default="null")
     random_public_id = models.CharField(max_length=100, null=True)
     date_submitted = models.CharField(max_length=200, null=True)
+    tagline = models.CharField(max_length=255, null=True)
 
 
 class FilmRoles(models.Model):
+    character_name = models.CharField(
+        max_length=100, default="Did not enter a Name", null=True)
     role_name = models.CharField(
         max_length=100, default="Did not enter a Name", null=True)
     ethnicity = models.CharField(
@@ -330,6 +365,7 @@ class Memberlistings(models.Model):
     poster = models.FileField(upload_to='images/', default="///", null=True)
     overview = models.TextField(default="null")
     random_public_id = models.CharField(max_length=100, null=True)
+    tagline = models.CharField(max_length=255, null=True)
 
     Animation = "Animation"
     Documentary = "Documentary"

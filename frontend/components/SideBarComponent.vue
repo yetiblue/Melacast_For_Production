@@ -4,21 +4,51 @@
       <v-container justify="center">
         <v-card class="pa-8" flat>
           <div v-if="extraSmallMobile">
-            <v-img
-              class="mx-auto"
-              height="200px"
-              width="200px"
-              src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
-            ></v-img>
+            <lightBoxGallery
+              v-show="modalVisible"
+              :currentImage="currentImage"
+              :profilePic="actors.headshot"
+              :isProfilePic="isProfilePic"
+              @close="closeModal"
+            ></lightBoxGallery>
+            <v-hover>
+              <v-img
+                class="mx-auto center center"
+                v-if="!bg"
+                height="200px"
+                width="200px"
+                @click=" lightboxEffect();
+                      showModal()"
+                :src="actors.headshot"
+              ></v-img>
+            </v-hover>
           </div>
           <div v-else>
-            <v-img
-              class="mx-auto"
+            <lightBoxGallery
+              v-show="modalVisible"
+              :currentImage="currentImage"
+              :profilePic="actors.headshot"
+              :isProfilePic="isProfilePic"
+              @close="closeModal"
+            ></lightBoxGallery>
+            <v-hover>
+              <v-img
+                v-if="!bg"
+                class="mx-auto center center"
+                height="200px"
+                width="200px"
+                @click=" lightboxEffect();
+                      showModal()"
+                :src="actors.headshot"
+              ></v-img>
+            </v-hover>
+            <!-- <v-img
+              class="mx-auto center center"
               justify="center"
               height="200px"
               width="200px"
-              src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
-            ></v-img>
+              :src="actors.headshot"
+            ></v-img>-->
           </div>
 
           <!-- navigation buttons -->
@@ -33,11 +63,27 @@
       <div :style="{ height: sideHeight }">
         <!-- <div v-if="!mobile" > -->
         <v-card elevation="0" class="pb-lg-n16 pa-8">
-          <v-img src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"></v-img>
-
+          <lightBoxGallery
+            v-show="modalVisible"
+            :currentImage="currentImage"
+            :profilePic="actors.headshot"
+            :isProfilePic="isProfilePic"
+            @close="closeModal"
+          ></lightBoxGallery>
+          <v-hover>
+            <v-img
+              v-if="!bg"
+              height="200px"
+              width="200px"
+              @click=" lightboxEffect();
+                      showModal()"
+              :src="actors.headshot"
+            ></v-img>
+          </v-hover>
           <!-- navigation buttons -->
           <slot name="directorDesktopSlot"></slot>
           <slot name="userDesktopSlot"></slot>
+
           <slot name="userDesktopProfile"></slot>
         </v-card>
       </div>
@@ -46,8 +92,19 @@
   </v-col>
 </template>
 <script>
+import lightBoxGallery from "~/components/lightBoxGallery";
+
 export default {
-  props: ["sideHeight"],
+  props: ["sideHeight", "actors", "userButtons"],
+  data() {
+    return {
+      currentImage: 0,
+      bg: false,
+      modalVisible: false,
+      isProfilePic: true
+    };
+  },
+  components: { lightBoxGallery },
   computed: {
     height() {
       switch (this.$vuetify.breakpoint.name) {
@@ -72,6 +129,21 @@ export default {
           return true;
           console.log("is small");
       }
+    }
+  },
+  methods: {
+    lightboxEffect() {
+      this.currentImage = 0;
+      this.bg = !this.bg;
+      console.log("clicky");
+    },
+    showModal() {
+      this.modalVisible = true;
+      console.log(this.modalVisible, "modal vis");
+    },
+    closeModal() {
+      this.modalVisible = false;
+      this.bg = !this.bg;
     }
   }
 };

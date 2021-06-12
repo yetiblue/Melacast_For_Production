@@ -1,6 +1,8 @@
 <template>
-  <v-toolbar elevation="0" dark>
-    <v-toolbar-title>MELACAST</v-toolbar-title>
+  <v-toolbar flat elevation="0">
+    <div>
+      <img class="mx-auto" height="200px" width="200px" src="../assets/images/horizontal.png" />
+    </div>
     <v-spacer></v-spacer>
 
     <div v-if="mobile">
@@ -10,7 +12,7 @@
     </div>
     <div v-else>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn v-for="item in menu" :key="item.icon" :to="item.link" flat>
+        <v-btn v-for="item in menu" :key="item.icon" :to="item.link">
           {{
           item.title
           }}

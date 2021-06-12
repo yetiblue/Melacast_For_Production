@@ -24,6 +24,7 @@ router.register('customers', views.customerViewSet)
 router.register('acceptedroles', views.AcceptedRolesViewSet)
 router.register('declinedroles', views.DeclinedRolesViewSet)
 router.register('thumbnails', views.ThumbnailsViewSet)
+router.register('crewcards', views.CrewCardsViewSet)
 
 
 urlpatterns = [
