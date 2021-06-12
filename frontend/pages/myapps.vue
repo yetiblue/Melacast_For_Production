@@ -43,10 +43,10 @@
               <v-btn text @click="getAcceptedApplications" elevation="0" block>Accepted</v-btn>
             </v-col>
             <v-col cols="3">
-              <v-btn text @click="getRejectedApplications" elevation="0" block>Pending</v-btn>
+              <v-btn text @click="getPendingApplications" elevation="0" block>Pending</v-btn>
             </v-col>
             <v-col cols="3">
-              <v-btn text @click="getPendingApplications" elevation="0" block>Declined</v-btn>
+              <v-btn text @click="getRejectedApplications" elevation="0" block>Declined</v-btn>
             </v-col>
             <v-col cols="3">
               <v-btn text @click="getArchivedApplications" elevation="0" block>Archived</v-btn>

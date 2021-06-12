@@ -33,8 +33,10 @@
             </div>
             <!-- </template> -->
             <v-btn
+              :value="actors.email"
+              ref="mylink"
               class="mb-2 brown white--text"
-              @click="copyText(actors.email)"
+              @click="copyText()"
               elevation="0"
               block
             >Contact Me</v-btn>
@@ -64,7 +66,9 @@
             <v-card-text class="text-center">{{actors.project_types}}</v-card-text>
             <v-card-actions class="justify-center text-center">
               <v-btn
-                @click="copyText(actors.email)"
+                :value="actors.email"
+                ref="mylink"
+                @click="copyText()"
                 class="mb-2 brown mx-auto white--text"
                 elevation="0"
               >Contact Me</v-btn>
@@ -421,8 +425,13 @@ export default {
   },
   methods: {
     copyText(text) {
-      navigator.clipboard.writeText(text);
-      window.alert("Email copied to clipboard!");
+      console.log(this.$refs.mylink.value, "mylink");
+      // document.querySelector("mylink").select();
+
+      // this.$refs.mylink.value.select();
+      // // copyText.setSelectionRange(0, 99999); /* For mobile devices */
+      // // /* Copy the text inside the text field */
+      // document.execCommand("copy");
     },
     socialLink(link) {
       this.$router.push(link);
@@ -445,7 +454,7 @@ export default {
       gridWidth: "10",
       sideHeight: `20vh`,
       hasPermission: true,
-      actors: {},
+      actors: [],
       sampleList: [],
       reelList: [],
       photoList: [],

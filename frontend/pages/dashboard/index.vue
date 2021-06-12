@@ -125,25 +125,25 @@
             <v-btn class="mt-sm-n16 pt-md-12 mt-md-0" text :to="`/myapps`">View All</v-btn>
           </template>
           <template #cardSlot>
-            <template v-for="application in applications.slice(0, 8)">
-              <v-col :key="application.id" justify="end" cols="12" sm="3">
+            <template v-for="sortedApplication in sortedApplicationsOrder.slice(0, 8)">
+              <v-col :key="sortedApplication.id" justify="end" cols="12" sm="3">
                 <v-card :height="gridHeight" outlined title>
                   <v-img
                     class="white--text align-end"
                     :height="gridHeight"
-                    :src="application.listing_thumbnail"
+                    :src="sortedApplication.listing_thumbnail"
                   >
                     <v-card-title
                       class="mb-n4 mt-2 text-lg-h6 text-sm-subtitle-2"
                       align="end"
-                    >{{application.role}}</v-card-title>
+                    >{{sortedApplication.role}}</v-card-title>
                     <v-card-title
-                      class="mb-n4 mt-n8 text-lg-h5 text-sm-subtitle-2"
+                      class="mb-n4 mt-n8 text-lg-subtitle-1 text-sm-subtitle-2"
                       align="end"
-                    >{{application.title}}</v-card-title>
+                    >{{sortedApplication.title}}</v-card-title>
                     <v-card-text
                       class="mb-lg-3 mb-lg-n4 text-lg-subtitle-1 text-sm-subtitle-2"
-                    >{{application.date_submitted}}</v-card-text>
+                    >{{sortedApplication.date_submitted}}</v-card-text>
                   </v-img>
                 </v-card>
               </v-col>
@@ -325,6 +325,11 @@ export default {
     },
     randomCrewRoleOrder() {
       return this.crewRoles.sort(() => Math.random() - 0.5);
+    },
+    sortedApplicationsOrder() {
+      return this.applications
+        .map(sortedApplication => sortedApplication)
+        .sort((a, b) => b.id - a.id);
     },
     gridHeight() {
       switch (this.$vuetify.breakpoint.name) {

@@ -64,13 +64,7 @@
                   </v-col>
 
                   <v-col class="mb-lg-8" cols="12">
-                    <v-btn
-                      type="submit"
-                      block
-                      @click="showSecondCard"
-                      text
-                      class="brown mt-3"
-                    >Submit!</v-btn>
+                    <v-btn type="submit" block text class="brown mt-3">Submit!</v-btn>
                   </v-col>
                 </v-row>
               </v-form>
@@ -246,6 +240,7 @@ export default {
         .post(`/api/v1/apps/`, this.form)
         .then(response => {
           console.log(response);
+          this.showSecondCard();
         })
         .catch(error => {
           console.log(error);
