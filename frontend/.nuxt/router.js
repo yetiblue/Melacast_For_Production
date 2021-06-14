@@ -4,6 +4,7 @@ import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
 const _006e47a0 = () => interopDefault(import('../pages/community/index.vue' /* webpackChunkName: "pages/community/index" */))
+const _1f2a3b7c = () => interopDefault(import('../pages/createlisting.vue' /* webpackChunkName: "pages/createlisting" */))
 const _0696e88b = () => interopDefault(import('../pages/dashboard/index.vue' /* webpackChunkName: "pages/dashboard/index" */))
 const _30e05924 = () => interopDefault(import('../pages/listings/index.vue' /* webpackChunkName: "pages/listings/index" */))
 const _7b15e85d = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
@@ -37,6 +38,10 @@ export const routerOptions = {
     path: "/community",
     component: _006e47a0,
     name: "community"
+  }, {
+    path: "/createlisting",
+    component: _1f2a3b7c,
+    name: "createlisting"
   }, {
     path: "/dashboard",
     component: _0696e88b,

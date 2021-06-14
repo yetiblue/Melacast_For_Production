@@ -38,11 +38,7 @@
       </v-form>
 
       <template>
-        <GridComponent
-          :displayGridCount="displayGridCount"
-          :gridWidth="gridWidth"
-          :sortedArrayOfListings="sortedArrayOfListings"
-        >
+        <GridComponent>
           <template #navButtonOne>
             <v-btn v-if="!filterClicked" @click="showFilters('open')" text>Filters</v-btn>
             <v-btn v-else @click="showFilters('close')" text>Close</v-btn>
@@ -111,6 +107,7 @@ export default {
         "Documentary",
         "Experimental",
         "Feature",
+        "Horror",
         "Music Video",
         "Short",
         "Student",

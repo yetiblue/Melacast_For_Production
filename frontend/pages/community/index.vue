@@ -19,7 +19,7 @@
           </v-col>
         </v-col>
       </v-row>
-      <v-form v-if="filterClicked" @submit.prevent="searchListings">
+      <v-form v-if="filterClicked" @submit.prevent="applyFilters">
         <v-row class="pl-lg-9 px-sm-10">
           <v-col>
             <v-select v-model="location" :items="states" label="Location (state)"></v-select>

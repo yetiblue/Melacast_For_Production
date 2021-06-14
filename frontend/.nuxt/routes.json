@@ -7,6 +7,13 @@
     "_name": "_006e47a0"
   },
   {
+    "name": "createlisting",
+    "path": "/createlisting",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/createlisting.vue",
+    "chunkName": "pages/createlisting",
+    "_name": "_1f2a3b7c"
+  },
+  {
     "name": "dashboard",
     "path": "/dashboard",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/dashboard/index.vue",
