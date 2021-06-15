@@ -6,8 +6,11 @@
 
       <v-row>
         <v-spacer></v-spacer>
-        <v-col lg="6" sm="8">
-          <v-card class="mb-lg-10 ml-lg-16 pl-lg-16" elevation="0">
+        <v-col class="px-10 px-sm-0" lg="6" cols="12" sm="8">
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-9 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
             <v-card-title class="justify-start">Tell Us About Your Film</v-card-title>
             <v-card-subtitle>Add basic details to introduce this project.</v-card-subtitle>
           </v-card>
@@ -30,20 +33,21 @@
                 </template>
               </v-textarea>
             </v-col>
-            <v-col outlined style="height=10vh" cols="6" sm="12">
-              <v-card class="pl-lg-16 ml-lg-16" elevation="0">
+            <v-col outlined style="height=10vh" cols="12" sm="12">
+              <v-card class="pl-md-16 ml-lg-16 ml-md-10 ml-sm-16 pl-sm-2" elevation="0">
                 <v-card-title
                   v-if="!posterUploaded"
-                  class="text-lg-subtitle-1"
+                  class="text-md-subtitle-1 ml-n4 ml-sm-0 text-subtitle-2"
                 >Upload a project banner or choose one from our gallery</v-card-title>
                 <v-card-title
                   v-if="!hideUploadName"
                   class="text-lg-subtitle-1"
                 >{{displayPosterName}}</v-card-title>
                 <v-img
-                  class="mb-lg-6"
-                  height="310px"
-                  width="550px"
+                  :aspect-ratio="16/9"
+                  class="mb-lg-6 ml-sm-2"
+                  max-height="310px"
+                  :width="galleryPreviewWidth"
                   v-if="galleryPhotoSelected"
                   :src="selectedGalleryPhoto"
                 ></v-img>
@@ -89,18 +93,14 @@
               </v-row>
               <v-spacer></v-spacer>
             </v-col>
-            <!-- <div v-if="!galleryNotOpen">
-              <GalleryThumbnailComponent @clicked="generatePosterFromComponent" />
-              <button @click.prevent="closeGallery">Select</button>
-              <button @click.prevent="closeGallery">Close</button>
-            </div>-->
+
             <v-col cols="8">
               <v-spacer></v-spacer>
               <v-row v-if="mobile" class="mb-6">
-                <v-col class="pl-12" cols="12" sm="6">
+                <v-col class="pl-sm-12" cols="12" sm="6" lg="6">
                   <v-btn
-                    class="white--text ml-16 ml-lg-n10"
-                    width="15vw"
+                    class="white--text ml-n16 ml-sm-16 ml-sm-n10 ml-lg-n10"
+                    :width="buttonWidth"
                     height="60px"
                     color="brown"
                     depressed
@@ -111,13 +111,13 @@
                   <input type="file" style="display: none" ref="poster" @change="createPoster" />
                 </v-col>
 
-                <v-col cols="12" class="pl-8" sm="1">
+                <v-col cols="12" class="pl-sm-8" sm="3" lg="1">
                   <v-dialog v-model="dialog">
                     <template v-slot:activator="{ on }">
                       <v-btn
                         justify="center"
-                        class="white--text ml-sm-n4"
-                        width="15vw"
+                        class="ml-n16 white--text ml-sm-n4"
+                        :width="buttonWidth"
                         height="60px"
                         color="brown"
                         depressed
@@ -186,15 +186,18 @@
                 <v-date-picker v-model="form.end_date" no-title @input="endDateMenuOpen = false"></v-date-picker>
               </v-menu>
             </v-col>
-            <v-col outlined style="height=10vh" cols="6" sm="12">
-              <v-card class="pl-lg-16 ml-lg-16" elevation="0">
-                <v-card-title class="text-lg-subtitle-1 bold">
+            <v-col outlined style="height=10vh" cols="12">
+              <v-card
+                class="pl-lg-16 pl-md-16 ml-md-10 ml-n4 ml-sm-16 pl-sm-2 ml-lg-16"
+                elevation="0"
+              >
+                <v-card-title class="text-lg-subtitle-1 text-subtitle-1 text-sm-h6 bold">
                   <b>What Best Describes Your Film?</b>
                 </v-card-title>
                 <v-card-subtitle>Check One</v-card-subtitle>
               </v-card>
             </v-col>
-            <v-col outlined style="height=10vh" cols="6" sm="5">
+            <v-col outlined style="height=10vh" cols="8" sm="5">
               <v-checkbox v-model="form.genre" label="Animation" color="green" value="Animation"></v-checkbox>
               <v-checkbox
                 v-model="form.genre"
@@ -322,7 +325,22 @@ export default {
         case "xs":
           return "90vw";
         case "lg":
-          return false;
+          return "15vw";
+      }
+    },
+
+    galleryPreviewWidth() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "md":
+          return "450px";
+        case "sm":
+          return "345px";
+        case "xs":
+          return "90vw";
+        case "lg":
+          return "420px";
+        case "xl":
+          return "550px";
       }
     }
   },

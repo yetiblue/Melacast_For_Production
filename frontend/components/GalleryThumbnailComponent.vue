@@ -2,16 +2,16 @@
   <div id="app">
     <!-- {{ photolist }} -->
     <v-row class="pr-lg-16 pt-lg-8 px-auto">
-      <v-col cols="3">
+      <v-col cols="12" sm="3">
         <v-btn block text @click.prevent="chooseType(personals)">Personal Projects</v-btn>
       </v-col>
-      <v-col cols="3">
+      <v-col cols="12" sm="3">
         <v-btn block text @click.prevent="chooseType(listings)">Listings</v-btn>
       </v-col>
-      <v-col cols="3">
+      <v-col cols="12" sm="3">
         <v-btn block text @click.prevent="chooseType(roles)">Roles</v-btn>
       </v-col>
-      <v-col cols="3">
+      <v-col cols="12" sm="3">
         <v-btn block text @click="getThumbnails()" elevation="0">All</v-btn>
       </v-col>
     </v-row>
@@ -21,7 +21,7 @@
     <GridComponent>
       <template #cardSlot>
         <template v-for="thumbnail in thumbnails">
-          <v-col :key="thumbnail.id" justify="end" cols="12" sm="3">
+          <v-col :key="thumbnail.id" justify="end" cols="12" md="4" lg="3" sm="6">
             <v-card :height="gridHeight" outlined title>
               <v-img
                 class="white--text align-end"
@@ -64,13 +64,13 @@ export default {
     gridHeight() {
       switch (this.$vuetify.breakpoint.name) {
         case "md":
-          return "240px";
+          return "200px";
         case "sm":
           return "190px";
         case "xs":
           return "25vh";
         case "lg":
-          return "280px";
+          return "225px";
       }
     }
   },
