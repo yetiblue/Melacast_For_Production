@@ -4,7 +4,7 @@
     <v-app id="bigGrid">
       <div v-if="!mobile"></div>
 
-      <v-row>
+      <v-row v-if="!secondPage">
         <v-spacer></v-spacer>
         <v-col class="px-10 px-sm-0" lg="6" cols="12" sm="8">
           <v-card
@@ -243,6 +243,186 @@
             <!-- <v-col cols="6"></v-col> -->
             <v-spacer></v-spacer>
             <v-col cols="4" sm="3">
+              <v-btn @click="secondPage = !secondPage" style="margin-top: 50px;">Next</v-btn>
+            </v-col>
+          </v-row>
+        </v-col>
+        <v-spacer></v-spacer>
+      </v-row>
+      <v-row v-if="secondPage">
+        <v-spacer></v-spacer>
+        <v-col class="px-10 px-sm-0" lg="6" cols="12" sm="8">
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-9 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
+            <v-card-title class="justify-start">Add Roles</v-card-title>
+            <v-card-subtitle>Add any non post or production crew positions. Specifications are optional.</v-card-subtitle>
+          </v-card>
+          <v-row justify="center">
+            <v-col cols="12" sm="8">
+              <v-text-field
+                outlined
+                justify="center"
+                v-model="filmRoles.role_name"
+                label="Role Type (Lead Actor, Support Dancer, Photographer, etc)"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="8">
+              <v-text-field
+                outlined
+                justify="center"
+                v-model="filmRoles.character_name"
+                label="Character Name (Optional)"
+                maxlength="500"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="8">
+              <v-textarea label="Bio" outlined v-model="filmRoles.role_description" color="teal">
+                <template v-slot:label>
+                  <div>Role Description</div>
+                </template>
+              </v-textarea>
+            </v-col>
+            <v-col cols="12" sm="8">
+              <v-select
+                outlined
+                justify="center"
+                :items="ethnicities"
+                v-model="filmRoles.ethnicity"
+                label="Character Ethnicity (Optional)"
+              ></v-select>
+            </v-col>
+            <v-col cols="12" sm="8">
+              <v-select
+                outlined
+                justify="center"
+                :items="professions"
+                v-model="filmRoles.role_type"
+                label="Role Type"
+              ></v-select>
+            </v-col>
+            <v-col outlined style="height=10vh" cols="12" sm="12">
+              <v-card class="pl-md-16 ml-lg-16 ml-md-10 ml-sm-16 pl-sm-2" elevation="0">
+                <v-card-title
+                  v-if="!posterUploaded"
+                  class="text-md-h6 ml-n4 ml-sm-0 text-subtitle-2"
+                >Pick a thumbnail for this role</v-card-title>
+
+                <v-img
+                  :aspect-ratio="16/9"
+                  class="mb-lg-6 ml-sm-2"
+                  max-height="310px"
+                  :width="galleryPreviewWidth"
+                  v-if="galleryPhotoSelected"
+                  :src="filmRoles.role_thumbnail"
+                ></v-img>
+              </v-card>
+            </v-col>
+            <v-col cols="8">
+              <v-spacer></v-spacer>
+              <v-row v-if="!mobile" class="mb-6">
+                <v-col class="pl-12" cols="12" sm="6">
+                  <v-dialog v-model="dialog">
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        justify="center"
+                        class="white--text ml-n16 ml-sm-16 ml-sm-n10 ml-lg-n10"
+                        :width="buttonWidth"
+                        height="60px"
+                        color="brown"
+                        depressed
+                        v-on="on"
+                      >
+                        <v-icon left>mdi-upload</v-icon>Gallery
+                      </v-btn>
+                    </template>
+                    <v-card dark>
+                      <GalleryThumbnailComponent @clicked="filmRoleGalleryPhoto" />
+                    </v-card>
+                  </v-dialog>
+                </v-col>
+
+                <v-col cols="12" class="pl-8" sm="1">
+                  <v-btn
+                    justify="center"
+                    class="white--text ml-sm-n4"
+                    width="15vw"
+                    height="60px"
+                    color="brown"
+                    @click.prevent="getListingsAfterSubmitting()"
+                    depressed
+                  >Submit</v-btn>
+                </v-col>
+              </v-row>
+              <v-spacer></v-spacer>
+            </v-col>
+
+            <v-col cols="8">
+              <v-spacer></v-spacer>
+              <v-row v-if="mobile" class="mb-6">
+                <v-col class="pl-sm-12" cols="12" sm="6" lg="6">
+                  <v-dialog v-model="dialog">
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        justify="center"
+                        class="white--text ml-n16 ml-sm-16 ml-sm-n10 ml-lg-n10"
+                        :width="buttonWidth"
+                        height="60px"
+                        color="brown"
+                        depressed
+                        v-on="on"
+                      >
+                        <v-icon left>mdi-upload</v-icon>Gallery
+                      </v-btn>
+                    </template>
+                    <v-card dark>
+                      <GalleryThumbnailComponent @clicked="filmRoleGalleryPhoto" />
+                    </v-card>
+                  </v-dialog>
+                </v-col>
+
+                <v-col cols="12" class="pl-8" sm="1">
+                  <v-btn
+                    justify="center"
+                    class="white--text ml-sm-n4"
+                    width="15vw"
+                    height="60px"
+                    color="brown"
+                    @click.prevent="getListingsAfterSubmitting()"
+                    depressed
+                  >Submit</v-btn>
+                </v-col>
+              </v-row>
+              <v-spacer></v-spacer>
+            </v-col>
+            <v-col outlined style="height=10vh" cols="12" sm="12">
+              <template v-for="returnedRole in returnedFilmRoles">
+                <v-card
+                  :key="returnedRole.id"
+                  class="pl-md-16 ml-lg-16 ml-md-10 ml-sm-16 pl-sm-2"
+                  elevation="0"
+                >
+                  <v-card-title>{{returnedRole.role_name}} | {{returnedRole.character_name}} | {{returnedRole.role_type}} | {{returnedRole.ethnicity}}</v-card-title>
+
+                  <v-card-subtitle class="mt-lg-6">{{returnedRole.role_description}}</v-card-subtitle>
+
+                  <v-img :aspect-ratio="16/9" :src="returnedRole.role_thumbnail"></v-img>
+                  <v-btn class="mt-lg-6" @click="deleteRole(returnedRole.id)">Delete</v-btn>
+
+                  <v-divider></v-divider>
+                </v-card>
+              </template>
+            </v-col>
+          </v-row>
+
+          <v-row justify="center">
+            <!-- <v-col cols="6"></v-col> -->
+            <v-spacer></v-spacer>
+            <v-col cols="4" sm="7">
+              <v-btn @click="secondPage = !secondPage" style="margin-top: 50px;">Back</v-btn>
+            </v-col>
+            <v-col cols="4" sm="3">
               <v-btn style="margin-top: 50px;">Next</v-btn>
             </v-col>
           </v-row>
@@ -387,11 +567,18 @@ export default {
       console.log(this.selectedGalleryPhoto, "selectedGallery");
       this.closeGallery();
     },
-    onClickFromChild(thumbID) {
-      //Used when selecting a thumbnail for a role
-      console.log(thumbID, "thumbID");
-      this.filmRoles.role_thumbnail = thumbID;
+    filmRoleGalleryPhoto(thumbnailID) {
+      this.dialog = false;
+      this.galleryPhotoSelected = true;
+
+      this.filmRoles.role_thumbnail = thumbnailID;
+      console.log(this.filmRoles.role_thumbnail);
     },
+    // onClickFromChild(thumbID) {
+    //   //Used when selecting a thumbnail for a role
+    //   console.log(thumbID, "thumbID");
+    //   this.filmRoles.role_thumbnail = thumbID;
+    // },
     showGallery() {
       //Open thumbnail gallery
       this.galleryNotOpen = false;
@@ -593,9 +780,21 @@ export default {
   },
   data() {
     return {
+      secondPage: false,
       hideUploadName: false,
       galleryPhotoSelected: false,
       dialog: false,
+      professions: [
+        "",
+        "Directors",
+        "Actors",
+        "Dancers",
+        "Writers",
+        "Photographer",
+        "Post Production",
+        "Makeup Artist",
+        "Production"
+      ],
       states: [
         "",
         "Alabama",
@@ -656,6 +855,15 @@ export default {
         "Wisconsin",
         "Wyoming"
       ],
+      ethnicities: [
+        "",
+        "Hispanic/Latino",
+        "Native Hawaiian/Pacific Islander",
+        "Asian",
+        "Black/African American",
+        "Native American/Alaskan Native",
+        "Middle Eastern"
+      ],
       hasPoster: false,
       selectedGalleryPhoto: null,
       hasPermission: true,
@@ -684,6 +892,8 @@ export default {
       },
       filmRoles: {
         role_name: null,
+        role_type: null,
+        character_name: null,
         ethnicity: null,
         listing: null,
         role_description: null,

@@ -135,24 +135,28 @@ export default {
     SubscribeComponent,
     lightBoxGallery
   },
+  mounted() {
+    this.getFilmRoles();
+  },
   async asyncData({ $axios, params, loggedInUser, store }) {
     const body = store.getters.loggedInUser.id;
     try {
-      const [listings, userInfo, roles] = await Promise.all([
+      const [listings, userInfo] = await Promise.all([
         $axios.$get(`/api/v1/listings/${params.id}/`),
         $axios.$get(`/api/v1/actors/`, {
           params: {
             user: body
           }
-        }),
-        $axios.$get(`/api/v1/filmroles/`, {
-          params: {
-            listing: `${params.id}`,
-            role_status: "Open"
-          }
         })
+        // $axios.$get(`/api/v1/filmroles/`, {
+        //   params: {
+        //     listing: `${params.id}`,
+
+        //     role_status: "Open"
+        //   }
+        // })
       ]);
-      return { listings, userInfo, roles };
+      return { listings, userInfo };
     } catch (error) {
       if (error.response.status === 403) {
         const hasPermission = false;
@@ -226,6 +230,23 @@ export default {
     }
   },
   methods: {
+    getFilmRoles() {
+      this.$axios //for everything else
+        .$get(`/api/v1/filmroles/`, {
+          params: {
+            listing_public_id: this.listings.random_public_id,
+            role_status: "Open"
+          }
+        })
+        .then(response => {
+          console.log(response);
+          this.roles = response;
+          console.log(this.thumbnails);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     showSecondCard() {
       this.secondCard = !this.secondCard;
     },
