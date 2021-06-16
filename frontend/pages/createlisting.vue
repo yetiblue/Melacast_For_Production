@@ -8,7 +8,7 @@
         <v-spacer></v-spacer>
         <v-col class="px-10 px-sm-0" lg="6" cols="12" sm="8">
           <v-card
-            class="mb-lg-10 ml-md-16 pl-md-9 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
             elevation="0"
           >
             <v-card-title class="justify-start">Tell Us About Your Film</v-card-title>
@@ -253,7 +253,7 @@
         <v-spacer></v-spacer>
         <v-col class="px-10 px-sm-0" lg="6" cols="12" sm="8">
           <v-card
-            class="mb-lg-10 ml-md-16 pl-md-9 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
             elevation="0"
           >
             <v-card-title class="justify-start">Add Roles</v-card-title>
@@ -303,10 +303,10 @@
               ></v-select>
             </v-col>
             <v-col outlined style="height=10vh" cols="12" sm="12">
-              <v-card class="pl-md-16 ml-lg-16 ml-md-10 ml-sm-16 pl-sm-2" elevation="0">
+              <v-card class="pl-md-16 ml-xl-16 ml-md-10 ml-sm-16 pl-sm-2" elevation="0">
                 <v-card-title
                   v-if="!posterUploaded"
-                  class="text-md-h6 ml-n4 ml-sm-0 text-subtitle-2"
+                  class="text-md-h6 pl-lg-8 ml-n4 ml-sm-0 ml-lg-2 text-subtitle-2"
                 >Pick a thumbnail for this role</v-card-title>
 
                 <v-img
@@ -382,11 +382,11 @@
                   </v-dialog>
                 </v-col>
 
-                <v-col cols="12" class="pl-8" sm="1">
+                <v-col cols="12" class="pl-sm-8" sm="1">
                   <v-btn
                     justify="center"
-                    class="white--text ml-sm-n4"
-                    width="15vw"
+                    class="white--text ml-sm-n4 ml-n16"
+                    :width="buttonWidth"
                     height="60px"
                     color="brown"
                     @click.prevent="getListingsAfterSubmitting()"
@@ -394,21 +394,35 @@
                   >Submit</v-btn>
                 </v-col>
               </v-row>
+              <v-divider></v-divider>
               <v-spacer></v-spacer>
             </v-col>
-            <v-col outlined style="height=10vh" cols="12" sm="12">
+            <v-col outlined class="ml-lg-n16" style="height=10vh" cols="12" sm="12">
               <template v-for="returnedRole in returnedFilmRoles">
                 <v-card
                   :key="returnedRole.id"
-                  class="pl-md-16 ml-lg-16 ml-md-10 ml-sm-16 pl-sm-2"
+                  class="pl-md-16 ml-md-10 ml-sm-10 ml-md-n2 ml-lg-8 ml-xl-0 pl-sm-2"
                   elevation="0"
                 >
-                  <v-card-title>{{returnedRole.role_name}} | {{returnedRole.character_name}} | {{returnedRole.role_type}} | {{returnedRole.ethnicity}}</v-card-title>
+                  <v-card-title
+                    class="ml-sm-n4"
+                  >{{returnedRole.role_name}} | {{returnedRole.character_name}} | {{returnedRole.role_type}} | {{returnedRole.ethnicity}}</v-card-title>
 
-                  <v-card-subtitle class="mt-lg-6">{{returnedRole.role_description}}</v-card-subtitle>
+                  <v-card-subtitle
+                    class="mt-lg-6 mt-sm-2 ml-sm-n4"
+                  >{{returnedRole.role_description}}</v-card-subtitle>
 
-                  <v-img :aspect-ratio="16/9" :src="returnedRole.role_thumbnail"></v-img>
-                  <v-btn class="mt-lg-6" @click="deleteRole(returnedRole.id)">Delete</v-btn>
+                  <v-img class="mr-lg-6" :aspect-ratio="16/9" :src="returnedRole.role_thumbnail"></v-img>
+                  <v-spacer></v-spacer>
+                  <v-row class="justify-end">
+                    <v-btn
+                      justify-end
+                      class="text--brown text-right mt-8 mr-sm-3 mr-lg-9"
+                      text
+                      outlined
+                      @click="deleteRole(returnedRole.id)"
+                    >Delete</v-btn>
+                  </v-row>
 
                   <v-divider></v-divider>
                 </v-card>
@@ -419,11 +433,15 @@
           <v-row justify="center">
             <!-- <v-col cols="6"></v-col> -->
             <v-spacer></v-spacer>
-            <v-col cols="4" sm="7">
-              <v-btn @click="secondPage = !secondPage" style="margin-top: 50px;">Back</v-btn>
+            <v-col cols="7" sm="6">
+              <v-btn
+                class="ml-n2 ml-sm-0"
+                @click="secondPage = !secondPage"
+                style="margin-top: 50px;"
+              >Back</v-btn>
             </v-col>
-            <v-col cols="4" sm="3">
-              <v-btn style="margin-top: 50px;">Next</v-btn>
+            <v-col cols="4" md="4" sm="4">
+              <v-btn class="ml-sm-n4 ml-md-0" style="margin-top: 50px;">Next</v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -755,6 +773,7 @@ export default {
       // Allows for deletion of a role from the returned list of all roles
       let deletionID = roleID;
       this.$axios.delete(`/api/v1/filmroles/${deletionID}/`);
+      //called twice so that the delte button deletes, and refreshes the page instead of needing 2 clicks
       this.displayReturnedRoles();
       this.displayReturnedRoles();
     },
