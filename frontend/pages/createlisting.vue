@@ -4,7 +4,7 @@
     <v-app id="bigGrid">
       <div v-if="!mobile"></div>
 
-      <v-row v-if="!secondPage">
+      <v-row v-if="!secondPage && !fourthPage && !thirdPage">
         <v-spacer></v-spacer>
         <v-col class="px-10 px-sm-0" lg="6" cols="12" sm="8">
           <v-card
@@ -135,12 +135,12 @@
               <v-spacer></v-spacer>
             </v-col>
             <v-col cols="12" sm="8">
-              <v-select outlined v-model="location" :items="states" label="Location (state)"></v-select>
+              <v-select outlined v-model="form.location" :items="states" label="Location (state)"></v-select>
             </v-col>
             <v-col cols="12" sm="8">
               <v-text-field
                 outlined
-                v-model="city_location"
+                v-model="form.city_location"
                 justify="center"
                 label="Location (City)"
               ></v-text-field>
@@ -249,7 +249,7 @@
         </v-col>
         <v-spacer></v-spacer>
       </v-row>
-      <v-row v-if="secondPage">
+      <v-row v-if="secondPage && !thirdPage && !fourthPage">
         <v-spacer></v-spacer>
         <v-col class="px-10 px-sm-0" lg="6" cols="12" sm="8">
           <v-card
@@ -441,10 +441,280 @@
               >Back</v-btn>
             </v-col>
             <v-col cols="4" md="4" sm="4">
-              <v-btn class="ml-sm-n4 ml-md-0" style="margin-top: 50px;">Next</v-btn>
+              <v-btn
+                @click="thirdPage =!thirdPage"
+                class="ml-md-0 ml-lg-6"
+                style="margin-top: 50px;"
+              >Next</v-btn>
             </v-col>
           </v-row>
         </v-col>
+        <v-spacer></v-spacer>
+      </v-row>
+      <v-row v-if="thirdPage && !fourthPage">
+        <v-spacer></v-spacer>
+        <v-col class="px-10 px-sm-0" lg="6" cols="12" sm="8">
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
+            <v-card-title class="justify-start">Add Crew Members</v-card-title>
+            <v-card-subtitle>Add any crew member types that you will need for this project.</v-card-subtitle>
+          </v-card>
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
+            <v-card-title class="justify-start text-subtitle-1">
+              <b>Production</b>
+            </v-card-title>
+            <v-card-subtitle>(Check all that apply).</v-card-subtitle>
+          </v-card>
+          <v-row class="pr-10">
+            <v-spacer></v-spacer>
+
+            <v-col outlined style="height=10vh" cols="8" sm="4">
+              <v-checkbox value="AC" v-model="form.crew_positions" label="AC" />
+              <v-checkbox value="AD" v-model="form.crew_positions" label="AD" />
+              <v-checkbox
+                value="Boom Operator"
+                v-model="form.crew_positions"
+                label="Boom Operator"
+              />
+              <v-checkbox value="Composer" v-model="form.crew_positions" label="Composer" />
+              <v-checkbox
+                value="Costume Design"
+                v-model="form.crew_positions"
+                label="Costume Design"
+              />
+
+              <v-checkbox value="DP" v-model="form.crew_positions" label="DP" />
+              <v-checkbox value="Gaffer" v-model="form.crew_positions" label="Gaffer" />
+              <v-checkbox value="Grip" v-model="form.crew_positions" label="Grip" />
+              <v-checkbox value="HMU" v-model="form.crew_positions" label="HMU" />
+              <v-checkbox value="PA" v-model="form.crew_positions" label="PA" />
+            </v-col>
+            <v-col outlined style="height=10vh" cols="4" sm="6">
+              <v-checkbox
+                value="Pass Van Driver"
+                v-model="form.crew_positions"
+                label="Pass Van Driver"
+              />
+              <v-checkbox value="Photographer" v-model="form.crew_positions" label="Photographer" />
+              <v-checkbox
+                value="Sound Wrangler"
+                v-model="form.crew_positions"
+                label="Sound Wrangler"
+              />
+
+              <v-checkbox value="Sound Mixer" v-model="form.crew_positions" label="Sound Mixer" />
+              <v-checkbox value="UPM" v-model="form.crew_positions" label="UPM" />
+
+              <v-checkbox
+                value="Script Supervising"
+                v-model="form.crew_positions"
+                label="Script Supervising"
+              />
+              <v-spacer></v-spacer>
+            </v-col>
+          </v-row>
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
+            <v-card-title class="text-subtitle-1 justify-start">
+              <b>Post Production</b>
+            </v-card-title>
+            <v-card-subtitle>(Check all that apply).</v-card-subtitle>
+          </v-card>
+          <v-row class="pr-10">
+            <v-spacer></v-spacer>
+
+            <v-col outlined style="height=10vh" cols="8" sm="4">
+              <v-checkbox value="Editing" v-model="form.post_production_positions" label="Editing" />
+              <v-checkbox
+                value="Sound Mixer"
+                v-model="form.post_production_positions"
+                label="Sound Mixer"
+              />
+              <v-checkbox
+                value="Music Composer"
+                v-model="form.post_production_positions"
+                label="Music Composer"
+              />
+              <v-checkbox
+                value="Audio Engineer"
+                v-model="form.post_production_positions"
+                label="Audio Engineer"
+              />
+            </v-col>
+            <v-col outlined style="height=10vh" cols="4" sm="6">
+              <v-checkbox
+                value="Sound Editor"
+                v-model="form.post_production_positions"
+                label="Sound Editor"
+              />
+              <v-checkbox
+                value="Producer"
+                v-model="form.post_production_positions"
+                label="Producer"
+              />
+
+              <v-spacer></v-spacer>
+            </v-col>
+          </v-row>
+          <v-row justify="center">
+            <!-- <v-col cols="6"></v-col> -->
+            <v-spacer></v-spacer>
+            <v-col cols="7" sm="6">
+              <v-btn
+                class="ml-n2 ml-sm-0"
+                @click="thirdPage = !thirdPage"
+                style="margin-top: 50px;"
+              >Back</v-btn>
+            </v-col>
+            <v-col cols="4" md="4" sm="4">
+              <v-btn
+                @click="fourthPage =!fourthPage"
+                class="ml-md-0 ml-lg-6"
+                style="margin-top: 50px;"
+              >Next</v-btn>
+            </v-col>
+          </v-row>
+        </v-col>
+        <v-spacer></v-spacer>
+      </v-row>
+      <v-row v-if="fourthPage">
+        <v-spacer></v-spacer>
+        <v-col class="px-10 px-sm-0" lg="6" cols="12" sm="8">
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
+            <v-card-title class="justify-start">Confirm details and post listing</v-card-title>
+            <v-card-subtitle>Your project will now be live and searchable on The Melacast Network.</v-card-subtitle>
+          </v-card>
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
+            <v-card-title class="justify-start text-lg-h5">
+              <b>Movie Title</b>
+            </v-card-title>
+            <v-card-subtitle>{{form.title}}</v-card-subtitle>
+          </v-card>
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
+            <v-card-title class="justify-start text-lg-h5">
+              <b>Location</b>
+            </v-card-title>
+            <v-card-subtitle>{{form.city_location}}, {{form.location}}</v-card-subtitle>
+          </v-card>
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
+            <v-card-title class="justify-start text-lg-h5">
+              <b>Logline</b>
+            </v-card-title>
+            <v-card-subtitle>{{form.overview}}</v-card-subtitle>
+          </v-card>
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
+            <v-row>
+              <v-col cols="6">
+                <v-card-title class="justify-start text-lg-h5">
+                  <b>Start Date</b>
+                </v-card-title>
+                <v-card-subtitle>{{form.start_date}}</v-card-subtitle>
+              </v-col>
+              <v-col cols="6">
+                <v-card-title class="justify-start text-lg-h5">
+                  <b>End Date</b>
+                </v-card-title>
+                <v-card-subtitle>{{form.end_date}}</v-card-subtitle>
+              </v-col>
+            </v-row>
+          </v-card>
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
+            <v-card-title class="justify-start text-lg-h5">
+              <b>Genre</b>
+            </v-card-title>
+            <v-card-subtitle>{{form.genre}}</v-card-subtitle>
+          </v-card>
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
+            <v-card-title class="justify-start text-lg-h5">
+              <b>Roles</b>
+            </v-card-title>
+            <v-row>
+              <v-card-subtitle v-for="role in returnedFilmRoles" :key="role.id">
+                <GridComponent>
+                  <template #cardSlot>
+                    <v-card class="ml-lg-n5 pr-lg-10 mr-lg-12" elevation="0">
+                      <v-card-title>{{role.role_name}} | {{role.role_type}}</v-card-title>
+                      <v-card-title>Character Name:{{role.character_name}}</v-card-title>
+                      <v-card-title>Role Description:{{role.role_description}}</v-card-title>
+                    </v-card>
+
+                    <v-spacer></v-spacer>
+                  </template>
+                </GridComponent>
+              </v-card-subtitle>
+            </v-row>
+          </v-card>
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
+            <v-card-title class="justify-start mb-lg-2 text-lg-h5">
+              <b>Production</b>
+            </v-card-title>
+            <v-card-subtitle
+              class="text-lg-subtitle-1 mb-lg-n8"
+              v-for="production in form.crew_positions"
+              :key="production"
+            >
+              <b>{{production}}</b>
+            </v-card-subtitle>
+          </v-card>
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
+            <v-card-title class="justify-start mb-lg-2 text-lg-h5">
+              <b>Post Production</b>
+            </v-card-title>
+            <v-card-subtitle
+              class="text-lg-subtitle-1 mb-lg-n8"
+              v-for="postProduction in form.post_production_positions"
+              :key="postProduction"
+            >
+              <b>{{postProduction}}</b>
+            </v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-row justify="center">
+          <!-- <v-col cols="6"></v-col> -->
+          <v-spacer></v-spacer>
+          <v-col cols="7" sm="6">
+            <v-btn
+              class="ml-n2 ml-sm-0"
+              @click="fourthPage = !fourthPage"
+              style="margin-top: 50px;"
+            >Back</v-btn>
+          </v-col>
+          <v-col cols="4" md="4" sm="4"></v-col>
+        </v-row>
         <v-spacer></v-spacer>
       </v-row>
 
@@ -663,6 +933,7 @@ export default {
           this.forMembers(poster);
           formData.append("poster", poster);
         }
+        this.positionsForm.push(this.OtherRole);
         this.$axios
           .post(
             `/api/v1/listings/`,
@@ -800,6 +1071,8 @@ export default {
   data() {
     return {
       secondPage: false,
+      thirdPage: false,
+      fourthPage: false,
       hideUploadName: false,
       galleryPhotoSelected: false,
       dialog: false,
