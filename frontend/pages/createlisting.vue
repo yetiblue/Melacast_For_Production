@@ -33,7 +33,7 @@
                 </template>
               </v-textarea>
             </v-col>
-            <v-col outlined style="height=10vh" cols="12" sm="12">
+            <v-col class="ml-lg-4" outlined style="height=10vh" cols="12" sm="12">
               <v-card class="pl-md-16 ml-lg-16 ml-md-10 ml-sm-16 pl-sm-2" elevation="0">
                 <v-card-title
                   v-if="!posterUploaded"
@@ -45,8 +45,8 @@
                 >{{displayPosterName}}</v-card-title>
                 <v-img
                   :aspect-ratio="16/9"
-                  class="mb-lg-6 ml-sm-2"
-                  max-height="310px"
+                  class="grey mb-lg-6 ml-sm-2"
+                  max-height="315px"
                   :width="galleryPreviewWidth"
                   v-if="galleryPhotoSelected"
                   :src="selectedGalleryPhoto"
@@ -185,6 +185,24 @@
                 </template>
                 <v-date-picker v-model="form.end_date" no-title @input="endDateMenuOpen = false"></v-date-picker>
               </v-menu>
+            </v-col>
+            <v-col cols="12" sm="8">
+              <v-select
+                outlined
+                v-model="form.status"
+                justify="center"
+                :items="payStatus"
+                label="Pay Status"
+              ></v-select>
+            </v-col>
+            <v-col cols="12" sm="8">
+              <v-select
+                outlined
+                v-model="form.job_type"
+                justify="center"
+                :items="timeCommit"
+                label="Time Commitment"
+              ></v-select>
             </v-col>
             <v-col outlined style="height=10vh" cols="12">
               <v-card
@@ -350,7 +368,7 @@
                     width="15vw"
                     height="60px"
                     color="brown"
-                    @click.prevent="getListingsAfterSubmitting()"
+                    @click.prevent="addRoles()"
                     depressed
                   >Submit</v-btn>
                 </v-col>
@@ -389,7 +407,7 @@
                     :width="buttonWidth"
                     height="60px"
                     color="brown"
-                    @click.prevent="getListingsAfterSubmitting()"
+                    @click.prevent="addRoles()"
                     depressed
                   >Submit</v-btn>
                 </v-col>
@@ -703,24 +721,30 @@
             </v-card-subtitle>
           </v-card>
         </v-col>
-        <v-row justify="center">
-          <!-- <v-col cols="6"></v-col> -->
-          <v-spacer></v-spacer>
-          <v-col cols="7" sm="6">
-            <v-btn
-              class="ml-n2 ml-sm-0"
-              @click="fourthPage = !fourthPage"
-              style="margin-top: 50px;"
-            >Back</v-btn>
-          </v-col>
-          <v-col cols="4" md="4" sm="4"></v-col>
-        </v-row>
         <v-spacer></v-spacer>
+
+        <v-col sm="12">
+          <v-row class="justify-end">
+            <v-col class="pl-lg-16 justify-center" cols="7" sm="5">
+              <v-btn
+                class="ml-n2 ml-sm-16"
+                @click="fourthPage = !fourthPage"
+                style="margin-top: 50px;"
+              >Back</v-btn>
+            </v-col>
+            <v-col cols="4">
+              <v-btn
+                class="brown white--text ml-n2 ml-sm-n16"
+                style="margin-top: 50px;"
+                @click="submitForm"
+              >Post</v-btn>
+            </v-col>
+
+            <v-col cols="4" md="4" sm="4"></v-col>
+          </v-row>
+          <v-spacer></v-spacer>
+        </v-col>
       </v-row>
-
-      <!-- </v-container> -->
-
-      <!-- </v-form> -->
     </v-app>
   </div>
 </template>
@@ -806,8 +830,6 @@ export default {
         case "xs":
           return "90vw";
         case "lg":
-          return "420px";
-        case "xl":
           return "550px";
       }
     }
@@ -867,10 +889,7 @@ export default {
     //   console.log(thumbID, "thumbID");
     //   this.filmRoles.role_thumbnail = thumbID;
     // },
-    showGallery() {
-      //Open thumbnail gallery
-      this.galleryNotOpen = false;
-    },
+
     closeGallery() {
       //Close Thumbnail gallery
       this.galleryNotOpen = true;
@@ -879,38 +898,7 @@ export default {
       //After submitting basic information and the roles
       this.$router.push(`/applications`);
     },
-    nextSection() {
-      //Navigate to page 2 of 3 of the listing creation form
-      this.basicInfoSectionComplete = true;
-    },
-    prevSection() {
-      // Go back to page 1 of the listing creation form
-      this.basicInfoSectionComplete = false;
-    },
-    getListingsAfterSubmitting(store) {
-      // Retrieve all listings this user has submitted, sort for latest first, then select that one
-      // The id of this listing is used for the Roles
-      this.$axios
-        .get(`/api/v1/listings/`, {
-          params: {
-            user: this.actors.id
-          }
-        })
-        .then(response => {
-          console.log("Getting the latest listing");
-          this.listingThatWasJustAdded = response.data;
-          this.listingThatWasJustAdded.sort((a, b) => b.id - a.id);
-          console.log(this.listingThatWasJustAdded[0], "latest listing ID");
-          this.addRoles();
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    showPositions() {
-      // Add Roles for the film page
-      this.listingSubmitted = true;
-    },
+
     submitForm() {
       // Submit the information on page 1 and 2 of the creation form
       this.form.date_submitted = this.currentDateTime; //currentDateTime is a computed Function
@@ -933,7 +921,6 @@ export default {
           this.forMembers(poster);
           formData.append("poster", poster);
         }
-        this.positionsForm.push(this.OtherRole);
         this.$axios
           .post(
             `/api/v1/listings/`,
@@ -944,8 +931,7 @@ export default {
           )
           .then(response => {
             console.log("Successfully Created New Listing");
-            this.showPositions();
-            //   this.$router.push(`/applications`);
+            this.finishListing();
           })
           .catch(error => {
             if (error) {
@@ -974,7 +960,7 @@ export default {
               )
               .then(response => {
                 console.log("Successfully Created New Listing");
-                this.showPositions();
+                this.finishListing();
               })
               .catch(error => {
                 if (error) {
@@ -984,9 +970,7 @@ export default {
           });
       }
     },
-    testSendImage(sentImage) {
-      console.log(sentImage, "sentImage");
-    },
+
     generatePublicID(length, chars) {
       // create the ID displayed in the URL for this listing
       var result = "";
@@ -1030,7 +1014,7 @@ export default {
       this.$axios
         .get(`/api/v1/filmroles/`, {
           params: {
-            listing: this.listingThatWasJustAdded[0].id
+            listing_public_id: this.form.random_public_id
           }
         })
         .then(response => {
@@ -1050,7 +1034,6 @@ export default {
     },
     addRoles($axios) {
       //  listingThatWasJustAdded array holds all listings objects. The one that was submitted before the roles
-      this.filmRoles.listing = this.listingThatWasJustAdded[0].id;
       this.$axios
         .post(`/api/v1/filmroles/`, this.filmRoles)
         .then(response => {
@@ -1058,6 +1041,8 @@ export default {
           this.displayReturnedRoles();
           this.filmRoles.role_name = null; // reset the fields for the role after each one is submitted
           this.filmRoles.ethnicity = null;
+          this.filmRoles.role_type = null;
+          this.filmRoles.character_name = null;
           this.filmRoles.role_description = null;
           this.filmRoles.role_thumbnail = null;
           this.filmRoles.listing_public_id = this.form.random_public_id;
@@ -1070,6 +1055,8 @@ export default {
   },
   data() {
     return {
+      timeCommit: ["Fulltime", "Part time"],
+      payStatus: ["Paid", "Volunteer"],
       secondPage: false,
       thirdPage: false,
       fourthPage: false,

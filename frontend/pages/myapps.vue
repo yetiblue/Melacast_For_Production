@@ -86,7 +86,7 @@
             </v-list-item-content>
 
             <v-list-item-content>
-              <v-list-item-text class="grey pl-lg-n4 pl-10" v-text="applicant.date_submitted"></v-list-item-text>
+              <v-list-item-text class="pl-lg-n4 pl-10" v-text="applicant.date_submitted"></v-list-item-text>
             </v-list-item-content>
 
             <v-list-item-action class="pr-lg-7 mr-lg-16 mr-0">
