@@ -3,6 +3,16 @@
     <TopNavbar />
     <v-app id="bigGrid">
       <div v-if="!mobile"></div>
+      <stripe-checkout
+        mode="payment"
+        ref="checkoutRef"
+        :pk="publishableKey"
+        :lineItems="lineItems"
+        :successUrl="successUrl"
+        :cancelUrl="cancelUrl"
+        :payment_status="payment_status"
+        :clientReferenceId="clientReference"
+      />
 
       <v-row v-if="!secondPage && !fourthPage && !thirdPage">
         <v-spacer></v-spacer>
@@ -738,12 +748,30 @@
                 style="margin-top: 50px;"
                 @click="submitForm"
               >Post</v-btn>
+              <v-btn
+                class="brown white--text ml-n2 ml-sm-n16"
+                style="margin-top: 50px;"
+                @click="setPrice(`price_1J4RHBIXVRhKifjK2imEv2pg`)"
+              >Pay</v-btn>
             </v-col>
 
             <v-col cols="4" md="4" sm="4"></v-col>
           </v-row>
           <v-spacer></v-spacer>
         </v-col>
+      </v-row>
+      <v-row v-if="displayFifth">
+        <v-spacer></v-spacer>
+        <v-col cols="6">
+          <!-- {{returnedForm.crew_positions}} -->
+          <v-card elevation="0">
+            <v-btn block class="ma-2" height="500px">
+              <v-icon x-large dark right>mdi-checkbox-marked-circle</v-icon>
+              <v-card-title>Listing Successfully Submitted</v-card-title>
+            </v-btn>
+          </v-card>
+        </v-col>
+        <v-spacer></v-spacer>
       </v-row>
     </v-app>
   </div>
@@ -776,6 +804,16 @@ export default {
   },
   computed: {
     ...mapGetters(["loggedInUser"]),
+    clientReference() {
+      let clientID = this.$store.getters.loggedInUser.id;
+      return clientID.toString();
+    },
+    displayFifth() {
+      if (this.actors.return_to_page == "True") {
+        return true;
+        console.log("true fifth");
+      }
+    },
     memberListings() {
       return {
         title: this.form.title,
@@ -853,6 +891,23 @@ export default {
     }
   },
   methods: {
+    checkout() {
+      this.$refs.checkoutRef.redirectToCheckout();
+      console.log(this.lineItems[0].price, "priceID");
+      //change the button v-if back here
+      //include a go see listings button, or a "ex" out to submit another listing
+    },
+    setDatatoLocalStorage() {
+      localStorage.setItem("form", JSON.stringify(this.form));
+      console.log("adding to localstorage");
+      localStorage.setItem("fifth", "true");
+    },
+    setPrice(priceID) {
+      this.lineItems[0].price = priceID;
+      this.setDatatoLocalStorage();
+
+      this.checkout();
+    },
     inputFileClick() {
       this.$refs.poster.click();
     },
@@ -1055,6 +1110,18 @@ export default {
   },
   data() {
     return {
+      loading: false,
+      group: null,
+      publishableKey: `${process.env.STRIPE_PK}`,
+      lineItems: [
+        {
+          price: "",
+          quantity: 1
+        }
+      ],
+      payment_status: "unpaid",
+      successUrl: "http://localhost:3000/createlisting",
+      cancelUrl: "http://localhost:3000",
       timeCommit: ["Fulltime", "Part time"],
       payStatus: ["Paid", "Volunteer"],
       secondPage: false,

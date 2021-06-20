@@ -7,11 +7,11 @@ const _006e47a0 = () => interopDefault(import('../pages/community/index.vue' /* 
 const _1f2a3b7c = () => interopDefault(import('../pages/createlisting.vue' /* webpackChunkName: "pages/createlisting" */))
 const _0696e88b = () => interopDefault(import('../pages/dashboard/index.vue' /* webpackChunkName: "pages/dashboard/index" */))
 const _30e05924 = () => interopDefault(import('../pages/listings/index.vue' /* webpackChunkName: "pages/listings/index" */))
+const _48c5449a = () => interopDefault(import('../pages/listingsubmitted.vue' /* webpackChunkName: "pages/listingsubmitted" */))
 const _7b15e85d = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _9e92634c = () => interopDefault(import('../pages/myapps.vue' /* webpackChunkName: "pages/myapps" */))
 const _5e28b860 = () => interopDefault(import('../pages/profile/index.vue' /* webpackChunkName: "pages/profile/index" */))
 const _07af5f38 = () => interopDefault(import('../pages/registration/index.vue' /* webpackChunkName: "pages/registration/index" */))
-const _7b46a11b = () => interopDefault(import('../pages/teststripe.vue' /* webpackChunkName: "pages/teststripe" */))
 const _00eadeec = () => interopDefault(import('../pages/profile/edit.vue' /* webpackChunkName: "pages/profile/edit" */))
 const _02e1ba2e = () => interopDefault(import('../pages/registration/awaiting_confirmation.vue' /* webpackChunkName: "pages/registration/awaiting_confirmation" */))
 const _555b6708 = () => interopDefault(import('../pages/registration/activate/_token.vue' /* webpackChunkName: "pages/registration/activate/_token" */))
@@ -52,6 +52,10 @@ export const routerOptions = {
     component: _30e05924,
     name: "listings"
   }, {
+    path: "/listingsubmitted",
+    component: _48c5449a,
+    name: "listingsubmitted"
+  }, {
     path: "/login",
     component: _7b15e85d,
     name: "login"
@@ -67,10 +71,6 @@ export const routerOptions = {
     path: "/registration",
     component: _07af5f38,
     name: "registration"
-  }, {
-    path: "/teststripe",
-    component: _7b46a11b,
-    name: "teststripe"
   }, {
     path: "/profile/edit",
     component: _00eadeec,

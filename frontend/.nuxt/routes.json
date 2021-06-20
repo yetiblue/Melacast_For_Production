@@ -24,6 +24,12 @@
     "chunkName": "pages/listings/index"
   },
   {
+    "name": "listingsubmitted",
+    "path": "/listingsubmitted",
+    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listingsubmitted.vue",
+    "chunkName": "pages/listingsubmitted"
+  },
+  {
     "name": "login",
     "path": "/login",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/login.vue",
@@ -46,12 +52,6 @@
     "path": "/registration",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/registration/index.vue",
     "chunkName": "pages/registration/index"
-  },
-  {
-    "name": "teststripe",
-    "path": "/teststripe",
-    "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/teststripe.vue",
-    "chunkName": "pages/teststripe"
   },
   {
     "name": "profile-edit",

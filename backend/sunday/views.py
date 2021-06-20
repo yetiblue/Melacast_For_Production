@@ -101,6 +101,7 @@ def paid_listing_webhook(request):
         print(user, "user")
 
         Actors.objects.filter(user=user).update(paid_listing=True)
+        Actors.objects.filter(user=user).update(return_to_page=True)
 
         # print(product.objects.all())
     return HttpResponse(status=200)
