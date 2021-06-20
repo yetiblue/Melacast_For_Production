@@ -71,6 +71,37 @@ def stripe_webhook(request):
         print(product.name)
 
         Actors.objects.filter(user=user).update(group=product.name)
+        Actors.objects.filter(user=user).update(paid_listing=True)
+
+        # print(product.objects.all())
+    return HttpResponse(status=200)
+
+
+@csrf_exempt
+def paid_listing_webhook(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    endpoint_secret = settings.STRIPE_ENDPOINT_SECRET
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+    except ValueError as e:
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        return HttpResponse(status=400)
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+
+        client_reference_id = session.get('client_reference_id')
+
+        user = User.objects.get(id=client_reference_id)
+        print(user, "user")
+
+        Actors.objects.filter(user=user).update(paid_listing=True)
+
         # print(product.objects.all())
     return HttpResponse(status=200)
 

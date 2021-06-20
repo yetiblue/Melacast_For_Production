@@ -37,6 +37,8 @@ urlpatterns = [
     # path('newcustomer/', views.add_new_customer),
     # path('products/', views.products),
     path('webhook/', views.stripe_webhook),
+    path('listinghook/', views.paid_listing_webhook)
+
 
     # path('auth/users/',include('')
 

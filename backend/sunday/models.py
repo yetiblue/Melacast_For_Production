@@ -106,7 +106,8 @@ class Actors(models.Model):
         (Writers, 'Writers'),
 
     )
-
+    paid_listing = models.CharField(
+        max_length=6,  default=False, null=True)
     group = models.CharField(
         max_length=50, choices=Group_choices, default="none", null=True)
     city_location = models.CharField(
