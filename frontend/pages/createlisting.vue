@@ -14,7 +14,7 @@
         :clientReferenceId="clientReference"
       />
 
-      <v-row v-if="!secondPage && !fourthPage && !thirdPage">
+      <v-row v-if="!secondPage && !fourthPage && !thirdPage && !displayFifth">
         <v-spacer></v-spacer>
         <v-col class="px-10 px-sm-0" lg="6" cols="12" sm="8">
           <v-card
@@ -42,6 +42,14 @@
                   <div>Project Logline</div>
                 </template>
               </v-textarea>
+            </v-col>
+            <v-col cols="12" sm="8">
+              <v-text-field
+                outlined
+                justify="center"
+                v-model="form.studio"
+                label="Production Studio"
+              ></v-text-field>
             </v-col>
             <v-col class="ml-lg-4" outlined style="height=10vh" cols="12" sm="12">
               <v-card class="pl-md-16 ml-lg-16 ml-md-10 ml-sm-16 pl-sm-2" elevation="0">
@@ -339,7 +347,7 @@
 
                 <v-img
                   :aspect-ratio="16/9"
-                  class="mb-lg-6 ml-sm-2"
+                  class="mb-lg-6 ml-sm-4 ml-lg-10"
                   max-height="310px"
                   :width="galleryPreviewWidth"
                   v-if="galleryPhotoSelected"
@@ -626,10 +634,29 @@
             class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
             elevation="0"
           >
+            <v-img class="grey mr-lg-6" :aspect-ratio="16/9" :src="selectedGalleryPhoto">
+              <v-row height="200px" class="mt-lg-12 align-center justify-center">
+                <v-card-title class="mt-lg-16 pt-lg-16" v-if="hasPoster">{{displayPosterName }}</v-card-title>
+              </v-row>
+            </v-img>
+          </v-card>
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
             <v-card-title class="justify-start text-lg-h5">
               <b>Movie Title</b>
             </v-card-title>
             <v-card-subtitle>{{form.title}}</v-card-subtitle>
+          </v-card>
+          <v-card
+            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            elevation="0"
+          >
+            <v-card-title class="justify-start text-lg-h5">
+              <b>Production Studio</b>
+            </v-card-title>
+            <v-card-subtitle>{{form.studio}}</v-card-subtitle>
           </v-card>
           <v-card
             class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
@@ -744,11 +771,13 @@
             </v-col>
             <v-col cols="4">
               <v-btn
+                v-if="!showPayButton"
                 class="brown white--text ml-n2 ml-sm-n16"
                 style="margin-top: 50px;"
                 @click="submitForm"
               >Post</v-btn>
               <v-btn
+                v-else
                 class="brown white--text ml-n2 ml-sm-n16"
                 style="margin-top: 50px;"
                 @click="setPrice(`price_1J4RHBIXVRhKifjK2imEv2pg`)"
@@ -760,15 +789,27 @@
           <v-spacer></v-spacer>
         </v-col>
       </v-row>
-      <v-row v-if="displayFifth">
+      <v-row class="align-center" v-if="displayFifth">
         <v-spacer></v-spacer>
-        <v-col cols="6">
+        <v-col lg="6" cols="12">
           <!-- {{returnedForm.crew_positions}} -->
-          <v-card elevation="0">
-            <v-btn block class="ma-2" height="500px">
+          <v-card class="mt-n10" outlined elevation="0">
+            <v-btn text block class="ma-2" height="500px">
               <v-icon x-large dark right>mdi-checkbox-marked-circle</v-icon>
               <v-card-title>Listing Successfully Submitted</v-card-title>
+
+              <v-card-actions></v-card-actions>
             </v-btn>
+            <v-row>
+              <v-spacer></v-spacer>
+              <v-col cols="6">
+                <v-btn text @click="submitForm();finishListing()">View Your Submitted Listings</v-btn>
+              </v-col>
+              <v-col cols="4">
+                <v-btn text @click="submitForm();submitAnotherListing()">Submit Another Listing</v-btn>
+              </v-col>
+              <v-spacer></v-spacer>
+            </v-row>
           </v-card>
         </v-col>
         <v-spacer></v-spacer>
@@ -808,10 +849,24 @@ export default {
       let clientID = this.$store.getters.loggedInUser.id;
       return clientID.toString();
     },
+    showPayButton() {
+      if (this.sortedActorsOldestFirst[0].paid_listing == "false") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    sortedActorsOldestFirst() {
+      return this.actors
+        .map(sortedActor => sortedActor)
+        .sort((a, b) => a.id - b.id);
+    },
     displayFifth() {
-      if (this.actors.return_to_page == "True") {
+      if (this.sortedActorsOldestFirst[0].return_to_page == "True") {
         return true;
         console.log("true fifth");
+      } else {
+        return false;
       }
     },
     memberListings() {
@@ -891,6 +946,33 @@ export default {
     }
   },
   methods: {
+    submitAnotherListing(store, loggedInUser) {
+      let formData = new FormData();
+      this.sortedActorsOldestFirst[0].return_to_page = false;
+      this.sortedActorsOldestFirst[0].paid_listing = false;
+      formData.append(
+        "return_to_page",
+        this.sortedActorsOldestFirst[0].return_to_page
+      );
+      formData.append(
+        "paid_listing",
+        this.sortedActorsOldestFirst[0].paid_listing
+      );
+      this.$axios
+        .patch(
+          `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
+          formData
+        )
+        .then(response => {
+          console.log("Successfully Reset success submit");
+          this.$router.push(`/createlisting`);
+        })
+        .catch(error => {
+          if (error) {
+            this.showSubmitError = true;
+          }
+        });
+    },
     checkout() {
       this.$refs.checkoutRef.redirectToCheckout();
       console.log(this.lineItems[0].price, "priceID");
@@ -918,6 +1000,8 @@ export default {
       this.hasPoster = true;
       this.posterUploaded = true;
       this.galleryPhotoSelected = false;
+      this.selectedGalleryPhoto = null;
+
       this.displayPosterName = this.poster[0].name;
     },
     generatePosterFromComponent(thumbID) {
@@ -930,6 +1014,9 @@ export default {
       console.log(thumbID, "thumbID");
       this.selectedGalleryPhoto = thumbID;
       console.log(this.selectedGalleryPhoto, "selectedGallery");
+      this.hasPoster = false;
+      this.displayPosterName = null;
+
       this.closeGallery();
     },
     filmRoleGalleryPhoto(thumbnailID) {
@@ -951,7 +1038,32 @@ export default {
     },
     finishListing() {
       //After submitting basic information and the roles
-      this.$router.push(`/applications`);
+
+      let formData = new FormData();
+      this.sortedActorsOldestFirst[0].return_to_page = false;
+      this.sortedActorsOldestFirst[0].paid_listing = false;
+      formData.append(
+        "return_to_page",
+        this.sortedActorsOldestFirst[0].return_to_page
+      );
+      formData.append(
+        "paid_listing",
+        this.sortedActorsOldestFirst[0].paid_listing
+      );
+      this.$axios
+        .patch(
+          `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
+          formData
+        )
+        .then(response => {
+          console.log("Successfully Reset success submit");
+          this.$router.push(`/applications`);
+        })
+        .catch(error => {
+          if (error) {
+            this.showSubmitError = true;
+          }
+        });
     },
 
     submitForm() {
@@ -986,7 +1098,7 @@ export default {
           )
           .then(response => {
             console.log("Successfully Created New Listing");
-            this.finishListing();
+            this.$router.push("/applications");
           })
           .catch(error => {
             if (error) {
