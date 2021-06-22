@@ -45,9 +45,16 @@
         >
           <template #submitApplicationSlot>
             <v-card class="px-16 px-sm-0" v-if="!secondCard" dark>
-              <v-card-title
-                class="text-caption text-sm-h6"
-              >The Directors Will Be Able to View Your Profile Also</v-card-title>
+              <v-row>
+                <v-col lg="10">
+                  <v-card-title
+                    class="text-caption text-sm-h6"
+                  >The Directors Will Be Able to View Your Profile Also</v-card-title>
+                </v-col>
+                <v-col class="ml-lg-10" lg="1">
+                  <v-btn text @click="closeModal">X</v-btn>
+                </v-col>
+              </v-row>
               <v-form @submit.prevent="submitApplication()">
                 <v-row class="pl-lg-9 px-sm-10">
                   <v-col cols="12">

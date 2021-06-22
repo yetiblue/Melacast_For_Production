@@ -6,10 +6,10 @@
         <v-btn block text @click.prevent="chooseType(personals)">Personal Projects</v-btn>
       </v-col>
       <v-col cols="12" sm="3">
-        <v-btn block text @click.prevent="chooseType(listings)">Listings</v-btn>
+        <v-btn block text @click.prevent="chooseType(listings)">Cover Photos</v-btn>
       </v-col>
       <v-col cols="12" sm="3">
-        <v-btn block text @click.prevent="chooseType(roles)">Roles</v-btn>
+        <v-btn block text @click.prevent="chooseType(roles)">Role Templates</v-btn>
       </v-col>
       <v-col cols="12" sm="3">
         <v-btn block text @click="getThumbnails()" elevation="0">All</v-btn>

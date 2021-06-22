@@ -55,7 +55,7 @@
               <v-card class="pl-md-16 ml-lg-16 ml-md-10 ml-sm-16 pl-sm-2" elevation="0">
                 <v-card-title
                   v-if="!posterUploaded"
-                  class="text-md-subtitle-1 ml-n4 ml-sm-0 text-subtitle-2"
+                  class="text-md-h6 ml-n4 ml-sm-0 text-subtitle-2"
                 >Upload a project banner or choose one from our gallery</v-card-title>
                 <v-card-title
                   v-if="!hideUploadName"
@@ -1235,7 +1235,7 @@ export default {
       successUrl: "http://localhost:3000/createlisting",
       cancelUrl: "http://localhost:3000",
       timeCommit: ["Fulltime", "Part time"],
-      payStatus: ["Paid", "Volunteer"],
+      payStatus: ["Paid", "Unpaid"],
       secondPage: false,
       thirdPage: false,
       fourthPage: false,

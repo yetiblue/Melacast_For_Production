@@ -40,7 +40,12 @@
       <template>
         <GridComponent>
           <template #navButtonOne>
-            <v-btn v-if="!filterClicked" @click="showFilters('open')" text>Filters</v-btn>
+            <v-btn
+              class="mb-sm-6 mb-md-0"
+              v-if="!filterClicked"
+              @click="showFilters('open')"
+              text
+            >Filters</v-btn>
             <v-btn v-else @click="showFilters('close')" text>Close</v-btn>
           </template>
           <template #cardSlot>
@@ -99,8 +104,8 @@ export default {
   data() {
     return {
       filterClicked: false,
-      jobTypes: ["", "Part time", "Fulltime"],
-      statuses: ["", "Paid", "Volunteer"],
+
+      statuses: ["", "Paid", "Unpaid"],
       genres: [
         "",
         "Animation",

@@ -85,7 +85,7 @@ class Actors(models.Model):
     date_joined = models.CharField(max_length=50, default="none", null=True)
 
     age_range = models.CharField(max_length=50, default="none", null=False)
-    Directors = 'Directors'
+    Directors = 'Directors/Producers'
     Actors = 'Actors'
     Crew = 'Crew'
     Dancers = 'Dancers'

@@ -155,14 +155,26 @@ export default {
       filterClicked: false,
       professions: [
         "",
-        "Directors",
+        "Directors/Producers",
         "Actors",
         "Dancers",
         "Writers",
         "Photographer",
         "Post Production",
         "Makeup Artist",
-        "Production"
+        "Production",
+        { divider: "true", header: "Production" },
+        "Art",
+        "Camera",
+        "Lighting",
+        "Sound",
+        "HMU",
+        { divider: "true", header: "Post Production" },
+        "Editor",
+        "Color",
+        "Sound",
+        "VFX",
+        "Animator"
       ],
       ethnicities: [
         "",
