@@ -25,6 +25,8 @@ router.register('acceptedroles', views.AcceptedRolesViewSet)
 router.register('declinedroles', views.DeclinedRolesViewSet)
 router.register('thumbnails', views.ThumbnailsViewSet)
 router.register('crewcards', views.CrewCardsViewSet)
+router.register('productionroles', views.ProductionRolesViewSet)
+router.register('postproductionroles', views.PostProductionRolesViewSet)
 
 
 urlpatterns = [

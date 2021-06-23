@@ -8,14 +8,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
 
 
-from .models import Actors, WritingSamples, crewCards, Reel, Listings, User_applications, Directors, User, DirectorApps, Memberlistings, Notifications, PersonalProjects, MemberActors, Photos, FilmRoles, StripeCustomer, AcceptedRoles, DeclinedRoles, Thumbnails
+from .models import Actors, WritingSamples, crewCards, Reel, Listings, User_applications, PostProductionRoles, ProductionRoles, Directors, User, DirectorApps, Memberlistings, Notifications, PersonalProjects, MemberActors, Photos, FilmRoles, StripeCustomer, AcceptedRoles, DeclinedRoles, Thumbnails
 from rest_framework import viewsets
 from django.views import View
 from django.http.response import JsonResponse, HttpResponse  # updated
 from django.conf import settings
 
 from url_filter.integrations.drf import DjangoFilterBackend
-from .serializers import ActorSerializer, CrewCardsSerializer, WritingSamplesSerializer, ReelSerializer, ListingsSerializer, UserappsSerializer, DirectorSerializer, UserSerializer, DirectorAppsSerializer, NotificationsSerializer, MemberlistingsSerializer, MemberActorsSerializer, PersonalProjectsSerializer, PhotosSerializer, FilmRolesSerializer, stripeCustomerSerializer, AcceptedRolesSerializer, DeclinedRolesSerializer, ThumbnailsSerializer
+from .serializers import ActorSerializer, PostProductionRolesSerializer, ProductionRolesSerializer, CrewCardsSerializer, WritingSamplesSerializer, ReelSerializer, ListingsSerializer, UserappsSerializer, DirectorSerializer, UserSerializer, DirectorAppsSerializer, NotificationsSerializer, MemberlistingsSerializer, MemberActorsSerializer, PersonalProjectsSerializer, PhotosSerializer, FilmRolesSerializer, stripeCustomerSerializer, AcceptedRolesSerializer, DeclinedRolesSerializer, ThumbnailsSerializer
 
 
 # def add_new_customer(request):
@@ -112,6 +112,24 @@ class ThumbnailsViewSet(viewsets.ModelViewSet):
     model = Thumbnails
     queryset = Thumbnails.objects.all()
     serializer_class = ThumbnailsSerializer
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = '__all__'
+
+
+class ProductionRolesViewSet(viewsets.ModelViewSet):
+    permission_classes = (CustomDjangoModelPermissions, )
+    model = ProductionRoles
+    queryset = ProductionRoles.objects.all()
+    serializer_class = ProductionRolesSerializer
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = '__all__'
+
+
+class PostProductionRolesViewSet(viewsets.ModelViewSet):
+    permission_classes = (CustomDjangoModelPermissions, )
+    model = PostProductionRoles
+    queryset = PostProductionRoles.objects.all()
+    serializer_class = PostProductionRolesSerializer
     filter_backends = [DjangoFilterBackend]
     filter_fields = '__all__'
 

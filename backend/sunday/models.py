@@ -335,6 +335,11 @@ class Listings(models.Model):
     random_public_id = models.CharField(max_length=100, null=True)
     date_submitted = models.CharField(max_length=200, null=True)
     tagline = models.CharField(max_length=255, null=True)
+    hasArt = models.CharField(max_length=5, null=False, default=False)
+    hasCamera = models.CharField(max_length=5, null=False, default=False)
+    hasLighting = models.CharField(max_length=5, null=False, default=False)
+    hasSound = models.CharField(max_length=5, null=False, default=False)
+    hasHMU = models.CharField(max_length=5, null=False, default=False)
 
 
 class FilmRoles(models.Model):
@@ -358,6 +363,28 @@ class FilmRoles(models.Model):
     listing_public_id = models.CharField(
         max_length=200, default="Open", null=True)
     date_submitted = models.CharField(
+        max_length=200, default="Open", null=True)
+
+
+class ProductionRoles(models.Model):
+
+    role_name = models.CharField(
+        max_length=100, default="Did not enter a Name", null=True)
+    tag = models.CharField(
+        max_length=10, default="", null=True)
+
+    listing_public_id = models.CharField(
+        max_length=200, default="Open", null=True)
+
+
+class PostProductionRoles(models.Model):
+
+    role_name = models.CharField(
+        max_length=100, default="Did not enter a Name", null=True)
+    tag = models.CharField(
+        max_length=10, default="", null=True)
+
+    listing_public_id = models.CharField(
         max_length=200, default="Open", null=True)
 
 

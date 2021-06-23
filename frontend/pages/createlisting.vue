@@ -509,49 +509,17 @@
           <v-row class="pr-10">
             <v-spacer></v-spacer>
 
-            <v-col outlined style="height=10vh" cols="8" sm="4">
-              <v-checkbox value="AC" v-model="form.crew_positions" label="AC" />
-              <v-checkbox value="AD" v-model="form.crew_positions" label="AD" />
-              <v-checkbox
-                value="Boom Operator"
-                v-model="form.crew_positions"
-                label="Boom Operator"
-              />
-              <v-checkbox value="Composer" v-model="form.crew_positions" label="Composer" />
-              <v-checkbox
-                value="Costume Design"
-                v-model="form.crew_positions"
-                label="Costume Design"
-              />
+            <v-col outlined style="height=10vh" cols="8" sm="10">
+              <v-checkbox value="true" v-model="hasArt" label="Art Team" />
+              <v-text-field v-model="productionRoles.role_name" />
+              <v-btn @click="addProduction(art)">Add</v-btn>
+              <v-card-subtitle
+                v-for="returnedProduction in returnedProductionRoles"
+                :key="returnedProduction.id"
+              >{{returnedProduction.role_name}}</v-card-subtitle>
 
-              <v-checkbox value="DP" v-model="form.crew_positions" label="DP" />
-              <v-checkbox value="Gaffer" v-model="form.crew_positions" label="Gaffer" />
-              <v-checkbox value="Grip" v-model="form.crew_positions" label="Grip" />
-              <v-checkbox value="HMU" v-model="form.crew_positions" label="HMU" />
-              <v-checkbox value="PA" v-model="form.crew_positions" label="PA" />
-            </v-col>
-            <v-col outlined style="height=10vh" cols="4" sm="6">
-              <v-checkbox
-                value="Pass Van Driver"
-                v-model="form.crew_positions"
-                label="Pass Van Driver"
-              />
-              <v-checkbox value="Photographer" v-model="form.crew_positions" label="Photographer" />
-              <v-checkbox
-                value="Sound Wrangler"
-                v-model="form.crew_positions"
-                label="Sound Wrangler"
-              />
-
-              <v-checkbox value="Sound Mixer" v-model="form.crew_positions" label="Sound Mixer" />
-              <v-checkbox value="UPM" v-model="form.crew_positions" label="UPM" />
-
-              <v-checkbox
-                value="Script Supervising"
-                v-model="form.crew_positions"
-                label="Script Supervising"
-              />
-              <v-spacer></v-spacer>
+              <v-checkbox value="true" v-model="hasCamera" label="Camera Team" />
+              <v-text-field v-model="form.crew_positions" />
             </v-col>
           </v-row>
           <v-card
@@ -1191,6 +1159,36 @@ export default {
           console.log(error);
         });
     },
+    displayReturnedProductionRoles() {
+      // Return all previous roles after each new role is submitted. Keeps a running list
+      this.$axios
+        .get(`/api/v1/productionroles/`, {
+          params: {
+            listing_public_id: this.form.random_public_id
+          }
+        })
+        .then(response => {
+          this.returnedProductionRoles = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    displayReturnedPostProductionRoles() {
+      // Return all previous roles after each new role is submitted. Keeps a running list
+      this.$axios
+        .get(`/api/v1/postproductionroles/`, {
+          params: {
+            listing_public_id: this.form.random_public_id
+          }
+        })
+        .then(response => {
+          this.returnedPostProductionRoles = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     deleteRole(roleID, $axios) {
       // Allows for deletion of a role from the returned list of all roles
       let deletionID = roleID;
@@ -1198,6 +1196,22 @@ export default {
       //called twice so that the delte button deletes, and refreshes the page instead of needing 2 clicks
       this.displayReturnedRoles();
       this.displayReturnedRoles();
+    },
+    deleteProductionRole(roleID, $axios) {
+      // Allows for deletion of a role from the returned list of all roles
+      let deletionID = roleID;
+      this.$axios.delete(`/api/v1/productionroles/${deletionID}/`);
+      //called twice so that the delte button deletes, and refreshes the page instead of needing 2 clicks
+      this.displayReturnedProductionRoles();
+      this.displayReturnedProductionRoles();
+    },
+    deletePostProductionRole(roleID, $axios) {
+      // Allows for deletion of a role from the returned list of all roles
+      let deletionID = roleID;
+      this.$axios.delete(`/api/v1/postproductionroles/${deletionID}/`);
+      //called twice so that the delte button deletes, and refreshes the page instead of needing 2 clicks
+      this.displayReturnedPostProductionRoles();
+      this.displayReturnedPostProductionRoles();
     },
     addRoles($axios) {
       //  listingThatWasJustAdded array holds all listings objects. The one that was submitted before the roles
@@ -1214,6 +1228,40 @@ export default {
           this.filmRoles.role_thumbnail = null;
           this.filmRoles.listing_public_id = this.form.random_public_id;
           console.log(this.filmRoles.listing_public_id, "roles public id");
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    addProduction(tag, $axios) {
+      //  listingThatWasJustAdded array holds all listings objects. The one that was submitted before the roles
+      this.productionRoles.tag = tag;
+      this.productionRoles.listing_public_id = this.form.random_public_id;
+
+      console.log(this.productionRoles.tag, "tag");
+      this.$axios
+        .post(`/api/v1/productionroles/`, this.productionRoles)
+        .then(response => {
+          console.log("Successfully Submitted Production Role");
+          this.displayReturnedProductionRoles();
+          this.productionRoles.role_name = null; // reset the fields for the role after each one is submitted
+          this.productionRoles.tag = null;
+          this.productionRole.listing_public_id = this.form.random_public_id;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    addPostProduction($axios) {
+      //  listingThatWasJustAdded array holds all listings objects. The one that was submitted before the roles
+      this.$axios
+        .post(`/api/v1/postproductionroles/`, this.postProductionRoles)
+        .then(response => {
+          console.log("Successfully Submitted Production Role");
+          this.displayReturnedRoles();
+          this.postProductionRoles.role_name = null; // reset the fields for the role after each one is submitted
+          this.postProductionRoles.tag = null;
+          this.postProductionRole.listing_public_id = this.form.random_public_id;
         })
         .catch(error => {
           console.log(error);
@@ -1322,6 +1370,10 @@ export default {
         "Native American/Alaskan Native",
         "Middle Eastern"
       ],
+      art: "art",
+      camera: "camera",
+      lighting: "lighting",
+      sound: "sound",
       hasPoster: false,
       selectedGalleryPhoto: null,
       hasPermission: true,
@@ -1330,6 +1382,8 @@ export default {
       actors: [],
       posterUploaded: false,
       displayPosterName: null,
+      returnedProductionRoles: [],
+      returnedPostProductionRoles: [],
       form: {
         title: null,
         start_date: null,
@@ -1342,8 +1396,8 @@ export default {
         status: null,
         job_type: null,
         user: this.$store.getters.loggedInUser.id,
-        post_production_positions: [],
-        crew_positions: [],
+        // post_production_positions: [],
+        // crew_positions: [],
         director_email: null,
         random_public_id: null,
         date_submitted: null
@@ -1358,9 +1412,15 @@ export default {
         listing_public_id: null,
         role_thumbnail: null
       },
-      positionsForm: {
-        post_production_positions: [],
-        crew_positions: []
+      productionRoles: {
+        role_name: null,
+        tag: null,
+        listing_public_id: null
+      },
+      postProductionRoles: {
+        role_name: null,
+        tag: null,
+        listing_public_id: null
       },
       returnedFilmRoles: [],
       listingSubmitted: false,
