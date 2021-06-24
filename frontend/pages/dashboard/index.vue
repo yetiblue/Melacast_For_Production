@@ -277,9 +277,13 @@ export default {
             console.log("GET REQUEST WENT AWRY");
           });
       }
-      if (this.actor[0].group == "Crew") {
+      if (this.actor[0].group == "Art") {
         this.$axios
-          .get("/api/v1/listings/")
+          .get("/api/v1/listings/", {
+            params: {
+              hasArt: "True"
+            }
+          })
           .then(response => {
             this.crewRoles = response.data;
             this.isCrew = true;
@@ -289,9 +293,148 @@ export default {
             console.log("GET REQUEST WENT AWRY");
           });
       }
-      if (this.actor[0].group == "Post Production") {
+      if (this.actor[0].group == "Camera") {
+        this.$axios
+          .get("/api/v1/listings/", {
+            params: {
+              hasCamera: "True"
+            }
+          })
+          .then(response => {
+            this.crewRoles = response.data;
+            this.isCrew = true;
+            // this.sortedArray(); //random array
+          })
+          .catch(error => {
+            console.log("GET REQUEST WENT AWRY");
+          });
+      }
+      if (this.actor[0].group == "Lighting") {
+        this.$axios
+          .get("/api/v1/listings/", {
+            params: {
+              hasLighting: "True"
+            }
+          })
+          .then(response => {
+            this.crewRoles = response.data;
+            this.isCrew = true;
+            // this.sortedArray(); //random array
+          })
+          .catch(error => {
+            console.log("GET REQUEST WENT AWRY");
+          });
+      }
+      if (this.actor[0].group == "Sound") {
+        this.$axios
+          .get("/api/v1/listings/", {
+            params: {
+              hasSound: "True"
+            }
+          })
+          .then(response => {
+            this.crewRoles = response.data;
+            this.isCrew = true;
+            // this.sortedArray(); //random array
+          })
+          .catch(error => {
+            console.log("GET REQUEST WENT AWRY");
+          });
+      }
+      if (this.actor[0].group == "HMU") {
+        this.$axios
+          .get("/api/v1/listings/", {
+            params: {
+              hasHMU: "True"
+            }
+          })
+          .then(response => {
+            this.crewRoles = response.data;
+            this.isCrew = true;
+            // this.sortedArray(); //random array
+          })
+          .catch(error => {
+            console.log("GET REQUEST WENT AWRY");
+          });
+      }
+      if (this.actor[0].group == "Editor") {
+        this.$axios
+          .get("/api/v1/listings/", {
+            params: {
+              hasEditor: "True"
+            }
+          })
+          .then(response => {
+            this.crewRoles = response.data;
+            this.isCrew = true;
+            this.isPostProduction = true;
+            // this.sortedArray(); //random array
+          })
+          .catch(error => {
+            console.log("GET REQUEST WENT AWRY");
+          });
+      }
+      if (
+        (this.actor[0].group == "Color",
+        {
+          params: {
+            hasEditor: "True"
+          }
+        })
+      ) {
         this.$axios
           .get("/api/v1/listings/")
+          .then(response => {
+            this.crewRoles = response.data;
+            this.isCrew = true;
+            this.isPostProduction = true;
+            // this.sortedArray(); //random array
+          })
+          .catch(error => {
+            console.log("GET REQUEST WENT AWRY");
+          });
+      }
+      if (this.actor[0].group == "Sound") {
+        this.$axios
+          .get("/api/v1/listings/", {
+            params: {
+              hasSound: "True"
+            }
+          })
+          .then(response => {
+            this.crewRoles = response.data;
+            this.isCrew = true;
+            this.isPostProduction = true;
+            // this.sortedArray(); //random array
+          })
+          .catch(error => {
+            console.log("GET REQUEST WENT AWRY");
+          });
+      }
+      if (this.actor[0].group == "VFX") {
+        this.$axios
+          .get("/api/v1/listings/", {
+            params: {
+              hasVFX: "True"
+            }
+          })
+          .then(response => {
+            this.crewRoles = response.data;
+            this.isCrew = true;
+            this.isPostProduction = true;
+            // this.sortedArray(); //random array
+          })
+          .catch(error => {
+            console.log("GET REQUEST WENT AWRY");
+          });
+      }
+      if (this.actor[0].group == "Animator") {
+        this.$axios
+          .get("/api/v1/listings/", {
+            params: {
+              hasAnimator: "True"
+            }
+          })
           .then(response => {
             this.crewRoles = response.data;
             this.isCrew = true;
