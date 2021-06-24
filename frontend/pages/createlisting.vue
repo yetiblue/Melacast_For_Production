@@ -536,7 +536,7 @@
                   v-model="productionRoles.tag"
                   label="Select Team This Position Belongs To"
                 ></v-select>
-                <v-btn text outlined @click="addProduction()">Add</v-btn>
+                <v-btn class="brown white--text" text outlined @click="addProduction()">Add</v-btn>
               </v-col>
             </v-col>
           </v-row>
@@ -580,7 +580,12 @@
                   label="Select Team This Position Belongs To"
                 ></v-select>
               </v-col>
-              <v-btn class="mb-lg-10" text outlined @click="addPostProduction()">Add</v-btn>
+              <v-btn
+                class="mb-lg-10 brown white--text"
+                text
+                outlined
+                @click="addPostProduction()"
+              >Add</v-btn>
             </v-col>
           </v-row>
           <v-row justify="center">
@@ -718,13 +723,22 @@
             <v-card-title class="justify-start mb-lg-2 text-lg-h5">
               <b>Production</b>
             </v-card-title>
-            <v-card-subtitle
-              class="text-lg-subtitle-1 mb-lg-n8"
-              v-for="production in form.crew_positions"
-              :key="production"
-            >
-              <b>{{production}}</b>
-            </v-card-subtitle>
+            <v-row>
+              <v-card-subtitle
+                v-for="productionRole in returnedProductionRoles"
+                :key="productionRole.id"
+              >
+                <GridComponent>
+                  <template #cardSlot>
+                    <v-card class="ml-lg-n5 pr-lg-10 mr-lg-12" elevation="0">
+                      <v-card-title>{{productionRole.role_name}} | {{productionRole.tag}}</v-card-title>
+                    </v-card>
+
+                    <v-spacer></v-spacer>
+                  </template>
+                </GridComponent>
+              </v-card-subtitle>
+            </v-row>
           </v-card>
           <v-card
             class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
@@ -733,13 +747,22 @@
             <v-card-title class="justify-start mb-lg-2 text-lg-h5">
               <b>Post Production</b>
             </v-card-title>
-            <v-card-subtitle
-              class="text-lg-subtitle-1 mb-lg-n8"
-              v-for="postProduction in form.post_production_positions"
-              :key="postProduction"
-            >
-              <b>{{postProduction}}</b>
-            </v-card-subtitle>
+            <v-row>
+              <v-card-subtitle
+                v-for="postProductionRole in returnedPostProductionRoles"
+                :key="postProductionRole.id"
+              >
+                <GridComponent>
+                  <template #cardSlot>
+                    <v-card class="ml-lg-n5 pr-lg-10 mr-lg-12" elevation="0">
+                      <v-card-title>{{postProductionRole.role_name}} | {{postProductionRole.tag}}</v-card-title>
+                    </v-card>
+
+                    <v-spacer></v-spacer>
+                  </template>
+                </GridComponent>
+              </v-card-subtitle>
+            </v-row>
           </v-card>
         </v-col>
         <v-spacer></v-spacer>
