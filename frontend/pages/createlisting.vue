@@ -505,66 +505,82 @@
               <b>Production</b>
             </v-card-title>
             <v-card-subtitle>(Check all that apply).</v-card-subtitle>
+
+            <v-card-subtitle
+              v-for="returnedProduction in returnedProductionRoles"
+              :key="returnedProduction.id"
+            >{{returnedProduction.role_name}}</v-card-subtitle>
           </v-card>
           <v-row class="pr-10">
             <v-spacer></v-spacer>
 
             <v-col outlined style="height=10vh" cols="8" sm="10">
-              <v-checkbox value="true" v-model="hasArt" label="Art Team" />
-              <v-text-field v-model="productionRoles.role_name" />
-              <v-btn @click="addProduction(art)">Add</v-btn>
-              <v-card-subtitle
-                v-for="returnedProduction in returnedProductionRoles"
-                :key="returnedProduction.id"
-              >{{returnedProduction.role_name}}</v-card-subtitle>
-
-              <v-checkbox value="true" v-model="hasCamera" label="Camera Team" />
-              <v-text-field v-model="form.crew_positions" />
+              <v-checkbox color="brown" value="True" v-model="form.hasArt" label="Art Team" />
+              <v-checkbox color="brown" value="true" v-model="form.hasCamera" label="Camera Team" />
+              <v-checkbox
+                color="brown"
+                value="true"
+                v-model="form.hasLighting"
+                label="Lighting Team"
+              />
+              <v-checkbox color="brown" value="true" v-model="form.hasSound" label="Sound Team" />
+              <v-checkbox color="brown" value="true" v-model="form.hasHMU" label="HMU Team" />
+              <v-col class="ml-lg-n2" cols="10">
+                <v-text-field
+                  class="mt-lg-6"
+                  label="Position Name"
+                  v-model="productionRoles.role_name"
+                />
+                <v-select
+                  :items="teams"
+                  v-model="productionRoles.tag"
+                  label="Select Team This Position Belongs To"
+                ></v-select>
+                <v-btn text outlined @click="addProduction()">Add</v-btn>
+              </v-col>
             </v-col>
           </v-row>
           <v-card
-            class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
+            class="mb-lg-10 mt-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
             elevation="0"
           >
             <v-card-title class="text-subtitle-1 justify-start">
               <b>Post Production</b>
             </v-card-title>
             <v-card-subtitle>(Check all that apply).</v-card-subtitle>
+            <v-card-subtitle
+              v-for="returnedPostProduction in returnedPostProductionRoles"
+              :key="returnedPostProduction.id"
+            >{{returnedPostProduction.role_name}}</v-card-subtitle>
           </v-card>
           <v-row class="pr-10">
             <v-spacer></v-spacer>
 
-            <v-col outlined style="height=10vh" cols="8" sm="4">
+            <v-col outlined style="height=10vh" cols="8" sm="10">
               <v-checkbox value="Editing" v-model="form.post_production_positions" label="Editing" />
+              <v-checkbox color="brown" value="true" v-model="form.hasEditor" label="Editor Team" />
+              <v-checkbox color="brown" value="true" v-model="form.hasColor" label="Color Team" />
+              <v-checkbox color="brown" value="true" v-model="form.hasSound" label="Sound Team" />
+              <v-checkbox color="brown" value="true" v-model="form.hasVFX" label="VFX Team" />
               <v-checkbox
-                value="Sound Mixer"
-                v-model="form.post_production_positions"
-                label="Sound Mixer"
+                color="brown"
+                value="true"
+                v-model="form.hasAnimator"
+                label="Animation Team"
               />
-              <v-checkbox
-                value="Music Composer"
-                v-model="form.post_production_positions"
-                label="Music Composer"
-              />
-              <v-checkbox
-                value="Audio Engineer"
-                v-model="form.post_production_positions"
-                label="Audio Engineer"
-              />
-            </v-col>
-            <v-col outlined style="height=10vh" cols="4" sm="6">
-              <v-checkbox
-                value="Sound Editor"
-                v-model="form.post_production_positions"
-                label="Sound Editor"
-              />
-              <v-checkbox
-                value="Producer"
-                v-model="form.post_production_positions"
-                label="Producer"
-              />
-
-              <v-spacer></v-spacer>
+              <v-col class="ml-lg-n2" cols="10">
+                <v-text-field
+                  class="mt-lg-6"
+                  label="Position Name"
+                  v-model="postProductionRoles.role_name"
+                />
+                <v-select
+                  :items="postTeams"
+                  v-model="postProductionRoles.tag"
+                  label="Select Team This Position Belongs To"
+                ></v-select>
+              </v-col>
+              <v-btn class="mb-lg-10" text outlined @click="addPostProduction()">Add</v-btn>
             </v-col>
           </v-row>
           <v-row justify="center">
@@ -1233,12 +1249,10 @@ export default {
           console.log(error);
         });
     },
-    addProduction(tag, $axios) {
+    addProduction($axios) {
       //  listingThatWasJustAdded array holds all listings objects. The one that was submitted before the roles
-      this.productionRoles.tag = tag;
       this.productionRoles.listing_public_id = this.form.random_public_id;
 
-      console.log(this.productionRoles.tag, "tag");
       this.$axios
         .post(`/api/v1/productionroles/`, this.productionRoles)
         .then(response => {
@@ -1253,15 +1267,17 @@ export default {
         });
     },
     addPostProduction($axios) {
+      this.postProductionRoles.listing_public_id = this.form.random_public_id;
+
       //  listingThatWasJustAdded array holds all listings objects. The one that was submitted before the roles
       this.$axios
         .post(`/api/v1/postproductionroles/`, this.postProductionRoles)
         .then(response => {
           console.log("Successfully Submitted Production Role");
-          this.displayReturnedRoles();
+          this.displayReturnedPostProductionRoles();
           this.postProductionRoles.role_name = null; // reset the fields for the role after each one is submitted
           this.postProductionRoles.tag = null;
-          this.postProductionRole.listing_public_id = this.form.random_public_id;
+          this.postProductionRoles.listing_public_id = this.form.random_public_id;
         })
         .catch(error => {
           console.log(error);
@@ -1290,6 +1306,8 @@ export default {
       hideUploadName: false,
       galleryPhotoSelected: false,
       dialog: false,
+      teams: ["Art", "Camera", "Lighting", "Sound", "Hmu"],
+      postTeams: ["Editor", "Color", "Sound", "VFX", "Animator"],
       professions: [
         "",
         "Directors",
@@ -1370,10 +1388,7 @@ export default {
         "Native American/Alaskan Native",
         "Middle Eastern"
       ],
-      art: "art",
-      camera: "camera",
-      lighting: "lighting",
-      sound: "sound",
+
       hasPoster: false,
       selectedGalleryPhoto: null,
       hasPermission: true,
@@ -1400,7 +1415,17 @@ export default {
         // crew_positions: [],
         director_email: null,
         random_public_id: null,
-        date_submitted: null
+        date_submitted: null,
+        hasArt: false,
+        hasCamera: false,
+        hasLighting: false,
+        hasSound: false,
+        hasHMU: false,
+        hasEditor: false,
+        hasColor: false,
+        hasSound: false,
+        hasVFX: false,
+        hasAnimator: false
       },
       filmRoles: {
         role_name: null,

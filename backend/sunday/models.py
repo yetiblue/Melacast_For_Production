@@ -340,6 +340,11 @@ class Listings(models.Model):
     hasLighting = models.CharField(max_length=5, null=False, default=False)
     hasSound = models.CharField(max_length=5, null=False, default=False)
     hasHMU = models.CharField(max_length=5, null=False, default=False)
+    hasEditor = models.CharField(max_length=5, null=False, default=False)
+    hasColor = models.CharField(max_length=5, null=False, default=False)
+    hasSound = models.CharField(max_length=5, null=False, default=False)
+    hasVFX = models.CharField(max_length=5, null=False, default=False)
+    hasAnimator = models.CharField(max_length=5, null=False, default=False)
 
 
 class FilmRoles(models.Model):
