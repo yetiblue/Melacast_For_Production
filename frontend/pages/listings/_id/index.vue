@@ -27,7 +27,7 @@
         <v-col cols="12" sm="8">
           <v-card flat class="ml-12 ml-md-16 pl-md-16">
             <div :style="descriptionPaddingLeft">
-              <v-card-title>Project Description {{productionRoles}} {{rolesForForm}}</v-card-title>
+              <v-card-title>Project Description {{rolesForForm}}</v-card-title>
 
               <v-card-text>{{listings.overview}}</v-card-text>
               <v-card-subtitle>Casting Info:</v-card-subtitle>
@@ -109,7 +109,7 @@
           <v-card flat class="ml-12 ml-sm-16 mt-5">
             <v-btn
               :width="buttonWidth"
-              @click="showModal();createCrewArray()"
+              @click="showModal()"
               class="ml-3 brown white--text"
             >Apply Now</v-btn>
             <v-card-title class="text-subtitle-1">Crew Needed:</v-card-title>
@@ -117,18 +117,18 @@
               <b>Production</b>
             </v-card-title>
             <v-card-text
-              v-for="splitCrew in splitCrewPositions"
+              v-for="splitCrew in productionRoles"
               :key="splitCrew.id"
               class="mt-n2 mb-n8 text-subtitle-2"
-            >-{{splitCrew}}</v-card-text>
+            >-{{splitCrew.role_name}}</v-card-text>
             <v-card-title class="mt-4 text-sm-subtitle-2 text-md-subtitle-1">
               <b>Post Production</b>
             </v-card-title>
             <v-card-text
-              v-for="splitPost in  splitPostProductionPositions"
+              v-for="splitPost in  postProductionRoles"
               :key="splitPost.id"
               class="mt-n2 mb-n8 text-subtitle-2"
-            >-{{splitPost}}</v-card-text>
+            >-{{splitPost.role_name}}</v-card-text>
           </v-card>
         </v-col>
       </v-row>
@@ -195,12 +195,6 @@ export default {
       }
     },
 
-    splitCrewPositions() {
-      return this.listings.crew_positions.split(","); //seperates each word into a string
-    },
-    splitPostProductionPositions() {
-      return this.listings.post_production_positions.split(",");
-    },
     currentDateTime() {
       const current = new Date();
       const date =
@@ -294,7 +288,9 @@ export default {
         console.log(roles[0], "roles");
         this.roles = roles[0];
         this.productionRoles = roles[1];
+        console.log(this.productionRoles.length, "production roles");
         this.postProductionRoles = roles[2];
+        this.createCrewArray();
       });
     },
     // getFilmRoles() {
@@ -370,6 +366,7 @@ export default {
       crewListArray: [],
       secondCard: false,
       role_names: [],
+      crew_names: [],
       applicationForm: true,
       hasPermission: true,
       applicationIsHidden: false,
