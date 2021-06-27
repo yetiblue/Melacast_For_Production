@@ -85,7 +85,7 @@ class Actors(models.Model):
     date_joined = models.CharField(max_length=50, default="none", null=True)
 
     age_range = models.CharField(max_length=50, default="none", null=False)
-    Directors = 'Directors'
+    Directors = 'Directors/Producers'
     Actors = 'Actors'
     Crew = 'Crew'
     Dancers = 'Dancers'
@@ -106,7 +106,10 @@ class Actors(models.Model):
         (Writers, 'Writers'),
 
     )
-
+    paid_listing = models.CharField(
+        max_length=6,  default=False, null=True)
+    return_to_page = models.CharField(
+        max_length=6,  default=False, null=True)
     group = models.CharField(
         max_length=50, choices=Group_choices, default="none", null=True)
     city_location = models.CharField(
@@ -288,13 +291,13 @@ class Listings(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.PROTECT, default="1")
-    title = models.TextField(max_length=300, default="")
+    title = models.TextField(max_length=300, default="", null=True)
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
-    location = models.CharField(max_length=50, default="")
-    city_location = models.CharField(max_length=100, default="")
-    overview = models.TextField(default="null")
-    studio = models.CharField(max_length=40)
+    location = models.CharField(max_length=50, default="", null=True)
+    city_location = models.CharField(max_length=100, default="", null=True)
+    overview = models.TextField(default="null", null=True)
+    studio = models.CharField(max_length=40, null=True)
     poster = models.FileField(upload_to='images/', default="///", null=True)
     crew_positions = models.TextField(
         max_length=300, default="", null=True)
@@ -332,6 +335,16 @@ class Listings(models.Model):
     random_public_id = models.CharField(max_length=100, null=True)
     date_submitted = models.CharField(max_length=200, null=True)
     tagline = models.CharField(max_length=255, null=True)
+    hasArt = models.CharField(max_length=5, null=False, default=False)
+    hasCamera = models.CharField(max_length=5, null=False, default=False)
+    hasLighting = models.CharField(max_length=5, null=False, default=False)
+    hasSound = models.CharField(max_length=5, null=False, default=False)
+    hasHMU = models.CharField(max_length=5, null=False, default=False)
+    hasEditor = models.CharField(max_length=5, null=False, default=False)
+    hasColor = models.CharField(max_length=5, null=False, default=False)
+    hasSound = models.CharField(max_length=5, null=False, default=False)
+    hasVFX = models.CharField(max_length=5, null=False, default=False)
+    hasAnimator = models.CharField(max_length=5, null=False, default=False)
 
 
 class FilmRoles(models.Model):
@@ -355,6 +368,32 @@ class FilmRoles(models.Model):
     listing_public_id = models.CharField(
         max_length=200, default="Open", null=True)
     date_submitted = models.CharField(
+        max_length=200, default="Open", null=True)
+
+
+class ProductionRoles(models.Model):
+
+    role_name = models.CharField(
+        max_length=100, default="Did not enter a Name", null=True)
+    tag = models.CharField(
+        max_length=10, default="", null=True)
+    role_status = models.CharField(
+        max_length=10, default="Open", null=True)
+
+    listing_public_id = models.CharField(
+        max_length=200, default="Open", null=True)
+
+
+class PostProductionRoles(models.Model):
+
+    role_name = models.CharField(
+        max_length=100, default="Did not enter a Name", null=True)
+    tag = models.CharField(
+        max_length=10, default="", null=True)
+    role_status = models.CharField(
+        max_length=10, default="Open", null=True)
+
+    listing_public_id = models.CharField(
         max_length=200, default="Open", null=True)
 
 

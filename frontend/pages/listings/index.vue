@@ -28,9 +28,7 @@
           <v-col>
             <v-select v-model="status" :items="statuses" label="Job Type"></v-select>
           </v-col>
-          <v-col>
-            <v-select v-model="job_type" :items="jobTypes" label="Time Commitment"></v-select>
-          </v-col>
+
           <v-col cols="2">
             <v-btn type="submit" text class="brown mt-3">Search</v-btn>
           </v-col>
@@ -38,13 +36,14 @@
       </v-form>
 
       <template>
-        <GridComponent
-          :displayGridCount="displayGridCount"
-          :gridWidth="gridWidth"
-          :sortedArrayOfListings="sortedArrayOfListings"
-        >
+        <GridComponent>
           <template #navButtonOne>
-            <v-btn v-if="!filterClicked" @click="showFilters('open')" text>Filters</v-btn>
+            <v-btn
+              class="mb-sm-6 mb-md-0"
+              v-if="!filterClicked"
+              @click="showFilters('open')"
+              text
+            >Filters</v-btn>
             <v-btn v-else @click="showFilters('close')" text>Close</v-btn>
           </template>
           <template #cardSlot>
@@ -103,14 +102,15 @@ export default {
   data() {
     return {
       filterClicked: false,
-      jobTypes: ["", "Part time", "Fulltime"],
-      statuses: ["", "Paid", "Volunteer"],
+
+      statuses: ["", "Paid", "Unpaid"],
       genres: [
         "",
         "Animation",
         "Documentary",
         "Experimental",
         "Feature",
+        "Horror",
         "Music Video",
         "Short",
         "Student",
@@ -276,20 +276,14 @@ export default {
     },
     applyFilters() {
       //////////////////////// 1 Option empty ////////////////////////////////////
-      if (
-        this.location === "" &&
-        this.status !== "" &&
-        this.genre !== "" &&
-        this.job_type !== ""
-      ) {
+      if (this.location === "" && this.status !== "" && this.genre !== "") {
         console.log("location empty");
         this.$axios
           .get(`/api/v1/listings/`, {
             params: {
               // location: this.location,
               status: this.status,
-              genre: this.genre,
-              job_type: this.job_type
+              genre: this.genre
             }
           })
           .then(response => {
@@ -301,17 +295,15 @@ export default {
       } else if (
         this.location !== "" &&
         this.status !== "" &&
-        this.genre === "" &&
-        this.job_type !== ""
+        this.genre === ""
       ) {
         console.log("genre empty");
         this.$axios
           .get(`/api/v1/listings/`, {
             params: {
               location: this.location,
-              status: this.status,
+              status: this.status
               // genre: this.genre,
-              job_type: this.job_type
             }
           })
           .then(response => {
@@ -323,8 +315,7 @@ export default {
       } else if (
         this.location !== "" &&
         this.status === "" &&
-        this.genre !== "" &&
-        this.job_type !== ""
+        this.genre !== ""
       ) {
         console.log("status empty");
         this.$axios
@@ -332,8 +323,7 @@ export default {
             params: {
               location: this.location,
               // status: this.status,
-              genre: this.genre,
-              job_type: this.job_type
+              genre: this.genre
             }
           })
           .then(response => {
@@ -345,8 +335,7 @@ export default {
       } else if (
         this.location !== "" &&
         this.status !== "" &&
-        this.genre !== "" &&
-        this.job_type === ""
+        this.genre !== ""
       ) {
         console.log("job_type empty");
         this.$axios
@@ -355,7 +344,6 @@ export default {
               location: this.location,
               status: this.status,
               genre: this.genre
-              // job_type: this.job_type
             }
           })
           .then(response => {
@@ -369,8 +357,7 @@ export default {
       else if (
         this.location === "" &&
         this.status === "" &&
-        this.genre !== "" &&
-        this.job_type === ""
+        this.genre !== ""
       ) {
         console.log("loc + status + job empty");
         this.$axios
@@ -388,8 +375,7 @@ export default {
       } else if (
         this.location === "" &&
         this.status !== "" &&
-        this.genre === "" &&
-        this.job_type === ""
+        this.genre === ""
       ) {
         console.log("loc + genre + job empty");
         this.$axios
@@ -407,8 +393,7 @@ export default {
       } else if (
         this.location !== "" &&
         this.status === "" &&
-        this.genre === "" &&
-        this.job_type === ""
+        this.genre === ""
       ) {
         console.log("status + genre + job empty");
         this.$axios
@@ -423,38 +408,17 @@ export default {
           .catch(error => {
             console.log(error);
           });
-      } else if (
-        this.location === "" &&
-        this.status === "" &&
-        this.genre === "" &&
-        this.job_type !== ""
-      ) {
-        console.log("status + genre + loc empty");
-        this.$axios
-          .get(`/api/v1/listings/`, {
-            params: {
-              job_type: this.job_type
-            }
-          })
-          .then(response => {
-            this.grabbedListings = response.data;
-          })
-          .catch(error => {
-            console.log(error);
-          });
       }
       ///////////////////// 2 Options Empty //////////////////////////
       else if (
         this.location !== "" &&
         this.status === "" &&
-        this.genre === "" &&
-        this.job_type !== ""
+        this.genre === ""
       ) {
         console.log("status + genre  empty");
         this.$axios
           .get(`/api/v1/listings/`, {
             params: {
-              job_type: this.job_type,
               location: this.location
             }
           })
@@ -467,14 +431,12 @@ export default {
       } else if (
         this.location === "" &&
         this.status === "" &&
-        this.genre !== "" &&
-        this.job_type !== ""
+        this.genre !== ""
       ) {
         console.log("status  + loc empty");
         this.$axios
           .get(`/api/v1/listings/`, {
             params: {
-              job_type: this.job_type,
               genre: this.genre
             }
           })
@@ -487,8 +449,7 @@ export default {
       } else if (
         this.location !== "" &&
         this.status === "" &&
-        this.genre !== "" &&
-        this.job_type === ""
+        this.genre !== ""
       ) {
         console.log("status  + job empty");
         this.$axios
@@ -507,8 +468,7 @@ export default {
       } else if (
         this.location === "" &&
         this.status !== "" &&
-        this.genre !== "" &&
-        this.job_type === ""
+        this.genre !== ""
       ) {
         console.log("loc  + job empty");
         this.$axios
@@ -527,15 +487,13 @@ export default {
       } else if (
         this.location === "" &&
         this.status !== "" &&
-        this.genre === "" &&
-        this.job_type !== ""
+        this.genre === ""
       ) {
         console.log("genre + loc empty");
         this.$axios
           .get(`/api/v1/listings/`, {
             params: {
-              status: this.status,
-              job_type: this.job_type
+              status: this.status
             }
           })
           .then(response => {
@@ -547,8 +505,7 @@ export default {
       } else if (
         this.location !== "" &&
         this.status !== "" &&
-        this.genre === "" &&
-        this.job_type === ""
+        this.genre === ""
       ) {
         console.log("genre + job empty");
         this.$axios

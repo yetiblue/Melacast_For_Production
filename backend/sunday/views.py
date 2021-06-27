@@ -8,14 +8,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
 
 
-from .models import Actors, WritingSamples, crewCards, Reel, Listings, User_applications, Directors, User, DirectorApps, Memberlistings, Notifications, PersonalProjects, MemberActors, Photos, FilmRoles, StripeCustomer, AcceptedRoles, DeclinedRoles, Thumbnails
+from .models import Actors, WritingSamples, crewCards, Reel, Listings, User_applications, PostProductionRoles, ProductionRoles, Directors, User, DirectorApps, Memberlistings, Notifications, PersonalProjects, MemberActors, Photos, FilmRoles, StripeCustomer, AcceptedRoles, DeclinedRoles, Thumbnails
 from rest_framework import viewsets
 from django.views import View
 from django.http.response import JsonResponse, HttpResponse  # updated
 from django.conf import settings
 
 from url_filter.integrations.drf import DjangoFilterBackend
-from .serializers import ActorSerializer, CrewCardsSerializer, WritingSamplesSerializer, ReelSerializer, ListingsSerializer, UserappsSerializer, DirectorSerializer, UserSerializer, DirectorAppsSerializer, NotificationsSerializer, MemberlistingsSerializer, MemberActorsSerializer, PersonalProjectsSerializer, PhotosSerializer, FilmRolesSerializer, stripeCustomerSerializer, AcceptedRolesSerializer, DeclinedRolesSerializer, ThumbnailsSerializer
+from .serializers import ActorSerializer, PostProductionRolesSerializer, ProductionRolesSerializer, CrewCardsSerializer, WritingSamplesSerializer, ReelSerializer, ListingsSerializer, UserappsSerializer, DirectorSerializer, UserSerializer, DirectorAppsSerializer, NotificationsSerializer, MemberlistingsSerializer, MemberActorsSerializer, PersonalProjectsSerializer, PhotosSerializer, FilmRolesSerializer, stripeCustomerSerializer, AcceptedRolesSerializer, DeclinedRolesSerializer, ThumbnailsSerializer
 
 
 # def add_new_customer(request):
@@ -71,6 +71,38 @@ def stripe_webhook(request):
         print(product.name)
 
         Actors.objects.filter(user=user).update(group=product.name)
+        Actors.objects.filter(user=user).update(paid_listing=True)
+
+        # print(product.objects.all())
+    return HttpResponse(status=200)
+
+
+@csrf_exempt
+def paid_listing_webhook(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    endpoint_secret = settings.STRIPE_ENDPOINT_SECRET
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+    except ValueError as e:
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        return HttpResponse(status=400)
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+
+        client_reference_id = session.get('client_reference_id')
+
+        user = User.objects.get(id=client_reference_id)
+        print(user, "user")
+
+        Actors.objects.filter(user=user).update(paid_listing=True)
+        Actors.objects.filter(user=user).update(return_to_page=True)
+
         # print(product.objects.all())
     return HttpResponse(status=200)
 
@@ -80,6 +112,24 @@ class ThumbnailsViewSet(viewsets.ModelViewSet):
     model = Thumbnails
     queryset = Thumbnails.objects.all()
     serializer_class = ThumbnailsSerializer
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = '__all__'
+
+
+class ProductionRolesViewSet(viewsets.ModelViewSet):
+    permission_classes = (CustomDjangoModelPermissions, )
+    model = ProductionRoles
+    queryset = ProductionRoles.objects.all()
+    serializer_class = ProductionRolesSerializer
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = '__all__'
+
+
+class PostProductionRolesViewSet(viewsets.ModelViewSet):
+    permission_classes = (CustomDjangoModelPermissions, )
+    model = PostProductionRoles
+    queryset = PostProductionRoles.objects.all()
+    serializer_class = PostProductionRolesSerializer
     filter_backends = [DjangoFilterBackend]
     filter_fields = '__all__'
 

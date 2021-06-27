@@ -28,6 +28,7 @@
           <v-card flat class="ml-12 ml-md-16 pl-md-16">
             <div :style="descriptionPaddingLeft">
               <v-card-title>Project Description {{rolesForForm}}</v-card-title>
+
               <v-card-text>{{listings.overview}}</v-card-text>
               <v-card-subtitle>Casting Info:</v-card-subtitle>
               <div v-for="role in roles" :key="role.id">
@@ -45,13 +46,27 @@
         >
           <template #submitApplicationSlot>
             <v-card class="px-16 px-sm-0" v-if="!secondCard" dark>
-              <v-card-title
-                class="text-caption text-sm-h6"
-              >The Directors Will Be Able to View Your Profile Also</v-card-title>
+              <v-row>
+                <v-col lg="10">
+                  <v-card-title
+                    class="text-caption text-sm-h6"
+                  >The Directors Will Be Able to View Your Profile Also</v-card-title>
+                </v-col>
+                <v-col class="ml-lg-10" lg="1">
+                  <v-btn text @click="closeModal">X</v-btn>
+                </v-col>
+              </v-row>
               <v-form @submit.prevent="submitApplication()">
                 <v-row class="pl-lg-9 px-sm-10">
                   <v-col cols="12">
-                    <v-select v-model="form.role" :items="role_names" label="Select a Role"></v-select>
+                    <v-select v-model="form.role" :items="role_names" label="Select a Film Role"></v-select>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-select
+                      v-model="form.role"
+                      :items="crewArray"
+                      label="Select a Crew Role (Crew Only)"
+                    ></v-select>
                   </v-col>
                   <v-col cols="12">
                     <v-text-field v-model="form.name" label="Enter Your Full Name"></v-text-field>
@@ -92,20 +107,28 @@
         </lightBoxGallery>
         <v-col cols="12" sm="4">
           <v-card flat class="ml-12 ml-sm-16 mt-5">
-            <v-btn :width="buttonWidth" @click="showModal" class="ml-3 brown white--text">Apply Now</v-btn>
+            <v-btn
+              :width="buttonWidth"
+              @click="showModal()"
+              class="ml-3 brown white--text"
+            >Apply Now</v-btn>
             <v-card-title class="text-subtitle-1">Crew Needed:</v-card-title>
-            <v-card-title class="text-sm-subtitle-2 text-md-subtitle-1">Production</v-card-title>
+            <v-card-title class="text-sm-subtitle-2 text-md-subtitle-1">
+              <b>Production</b>
+            </v-card-title>
             <v-card-text
-              v-for="splitCrew in splitCrewPositions"
+              v-for="splitCrew in productionRoles"
               :key="splitCrew.id"
               class="mt-n2 mb-n8 text-subtitle-2"
-            >-{{splitCrew}}</v-card-text>
-            <v-card-title class="mt-4 text-sm-subtitle-2 text-md-subtitle-1">Post Production</v-card-title>
+            >-{{splitCrew.role_name}}</v-card-text>
+            <v-card-title class="mt-4 text-sm-subtitle-2 text-md-subtitle-1">
+              <b>Post Production</b>
+            </v-card-title>
             <v-card-text
-              v-for="splitPost in  splitPostProductionPositions"
+              v-for="splitPost in  postProductionRoles"
               :key="splitPost.id"
               class="mt-n2 mb-n8 text-subtitle-2"
-            >-{{splitPost}}</v-card-text>
+            >-{{splitPost.role_name}}</v-card-text>
           </v-card>
         </v-col>
       </v-row>
@@ -126,33 +149,34 @@ export default {
       title: "Listing Information"
     };
   },
-  mounted() {
-    this.generateApplicantID(32, "0123456789");
-  },
+
   components: {
     TopNavbar,
     FooterComponent,
     SubscribeComponent,
     lightBoxGallery
   },
+  mounted() {
+    this.getFilmRoles();
+    this.generateApplicantID(32, "0123456789");
+  },
   async asyncData({ $axios, params, loggedInUser, store }) {
     const body = store.getters.loggedInUser.id;
     try {
-      const [listings, userInfo, roles] = await Promise.all([
+      const [
+        listings,
+        userInfo,
+        productionRoles,
+        postProductionRoles
+      ] = await Promise.all([
         $axios.$get(`/api/v1/listings/${params.id}/`),
         $axios.$get(`/api/v1/actors/`, {
           params: {
             user: body
           }
-        }),
-        $axios.$get(`/api/v1/filmroles/`, {
-          params: {
-            listing: `${params.id}`,
-            role_status: "Open"
-          }
         })
       ]);
-      return { listings, userInfo, roles };
+      return { listings, userInfo, productionRoles, postProductionRoles };
     } catch (error) {
       if (error.response.status === 403) {
         const hasPermission = false;
@@ -170,12 +194,7 @@ export default {
         // console.log(this.roles[i].role_name);
       }
     },
-    splitCrewPositions() {
-      return this.listings.crew_positions.split(","); //seperates each word into a string
-    },
-    splitPostProductionPositions() {
-      return this.listings.post_production_positions.split(",");
-    },
+
     currentDateTime() {
       const current = new Date();
       const date =
@@ -226,6 +245,72 @@ export default {
     }
   },
   methods: {
+    createCrewArray() {
+      let tempProduction = [];
+      let tempPost = [];
+      for (let i = 0; i < this.productionRoles.length; i++) {
+        // return this.roles[i].role_name;
+        this.crewArray.push(this.productionRoles[i].role_name);
+      }
+      for (let i = 0; i < this.postProductionRoles.length; i++) {
+        // return this.roles[i].role_name;
+        this.crewArray.push(this.postProductionRoles[i].role_name);
+      }
+
+      console.log(this.crewArray, "crew Array");
+    },
+    async getFilmRoles() {
+      const [roles, productionRoles, postProductionRoles] = await Promise.all([
+        this.$axios //for everything else
+          .$get(`/api/v1/filmroles/`, {
+            params: {
+              listing_public_id: this.listings.random_public_id,
+              role_status: "Open"
+            }
+          }),
+
+        this.$axios //for everything else
+          .$get(`/api/v1/productionroles/`, {
+            params: {
+              listing_public_id: this.listings.random_public_id
+              // role_status: "Open"
+            }
+          }),
+
+        this.$axios //for everything else
+          .$get(`/api/v1/postproductionroles/`, {
+            params: {
+              listing_public_id: this.listings.random_public_id
+              // role_status: "Open"
+            }
+          })
+      ]).then(roles => {
+        console.log(roles[0], "roles");
+        this.roles = roles[0];
+        this.productionRoles = roles[1];
+        console.log(this.productionRoles.length, "production roles");
+        this.postProductionRoles = roles[2];
+        this.createCrewArray();
+      });
+    },
+    // getFilmRoles() {
+    //   this.$axios //for everything else
+    //     .$get(`/api/v1/filmroles/`, {
+    //       params: {
+    //         listing_public_id: this.listings.random_public_id,
+    //         role_status: "Open"
+    //       }
+    //     })
+    //     .then(response => {
+    //       console.log(response);
+    //       this.roles = response;
+    //       console.log(this.thumbnails);
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
+    // },
+
     showSecondCard() {
       this.secondCard = !this.secondCard;
     },
@@ -260,10 +345,11 @@ export default {
       for (var i = length; i > 0; --i) {
         result += chars[Math.round(Math.random() * (chars.length - 1))];
       }
+      console.log("result", result);
       // return result;
       this.form.random_public_id_of_applicant = result;
       this.form.random_public_id_of_listing = this.listings.random_public_id;
-      console.log(this.form.random_public_id_of_applicant);
+      console.log(this.form.random_public_id_of_applicant, "random ID");
     },
     showModal() {
       this.modalVisible = true;
@@ -276,13 +362,18 @@ export default {
   },
   data() {
     return {
+      crewArray: [],
+      crewListArray: [],
       secondCard: false,
       role_names: [],
+      crew_names: [],
       applicationForm: true,
       hasPermission: true,
       applicationIsHidden: false,
       listings: [],
       roles: [],
+      productionRoles: [],
+      postProductionRoles: [],
       modalVisible: false,
 
       form: {

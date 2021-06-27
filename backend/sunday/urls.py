@@ -25,6 +25,8 @@ router.register('acceptedroles', views.AcceptedRolesViewSet)
 router.register('declinedroles', views.DeclinedRolesViewSet)
 router.register('thumbnails', views.ThumbnailsViewSet)
 router.register('crewcards', views.CrewCardsViewSet)
+router.register('productionroles', views.ProductionRolesViewSet)
+router.register('postproductionroles', views.PostProductionRolesViewSet)
 
 
 urlpatterns = [
@@ -37,6 +39,8 @@ urlpatterns = [
     # path('newcustomer/', views.add_new_customer),
     # path('products/', views.products),
     path('webhook/', views.stripe_webhook),
+    path('listinghook/', views.paid_listing_webhook)
+
 
     # path('auth/users/',include('')
 

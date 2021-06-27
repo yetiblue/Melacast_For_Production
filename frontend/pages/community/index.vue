@@ -19,7 +19,7 @@
           </v-col>
         </v-col>
       </v-row>
-      <v-form v-if="filterClicked" @submit.prevent="searchListings">
+      <v-form v-if="filterClicked" @submit.prevent="applyFilters">
         <v-row class="pl-lg-9 px-sm-10">
           <v-col>
             <v-select v-model="location" :items="states" label="Location (state)"></v-select>
@@ -155,14 +155,26 @@ export default {
       filterClicked: false,
       professions: [
         "",
-        "Directors",
+        "Directors/Producers",
         "Actors",
         "Dancers",
         "Writers",
         "Photographer",
         "Post Production",
         "Makeup Artist",
-        "Production"
+        "Production",
+        { divider: "true", header: "Production" },
+        "Art",
+        "Camera",
+        "Lighting",
+        "Sound",
+        "HMU",
+        { divider: "true", header: "Post Production" },
+        "Editor",
+        "Color",
+        "Sound",
+        "VFX",
+        "Animator"
       ],
       ethnicities: [
         "",
