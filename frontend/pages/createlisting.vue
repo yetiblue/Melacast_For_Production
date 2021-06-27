@@ -525,7 +525,7 @@
               />
               <v-checkbox color="brown" value="true" v-model="form.hasSound" label="Sound Team" />
               <v-checkbox color="brown" value="true" v-model="form.hasHMU" label="HMU Team" />
-              <v-col class="ml-lg-n2" cols="10">
+              <v-col class="ml-sm-n2" cols="10">
                 <v-text-field
                   class="mt-lg-6"
                   label="Position Name"
@@ -544,7 +544,7 @@
             class="mb-lg-10 mt-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
             elevation="0"
           >
-            <v-card-title class="text-subtitle-1 justify-start">
+            <v-card-title class="mt-sm-6 text-subtitle-1 justify-start">
               <b>Post Production</b>
             </v-card-title>
             <v-card-subtitle>(Check all that apply).</v-card-subtitle>
@@ -568,7 +568,7 @@
                 v-model="form.hasAnimator"
                 label="Animation Team"
               />
-              <v-col class="ml-lg-n2" cols="10">
+              <v-col class="ml-sm-n2" cols="10">
                 <v-text-field
                   class="mt-lg-6"
                   label="Position Name"
@@ -704,10 +704,10 @@
               <v-card-subtitle v-for="role in returnedFilmRoles" :key="role.id">
                 <GridComponent>
                   <template #cardSlot>
-                    <v-card class="ml-lg-n5 pr-lg-10 mr-lg-12" elevation="0">
-                      <v-card-title>{{role.role_name}} | {{role.role_type}}</v-card-title>
-                      <v-card-title>Character Name:{{role.character_name}}</v-card-title>
-                      <v-card-title>Role Description:{{role.role_description}}</v-card-title>
+                    <v-card outlined class="ml-sm-n5 pr-lg-10 mr-lg-12" elevation="0">
+                      <v-card-title class="text-lg-h6">{{role.role_name}} | {{role.role_type}}</v-card-title>
+                      <v-card-title class="text-lg-h6">Character Name:{{role.character_name}}</v-card-title>
+                      <v-card-title class="text-lg-h6">Role Description:{{role.role_description}}</v-card-title>
                     </v-card>
 
                     <v-spacer></v-spacer>
@@ -730,8 +730,10 @@
               >
                 <GridComponent>
                   <template #cardSlot>
-                    <v-card class="ml-lg-n5 pr-lg-10 mr-lg-12" elevation="0">
-                      <v-card-title>{{productionRole.role_name}} | {{productionRole.tag}}</v-card-title>
+                    <v-card class="ml-sm-n5 pr-lg-10 mr-lg-12 mb-sm-n16 mb-md-0" elevation="0">
+                      <v-card-title
+                        class="text-subtitle-1"
+                      >{{productionRole.role_name}} | {{productionRole.tag}}</v-card-title>
                     </v-card>
 
                     <v-spacer></v-spacer>
@@ -744,7 +746,7 @@
             class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
             elevation="0"
           >
-            <v-card-title class="justify-start mb-lg-2 text-lg-h5">
+            <v-card-title class="justify-start mb-lg-2 mt-sm-8 text-lg-h5">
               <b>Post Production</b>
             </v-card-title>
             <v-row>
@@ -754,8 +756,13 @@
               >
                 <GridComponent>
                   <template #cardSlot>
-                    <v-card class="ml-lg-n5 pr-lg-10 mr-lg-12" elevation="0">
-                      <v-card-title>{{postProductionRole.role_name}} | {{postProductionRole.tag}}</v-card-title>
+                    <v-card
+                      class="ml-sm-n5 pl-sm-n5 pr-lg-10 mr-lg-12 mb-sm-n16 mb-md-0"
+                      elevation="0"
+                    >
+                      <v-card-title
+                        class="text-subtitle-1"
+                      >{{postProductionRole.role_name}} | {{postProductionRole.tag}}</v-card-title>
                     </v-card>
 
                     <v-spacer></v-spacer>
