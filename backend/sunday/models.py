@@ -377,6 +377,8 @@ class ProductionRoles(models.Model):
         max_length=100, default="Did not enter a Name", null=True)
     tag = models.CharField(
         max_length=10, default="", null=True)
+    role_status = models.CharField(
+        max_length=10, default="Open", null=True)
 
     listing_public_id = models.CharField(
         max_length=200, default="Open", null=True)
@@ -388,6 +390,8 @@ class PostProductionRoles(models.Model):
         max_length=100, default="Did not enter a Name", null=True)
     tag = models.CharField(
         max_length=10, default="", null=True)
+    role_status = models.CharField(
+        max_length=10, default="Open", null=True)
 
     listing_public_id = models.CharField(
         max_length=200, default="Open", null=True)
