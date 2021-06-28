@@ -87,21 +87,30 @@ class Actors(models.Model):
     age_range = models.CharField(max_length=50, default="none", null=False)
     Directors = 'Directors/Producers'
     Actors = 'Actors'
-    Crew = 'Crew'
     Dancers = 'Dancers'
     Writers = 'Writers'
     Photographers = 'Photographers'
-    Postproduction = "Post Production"
-    Production = "Production"
-    Makeup = "Makeup Artist"
+    HMU = "HMU"
+    Art = 'Art'
+    Camera = 'Camer'
+    Lighting = 'Lighting'
+    Sound = 'Sound'
+    Editor = 'Editor'
+    VFX = 'VFX'
+    Animator = 'Animator'
+
     Group_choices = (
         (Directors, 'Directors'),
         (Actors, 'Actors'),
-        (Crew, 'Crew'),
         (Photographers, 'Photographers'),
-        (Postproduction, 'Post Production'),
-        (Production, 'Production'),
-        (Makeup, 'Makeup Artist'),
+        (HMU, 'HMU'),
+        (Art, 'Art'),
+        (Camera, 'Camer'),
+        (Lighting, 'Lighting'),
+        (Sound, 'Sound'),
+        (Editor, 'Editor'),
+        (VFX, 'VFX'),
+        (Animator, 'Animator'),
         (Dancers, 'Dancers'),
         (Writers, 'Writers'),
 

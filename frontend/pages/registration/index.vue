@@ -1,6 +1,6 @@
 <template>
   <section class="section" style="padding: 0;">
-    <Navigation />
+    <!-- <Navigation /> -->
 
     <div class="columns">
       <div class="column is-4 is-offset-4">

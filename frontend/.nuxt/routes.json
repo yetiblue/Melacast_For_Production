@@ -3,105 +3,90 @@
     "name": "community",
     "path": "/community",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/community/index.vue",
-    "chunkName": "pages/community/index",
-    "_name": "_006e47a0"
+    "chunkName": "pages/community/index"
   },
   {
     "name": "createlisting",
     "path": "/createlisting",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/createlisting.vue",
-    "chunkName": "pages/createlisting",
-    "_name": "_1f2a3b7c"
+    "chunkName": "pages/createlisting"
   },
   {
     "name": "dashboard",
     "path": "/dashboard",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/dashboard/index.vue",
-    "chunkName": "pages/dashboard/index",
-    "_name": "_0696e88b"
+    "chunkName": "pages/dashboard/index"
   },
   {
     "name": "listings",
     "path": "/listings",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listings/index.vue",
-    "chunkName": "pages/listings/index",
-    "_name": "_30e05924"
+    "chunkName": "pages/listings/index"
   },
   {
     "name": "listingsubmitted",
     "path": "/listingsubmitted",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listingsubmitted.vue",
-    "chunkName": "pages/listingsubmitted",
-    "_name": "_48c5449a"
+    "chunkName": "pages/listingsubmitted"
   },
   {
     "name": "login",
     "path": "/login",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/login.vue",
-    "chunkName": "pages/login",
-    "_name": "_7b15e85d"
+    "chunkName": "pages/login"
   },
   {
     "name": "myapps",
     "path": "/myapps",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/myapps.vue",
-    "chunkName": "pages/myapps",
-    "_name": "_9e92634c"
+    "chunkName": "pages/myapps"
   },
   {
     "name": "profile",
     "path": "/profile",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/profile/index.vue",
-    "chunkName": "pages/profile/index",
-    "_name": "_5e28b860"
+    "chunkName": "pages/profile/index"
   },
   {
     "name": "registration",
     "path": "/registration",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/registration/index.vue",
-    "chunkName": "pages/registration/index",
-    "_name": "_07af5f38"
+    "chunkName": "pages/registration/index"
   },
   {
     "name": "profile-edit",
     "path": "/profile/edit",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/profile/edit.vue",
-    "chunkName": "pages/profile/edit",
-    "_name": "_00eadeec"
+    "chunkName": "pages/profile/edit"
   },
   {
     "name": "registration-awaiting_confirmation",
     "path": "/registration/awaiting_confirmation",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/registration/awaiting_confirmation.vue",
-    "chunkName": "pages/registration/awaiting_confirmation",
-    "_name": "_02e1ba2e"
+    "chunkName": "pages/registration/awaiting_confirmation"
   },
   {
     "name": "registration-activate-token",
     "path": "/registration/activate/:token?",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/registration/activate/_token.vue",
-    "chunkName": "pages/registration/activate/_token",
-    "_name": "_555b6708"
+    "chunkName": "pages/registration/activate/_token"
   },
   {
     "name": "registration-activate-uid-token",
     "path": "/registration/activate/:uid?/:token?",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/registration/activate/_uid/_token.vue",
-    "chunkName": "pages/registration/activate/_uid/_token",
-    "_name": "_36ef8426"
+    "chunkName": "pages/registration/activate/_uid/_token"
   },
   {
     "name": "community-id",
     "path": "/community/:id",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/community/_id/index.vue",
-    "chunkName": "pages/community/_id/index",
-    "_name": "_fccadaea"
+    "chunkName": "pages/community/_id/index"
   },
   {
     "name": "listings-id",
     "path": "/listings/:id",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listings/_id/index.vue",
-    "chunkName": "pages/listings/_id/index",
-    "_name": "_bb54f14e"
+    "chunkName": "pages/listings/_id/index"
   }
 ]
