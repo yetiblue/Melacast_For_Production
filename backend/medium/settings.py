@@ -86,6 +86,11 @@ INSTALLED_APPS = [
     'django_filters',
 
 ]
+Anymail = {
+    "MAILGUN_API_KEY": env('MAILGUN_WEBHOOK_SIGNING_KEY'),
+    "MAILGUN_WEBHOOK_SIGNING_KEY":  env('MAILGUN_WEBHOOK_SIGNING_KEY'),
+    "MAILGUN_API_URL": "https: // api.mailgun.net/v3/sandbox7805fae66d2c404ca05fe5c624326f2b.mailgun.org"
+}
 X_FRAME_OPTIONS = 'ALLOWALL'
 
 XS_SHARING_ALLOWED_METHODS = ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE']
@@ -208,12 +213,17 @@ DJOSER = {
 }
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
+
+# EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+# DEFAULT_FROM_EMAIL = "webmaster@localhost"
+# SERVER_EMAIL = "root@localhost"
+
 
 STRIPE_ENDPOINT_SECRET = env('STRIPE_ENDPOINT_SECRET')
 STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY')

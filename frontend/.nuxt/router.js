@@ -14,7 +14,6 @@ const _5e28b860 = () => interopDefault(import('../pages/profile/index.vue' /* we
 const _07af5f38 = () => interopDefault(import('../pages/registration/index.vue' /* webpackChunkName: "pages/registration/index" */))
 const _00eadeec = () => interopDefault(import('../pages/profile/edit.vue' /* webpackChunkName: "pages/profile/edit" */))
 const _02e1ba2e = () => interopDefault(import('../pages/registration/awaiting_confirmation.vue' /* webpackChunkName: "pages/registration/awaiting_confirmation" */))
-const _555b6708 = () => interopDefault(import('../pages/registration/activate/_token.vue' /* webpackChunkName: "pages/registration/activate/_token" */))
 const _36ef8426 = () => interopDefault(import('../pages/registration/activate/_uid/_token.vue' /* webpackChunkName: "pages/registration/activate/_uid/_token" */))
 const _fccadaea = () => interopDefault(import('../pages/community/_id/index.vue' /* webpackChunkName: "pages/community/_id/index" */))
 const _bb54f14e = () => interopDefault(import('../pages/listings/_id/index.vue' /* webpackChunkName: "pages/listings/_id/index" */))
@@ -79,10 +78,6 @@ export const routerOptions = {
     path: "/registration/awaiting_confirmation",
     component: _02e1ba2e,
     name: "registration-awaiting_confirmation"
-  }, {
-    path: "/registration/activate/:token?",
-    component: _555b6708,
-    name: "registration-activate-token"
   }, {
     path: "/registration/activate/:uid?/:token?",
     component: _36ef8426,

@@ -17,7 +17,7 @@
                   name="username"
                   type="text"
                   outlined
-                  placeholder="Email"
+                  placeholder="Username"
                   :error-messages="errors.non_field_errors"
                 />
               </div>
@@ -51,9 +51,9 @@
       <v-btn class="primary--text outlined" id="login" @click.stop="login">Login</v-btn>
     </div>
     <br />
-    <div style="display:flex; justify-content:center;">
+    <!-- <div style="display:flex; justify-content:center;">
       <v-btn class="error--text outlined" id="facebook" @click.stop="forgot">Continue With Facebook</v-btn>
-    </div>
+    </div>-->
     <div style="display:flex; justify-content:center">
       <nuxt-link to="/forgot" style="color:#7a2c17;">Forgot password</nuxt-link>
     </div>
@@ -87,7 +87,7 @@ section {
   height: 36px;
   padding: 10px 15px 10px 14px;
   border-radius: 4px;
-  background-color: #7a2c17;
+  background-color: #4d2600;
   color: white;
 }
 
