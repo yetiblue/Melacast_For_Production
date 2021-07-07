@@ -5,14 +5,20 @@
       <v-row flat justify="end">
         <v-spacer></v-spacer>
       </v-row>
-      <v-row class="mt-lg-n12 pb-n16 pb-lg-16 mb-lg-n16" justify="end" align="start">
+      <v-row
+        class="mt-lg-n12 pb-n16 pb-lg-16 mb-lg-n16"
+        justify="end"
+        align="start"
+      >
         <v-col class="pt-11 pb-lg-n16 mt-sm-n16 mt-lg-0" cols="12" sm="12">
           <v-col class="mt-6">
             <v-card flat class="text-center text-lg-left ml-lg-n6">
               <v-card-title class="justify-center">
                 <h1 class="mt-4 mb-2 pt-6 text-h4">Projects</h1>
               </v-card-title>
-              <v-card-subtitle class="text-center">Find your next project and join their team!</v-card-subtitle>
+              <v-card-subtitle class="text-center"
+                >Find your next project and join their team!</v-card-subtitle
+              >
             </v-card>
           </v-col>
         </v-col>
@@ -20,13 +26,21 @@
       <v-form v-if="filterClicked" @submit.prevent="searchListings">
         <v-row class="pl-lg-9 px-sm-10">
           <v-col>
-            <v-select v-model="location" :items="states" label="Select Location"></v-select>
+            <v-select
+              v-model="location"
+              :items="states"
+              label="Select Location"
+            ></v-select>
           </v-col>
           <v-col>
             <v-select v-model="genre" :items="genres" label="Genre"></v-select>
           </v-col>
           <v-col>
-            <v-select v-model="status" :items="statuses" label="Job Type"></v-select>
+            <v-select
+              v-model="status"
+              :items="statuses"
+              label="Job Type"
+            ></v-select>
           </v-col>
 
           <v-col cols="2">
@@ -43,7 +57,8 @@
               v-if="!filterClicked"
               @click="showFilters('open')"
               text
-            >Filters</v-btn>
+              >Filters</v-btn
+            >
             <v-btn v-else @click="showFilters('close')" text>Close</v-btn>
           </template>
           <template #cardSlot>
@@ -64,8 +79,11 @@
                     <v-card-title
                       class="text-body-1 text-md-subtitle-2 text-lg-h6 mb-n5"
                       align="end"
-                    >{{sortedListing.title}}</v-card-title>
-                    <v-card-text class="mb-n5">{{sortedListing.tagline}}</v-card-text>
+                      >{{ sortedListing.title }}</v-card-title
+                    >
+                    <v-card-text class="mb-n5">{{
+                      sortedListing.tagline
+                    }}</v-card-text>
                     <v-card-text class="mb-5">
                       {{ sortedListing.start_date }} -
                       {{ sortedListing.end_date }}
@@ -88,6 +106,7 @@ import TopNavbar from "~/components/TopNavbar";
 import FooterComponent from "~/components/FooterComponent";
 import GridComponent from "~/components/GridComponent";
 export default {
+  name: "Listings",
   head() {
     return {
       title: "Listings list"
@@ -528,5 +547,4 @@ export default {
   }
 };
 </script>
-<style>
-</style>
+<style></style>

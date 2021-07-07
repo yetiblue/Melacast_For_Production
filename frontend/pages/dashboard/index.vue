@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="dashboard">
     <TopNavbar />
     <div v-if="!hasPermission">
       <SubscribeComponent />
@@ -223,9 +223,10 @@ import FooterComponent from "~/components/FooterComponent";
 import GridComponent from "~/components/GridComponent";
 import SideBarComponent from "~/components/SideBarComponent";
 export default {
+  name: "Dashboard",
   head() {
     return {
-      title: "My applications"
+      title: "Dashboard"
     };
   },
   mounted() {
