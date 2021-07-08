@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1625678263100" clover="3.2.0">
-  <project timestamp="1625678263100" name="All files">
-    <metrics statements="374" coveredstatements="3" conditionals="92" coveredconditionals="0" methods="135" coveredmethods="2" elements="601" coveredelements="5" complexity="0" loc="374" ncloc="374" packages="2" files="9" classes="9"/>
+<coverage generated="1625763607086" clover="3.2.0">
+  <project timestamp="1625763607086" name="All files">
+    <metrics statements="378" coveredstatements="0" conditionals="92" coveredconditionals="0" methods="136" coveredmethods="0" elements="606" coveredelements="0" complexity="0" loc="378" ncloc="378" packages="2" files="10" classes="10"/>
     <package name="components">
-      <metrics statements="83" coveredstatements="3" conditionals="30" coveredconditionals="0" methods="30" coveredmethods="2"/>
+      <metrics statements="83" coveredstatements="0" conditionals="30" coveredconditionals="0" methods="30" coveredmethods="0"/>
       <file name="GalleryThumbnailComponent.vue" path="/Users/timmyzhou/Melacast_For_Production/frontend/components/GalleryThumbnailComponent.vue">
         <metrics statements="30" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="14" coveredmethods="0"/>
         <line num="44" count="0" type="stmt"/>
@@ -43,8 +43,8 @@
         <line num="28" count="0" type="stmt"/>
       </file>
       <file name="SideBarComponent.vue" path="/Users/timmyzhou/Melacast_For_Production/frontend/components/SideBarComponent.vue">
-        <metrics statements="18" coveredstatements="1" conditionals="5" coveredconditionals="0" methods="7" coveredmethods="0"/>
-        <line num="95" count="1" type="stmt"/>
+        <metrics statements="18" coveredstatements="0" conditionals="5" coveredconditionals="0" methods="7" coveredmethods="0"/>
+        <line num="95" count="0" type="stmt"/>
         <line num="100" count="0" type="stmt"/>
         <line num="110" count="0" type="stmt"/>
         <line num="112" count="0" type="stmt"/>
@@ -64,9 +64,9 @@
         <line num="146" count="0" type="stmt"/>
       </file>
       <file name="TopNavbar.vue" path="/Users/timmyzhou/Melacast_For_Production/frontend/components/TopNavbar.vue">
-        <metrics statements="9" coveredstatements="2" conditionals="5" coveredconditionals="0" methods="4" coveredmethods="2"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="39" count="1" type="stmt"/>
+        <metrics statements="9" coveredstatements="0" conditionals="5" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
         <line num="41" count="0" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
         <line num="45" count="0" type="stmt"/>
@@ -104,7 +104,7 @@
       </file>
     </package>
     <package name="pages">
-      <metrics statements="291" coveredstatements="0" conditionals="62" coveredconditionals="0" methods="105" coveredmethods="0"/>
+      <metrics statements="295" coveredstatements="0" conditionals="62" coveredconditionals="0" methods="106" coveredmethods="0"/>
       <file name="createlisting.vue" path="/Users/timmyzhou/Melacast_For_Production/frontend/pages/createlisting.vue">
         <metrics statements="194" coveredstatements="0" conditionals="30" coveredconditionals="0" methods="59" coveredmethods="0"/>
         <line num="835" count="0" type="stmt"/>
@@ -301,6 +301,13 @@
         <line num="1310" count="0" type="stmt"/>
         <line num="1313" count="0" type="stmt"/>
         <line num="1318" count="0" type="stmt"/>
+      </file>
+      <file name="createprofile.vue" path="/Users/timmyzhou/Melacast_For_Production/frontend/pages/createprofile.vue">
+        <metrics statements="4" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="159" count="0" type="stmt"/>
+        <line num="160" count="0" type="stmt"/>
+        <line num="161" count="0" type="stmt"/>
+        <line num="166" count="0" type="stmt"/>
       </file>
       <file name="listingsubmitted.vue" path="/Users/timmyzhou/Melacast_For_Production/frontend/pages/listingsubmitted.vue">
         <metrics statements="29" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="15" coveredmethods="0"/>

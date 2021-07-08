@@ -45,7 +45,7 @@
           <v-card flat class="text-center text-lg-left ml-lg-n6">
             <v-card-title class="justify-center justify-lg-start">
               <h1 class="mb-2 pt-3 pl-lg-10 text-h4 brown--text">
-                My Dashboard {{ actor[0].group }}
+                My Dashboard | {{ actor[0].group }}
               </h1>
             </v-card-title>
           </v-card>
@@ -55,7 +55,7 @@
             <GridComponent :gridWidth="gridWidth">
               <template #rowTitleOne>
                 <h1 class="text-h6 ml-sm-n16 ml-md-0 pl-lg-6">
-                  Recommended {{ isCrew }}
+                  Recommended
                 </h1>
               </template>
               <template #navButtonOne>
