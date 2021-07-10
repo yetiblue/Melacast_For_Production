@@ -8,6 +8,7 @@ const _006e47a0 = () => interopDefault(import('../pages/community/index.vue' /* 
 const _1f2a3b7c = () => interopDefault(import('../pages/createlisting.vue' /* webpackChunkName: "pages/createlisting" */))
 const _0669f021 = () => interopDefault(import('../pages/createprofile.vue' /* webpackChunkName: "pages/createprofile" */))
 const _0696e88b = () => interopDefault(import('../pages/dashboard/index.vue' /* webpackChunkName: "pages/dashboard/index" */))
+const _77911553 = () => interopDefault(import('../pages/editprofile.vue' /* webpackChunkName: "pages/editprofile" */))
 const _30e05924 = () => interopDefault(import('../pages/listings/index.vue' /* webpackChunkName: "pages/listings/index" */))
 const _48c5449a = () => interopDefault(import('../pages/listingsubmitted.vue' /* webpackChunkName: "pages/listingsubmitted" */))
 const _7b15e85d = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
@@ -47,6 +48,10 @@ export const routerOptions = {
     path: "/dashboard",
     component: _0696e88b,
     name: "dashboard"
+  }, {
+    path: "/editprofile",
+    component: _77911553,
+    name: "editprofile"
   }, {
     path: "/listings",
     component: _30e05924,
