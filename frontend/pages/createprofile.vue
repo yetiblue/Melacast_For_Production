@@ -21,9 +21,27 @@
                 v-model="form.firstname"
                 label="First Name"
               ></v-text-field>
-              <v-text-field outlined justify="center" v-model="form.lastname" label="Last Name"></v-text-field>
-              <v-text-field outlined justify="center" v-model="form.age" label="Age"></v-text-field>
-              <v-select outlined v-model="form.gender" :items="genders" label="Gender Identity"></v-select>
+              <v-text-field
+                outlined
+                :rules="nameRules"
+                justify="center"
+                v-model="form.lastname"
+                label="Last Name"
+              ></v-text-field>
+              <v-text-field
+                outlined
+                justify="center"
+                :rules="ageRules"
+                v-model="form.age"
+                label="Age"
+              ></v-text-field>
+              <v-select
+                outlined
+                v-model="form.gender"
+                :rules="genderRules"
+                :items="genders"
+                label="Gender Identity"
+              ></v-select>
 
               <v-text-field
                 outlined
@@ -33,7 +51,7 @@
               ></v-text-field>
             </v-card>
             <v-card flat>
-              <v-card-title class="ml-sm-n4">What is Your Race Identity?</v-card-title>
+              <v-card-title :rules="raceRules" class="ml-sm-n4">What is Your Race Identity?</v-card-title>
               <v-checkbox
                 v-model="form.ethnicity"
                 label="Native Hawaiian/Pacific Islander"
@@ -77,7 +95,7 @@
               elevation="0"
               class="brown white--text"
               height="5vh"
-              @submit.prevent="submitProfile"
+              @click.prevent="submitProfile"
               block
             >Submit!</v-btn>
           </v-col>
@@ -111,9 +129,12 @@ export default {
   },
   components: { FooterComponent, TopNavbar },
   methods: {
-    submitProfile() {
-      // chaining using .then since the post request isn't dependant on the true/false returned by validate()
-      this.$refs.form.validate().then(
+    async submitProfile() {
+      let response = await this.$refs.form.validate();
+      if (!response) {
+        console.log(response);
+        console.log("Failed Validation");
+      } else {
         this.$axios
           .post(`/api/v1/actors`, this.form)
           .then(response => {
@@ -123,8 +144,8 @@ export default {
             if (error) {
               console.log(error, "ERROR WITH POST");
             }
-          })
-      );
+          });
+      }
     }
   },
   data() {
@@ -134,6 +155,9 @@ export default {
       nameRules: [v => !!v || "Name is required"],
       email: "",
       emailRules: [v => !!v || "E-mail is required"],
+      ageRules: [v => !!v || "Age is required"],
+      genderRules: [v => !!v || "Gender Identity is required"],
+      raceRules: [v => !!v || "Race Identity is required"],
       valid: true,
 
       form: {
