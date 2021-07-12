@@ -1,6 +1,5 @@
-
 <template>
-  <div>
+  <div id="dashboard">
     <TopNavbar />
     <div v-if="!hasPermission">
       <SubscribeComponent />
@@ -9,16 +8,24 @@
       <v-row flat justify="end">
         <SideBarComponent :actors="actor[0]" :sideHeight="sideHeight">
           <template #userDesktopProfile>
-            <v-card-title>{{actor[0].firstname}} {{actor[0].lastname}}</v-card-title>
-            <v-card-subtitle>{{actor[0].group}}</v-card-subtitle>
+            <v-card-title
+              >{{ actor[0].firstname }} {{ actor[0].lastname }}</v-card-title
+            >
+            <v-card-subtitle>{{ actor[0].group }}</v-card-subtitle>
             <v-btn class="mb-2" elevation="0" block>Dashboard</v-btn>
-            <v-btn class="mb-2" elevation="0" :to="'/myapps'" block>Applications</v-btn>
-            <v-btn class="pr-2 mb-1" elevation="0" :to="'/profile/edit'" block>Edit Profile</v-btn>
+            <v-btn class="mb-2" elevation="0" :to="'/myapps'" block
+              >Applications</v-btn
+            >
+            <v-btn class="pr-2 mb-1" elevation="0" :to="'/profile/edit'" block
+              >Edit Profile</v-btn
+            >
           </template>
 
           <template #userMobileProfile>
-            <v-card-title>{{actor[0].firstname}} {{actor[0].lastname}}</v-card-title>
-            <v-card-subtitle>{{actor[0].group}}</v-card-subtitle>
+            <v-card-title
+              >{{ actor[0].firstname }} {{ actor[0].lastname }}</v-card-title
+            >
+            <v-card-subtitle>{{ actor[0].group }}</v-card-subtitle>
             <v-row>
               <v-col cols="12" sm="4">
                 <v-btn class="grey" elevation="0" block>Dashboard</v-btn>
@@ -27,7 +34,9 @@
                 <v-btn elevation="0" block :to="'/myapps'">Applications</v-btn>
               </v-col>
               <v-col cols="12" sm="4">
-                <v-btn elevation="0" block :to="'/profile/edit'">Edit Profile</v-btn>
+                <v-btn elevation="0" block :to="'/profile/edit'"
+                  >Edit Profile</v-btn
+                >
               </v-col>
             </v-row>
           </template>
@@ -35,7 +44,9 @@
         <v-col>
           <v-card flat class="text-center text-lg-left ml-lg-n6">
             <v-card-title class="justify-center justify-lg-start">
-              <h1 class="mb-2 pt-3 pl-lg-10 text-h4 brown--text">My Dashboard</h1>
+              <h1 class="mb-2 pt-3 pl-lg-10 text-h4 brown--text">
+                My Dashboard | {{ actor[0].group }}
+              </h1>
             </v-card-title>
           </v-card>
         </v-col>
@@ -43,13 +54,17 @@
           <div v-if="isCrew">
             <GridComponent :gridWidth="gridWidth">
               <template #rowTitleOne>
-                <h1 class="text-h6 ml-sm-n16 ml-md-0 pl-lg-6">Recommended</h1>
+                <h1 class="text-h6 ml-sm-n16 ml-md-0 pl-lg-6">
+                  Recommended
+                </h1>
               </template>
               <template #navButtonOne>
-                <v-btn class="mt-sm-n16 mt-md-0" text :to="`/listings`">View All</v-btn>
+                <v-btn class="mt-sm-n16 mt-md-0" text :to="`/listings`"
+                  >View All</v-btn
+                >
               </template>
               <template #cardSlot>
-                <template v-for="crewRole in randomCrewRoleOrder.slice(0,4)">
+                <template v-for="crewRole in randomCrewRoleOrder.slice(0, 4)">
                   <v-col :key="crewRole.id" justify="end" cols="12" sm="3">
                     <v-card :height="gridHeight" outlined title>
                       <v-img
@@ -62,16 +77,21 @@
                           v-if="isPostProduction"
                           class="mb-n4 text-subtitle-2 text-sm-caption text-md-subtitle-2"
                           align="end"
-                        >{{crewRole.post_production_positions}}</v-card-title>
+                          >{{
+                            crewRole.post_production_positions
+                          }}</v-card-title
+                        >
                         <v-card-title
                           v-else
                           class="mb-n4 text-subtitle-2 text-sm-caption text-md-subtitle-2"
                           align="end"
-                        >{{crewRole.crew_positions}}</v-card-title>
+                          >{{ crewRole.crew_positions }}</v-card-title
+                        >
 
                         <v-card-text
                           class="mb-lg-3 text-subtitle-2 text-sm-caption text-md-subtitle-2"
-                        >{{crewRole.date_submitted}}</v-card-text>
+                          >{{ crewRole.date_submitted }}</v-card-text
+                        >
                       </v-img>
                     </v-card>
                   </v-col>
@@ -91,11 +111,13 @@
             <h1 class="text-h6 ml-sm-n16 ml-md-0 pl-lg-6">Recommended</h1>
           </template>
           <template #navButtonOne>
-            <v-btn class="mt-sm-n16 mt-md-0" text :to="`/listings`">View All</v-btn>
+            <v-btn class="mt-sm-n16 mt-md-0" text :to="`/listings`"
+              >View All</v-btn
+            >
           </template>
 
           <template #cardSlot>
-            <template v-for="filmRole in randomFilmRoleOrder.slice(0,4)">
+            <template v-for="filmRole in randomFilmRoleOrder.slice(0, 4)">
               <v-col :key="filmRole.id" justify="end" cols="12" sm="3">
                 <v-card :height="gridHeight" outlined title>
                   <v-img
@@ -104,11 +126,14 @@
                     @click="goToListing(filmRole.listing_public_id)"
                     :src="filmRole.role_thumbnail"
                   >
-                    <v-card-title class="mb-n4 text-h6" align="end">{{filmRole.role_name}}</v-card-title>
+                    <v-card-title class="mb-n4 text-h6" align="end">{{
+                      filmRole.role_name
+                    }}</v-card-title>
 
                     <v-card-text
                       class="mb-lg-3 text-lg-subtitle-2 text-subtitle-2"
-                    >{{filmRole.date_submitted}}</v-card-text>
+                      >{{ filmRole.date_submitted }}</v-card-text
+                    >
                   </v-img>
                 </v-card>
               </v-col>
@@ -119,13 +144,19 @@
       <div v-if="appsExist">
         <GridComponent :gridWidth="gridWidth">
           <template #rowTitleOne>
-            <h1 class="text-h6 pt-6 ml-sm-n16 ml-md-0 pl-lg-6">Sent Applications</h1>
+            <h1 class="text-h6 pt-6 ml-sm-n16 ml-md-0 pl-lg-6">
+              Sent Applications
+            </h1>
           </template>
           <template #navButtonTwo>
-            <v-btn class="mt-sm-n16 pt-md-12 mt-md-0" text :to="`/myapps`">View All</v-btn>
+            <v-btn class="mt-sm-n16 pt-md-12 mt-md-0" text :to="`/myapps`"
+              >View All</v-btn
+            >
           </template>
           <template #cardSlot>
-            <template v-for="sortedApplication in sortedApplicationsOrder.slice(0, 8)">
+            <template
+              v-for="sortedApplication in sortedApplicationsOrder.slice(0, 8)"
+            >
               <v-col :key="sortedApplication.id" justify="end" cols="12" sm="3">
                 <v-card :height="gridHeight" outlined title>
                   <v-img
@@ -136,14 +167,17 @@
                     <v-card-title
                       class="mb-n4 mt-2 text-lg-h6 text-sm-subtitle-2"
                       align="end"
-                    >{{sortedApplication.role}}</v-card-title>
+                      >{{ sortedApplication.role }}</v-card-title
+                    >
                     <v-card-title
                       class="mb-n4 mt-n8 text-lg-subtitle-1 text-sm-subtitle-2"
                       align="end"
-                    >{{sortedApplication.title}}</v-card-title>
+                      >{{ sortedApplication.title }}</v-card-title
+                    >
                     <v-card-text
                       class="mb-lg-3 mb-lg-n4 text-lg-subtitle-1 text-sm-subtitle-2"
-                    >{{sortedApplication.date_submitted}}</v-card-text>
+                      >{{ sortedApplication.date_submitted }}</v-card-text
+                    >
                   </v-img>
                 </v-card>
               </v-col>
@@ -154,16 +188,24 @@
       <div v-else>
         <GridComponent :gridWidth="gridWidth">
           <template #rowTitleOne>
-            <h1 class="text-h6 pt-6 ml-sm-n16 ml-md-0 pl-lg-6">Sent Applications</h1>
+            <h1 class="text-h6 pt-6 ml-sm-n16 ml-md-0 pl-lg-6">
+              Sent Applications
+            </h1>
           </template>
           <template #navButtonTwo>
-            <v-btn class="mt-sm-n16 pt-md-12 mt-md-0" text :to="`/myapps`">View All</v-btn>
+            <v-btn class="mt-sm-n16 pt-md-12 mt-md-0" text :to="`/myapps`"
+              >View All</v-btn
+            >
           </template>
           <template #cardSlot>
             <v-spacer></v-spacer>
             <v-card elevation="0" height="400px">
-              <v-card-title class="pt-16">No Submitted Applications Yet!</v-card-title>
-              <v-btn class="brown white--text" block :to="'/listings'">Visit Listings To Apply</v-btn>
+              <v-card-title class="pt-16"
+                >No Submitted Applications Yet!</v-card-title
+              >
+              <v-btn class="brown white--text" block :to="'/listings'"
+                >Visit Listings To Apply</v-btn
+              >
             </v-card>
             <v-spacer></v-spacer>
           </template>
@@ -181,9 +223,10 @@ import FooterComponent from "~/components/FooterComponent";
 import GridComponent from "~/components/GridComponent";
 import SideBarComponent from "~/components/SideBarComponent";
 export default {
+  name: "Dashboard",
   head() {
     return {
-      title: "My applications"
+      title: "Dashboard"
     };
   },
   mounted() {
@@ -226,13 +269,13 @@ export default {
           })
           .then(response => {
             this.filmRoles = response.data;
+            console.log("Actors called");
             // this.sortedArray(); //random array
           })
           .catch(error => {
             console.log("GET REQUEST WENT AWRY");
           });
-      }
-      if (this.actor[0].group == "Dancers") {
+      } else if (this.actor[0].group == "Dancers") {
         this.$axios
           .get("/api/v1/filmroles/", {
             params: {
@@ -241,13 +284,14 @@ export default {
           })
           .then(response => {
             this.filmRoles = response.data;
+            console.log("called 2");
+
             // this.sortedArray(); //random array
           })
           .catch(error => {
             console.log("GET REQUEST WENT AWRY");
           });
-      }
-      if (this.actor[0].group == "Writers") {
+      } else if (this.actor[0].group == "Writers") {
         this.$axios
           .get("/api/v1/filmroles/", {
             params: {
@@ -256,13 +300,14 @@ export default {
           })
           .then(response => {
             this.filmRoles = response.data;
+            console.log("called 3");
+
             // this.sortedArray(); //random array
           })
           .catch(error => {
             console.log("GET REQUEST WENT AWRY");
           });
-      }
-      if (this.actor[0].group == "Photographers") {
+      } else if (this.actor[0].group == "Photographers") {
         this.$axios
           .get("/api/v1/filmroles/", {
             params: {
@@ -271,13 +316,14 @@ export default {
           })
           .then(response => {
             this.filmRoles = response.data;
+            console.log("called 4");
+
             // this.sortedArray(); //random array
           })
           .catch(error => {
             console.log("GET REQUEST WENT AWRY");
           });
-      }
-      if (this.actor[0].group == "Art") {
+      } else if (this.actor[0].group == "Art") {
         this.$axios
           .get("/api/v1/listings/", {
             params: {
@@ -287,13 +333,14 @@ export default {
           .then(response => {
             this.crewRoles = response.data;
             this.isCrew = true;
+            console.log("called 5");
+
             // this.sortedArray(); //random array
           })
           .catch(error => {
             console.log("GET REQUEST WENT AWRY");
           });
-      }
-      if (this.actor[0].group == "Camera") {
+      } else if (this.actor[0].group == "Camera") {
         this.$axios
           .get("/api/v1/listings/", {
             params: {
@@ -303,13 +350,14 @@ export default {
           .then(response => {
             this.crewRoles = response.data;
             this.isCrew = true;
+            console.log("called 6");
+
             // this.sortedArray(); //random array
           })
           .catch(error => {
             console.log("GET REQUEST WENT AWRY");
           });
-      }
-      if (this.actor[0].group == "Lighting") {
+      } else if (this.actor[0].group == "Lighting") {
         this.$axios
           .get("/api/v1/listings/", {
             params: {
@@ -319,13 +367,14 @@ export default {
           .then(response => {
             this.crewRoles = response.data;
             this.isCrew = true;
+            console.log("called 7");
+
             // this.sortedArray(); //random array
           })
           .catch(error => {
             console.log("GET REQUEST WENT AWRY");
           });
-      }
-      if (this.actor[0].group == "Sound") {
+      } else if (this.actor[0].group == "Sound") {
         this.$axios
           .get("/api/v1/listings/", {
             params: {
@@ -335,13 +384,14 @@ export default {
           .then(response => {
             this.crewRoles = response.data;
             this.isCrew = true;
+            console.log("called 8");
+
             // this.sortedArray(); //random array
           })
           .catch(error => {
             console.log("GET REQUEST WENT AWRY");
           });
-      }
-      if (this.actor[0].group == "HMU") {
+      } else if (this.actor[0].group == "HMU") {
         this.$axios
           .get("/api/v1/listings/", {
             params: {
@@ -351,13 +401,14 @@ export default {
           .then(response => {
             this.crewRoles = response.data;
             this.isCrew = true;
+            console.log("called 9");
+
             // this.sortedArray(); //random array
           })
           .catch(error => {
             console.log("GET REQUEST WENT AWRY");
           });
-      }
-      if (this.actor[0].group == "Editor") {
+      } else if (this.actor[0].group == "Editor") {
         this.$axios
           .get("/api/v1/listings/", {
             params: {
@@ -368,50 +419,32 @@ export default {
             this.crewRoles = response.data;
             this.isCrew = true;
             this.isPostProduction = true;
+            console.log("called 10");
+
             // this.sortedArray(); //random array
           })
           .catch(error => {
             console.log("GET REQUEST WENT AWRY");
           });
-      }
-      if (
-        (this.actor[0].group == "Color",
-        {
-          params: {
-            hasEditor: "True"
-          }
-        })
-      ) {
-        this.$axios
-          .get("/api/v1/listings/")
-          .then(response => {
-            this.crewRoles = response.data;
-            this.isCrew = true;
-            this.isPostProduction = true;
-            // this.sortedArray(); //random array
-          })
-          .catch(error => {
-            console.log("GET REQUEST WENT AWRY");
-          });
-      }
-      if (this.actor[0].group == "Sound") {
+      } else if (this.actor[0].group == "Color") {
         this.$axios
           .get("/api/v1/listings/", {
             params: {
-              hasSound: "True"
+              hasEditor: "True"
             }
           })
           .then(response => {
             this.crewRoles = response.data;
             this.isCrew = true;
             this.isPostProduction = true;
+            console.log("called 11");
+
             // this.sortedArray(); //random array
           })
           .catch(error => {
             console.log("GET REQUEST WENT AWRY");
           });
-      }
-      if (this.actor[0].group == "VFX") {
+      } else if (this.actor[0].group == "VFX") {
         this.$axios
           .get("/api/v1/listings/", {
             params: {
@@ -422,13 +455,14 @@ export default {
             this.crewRoles = response.data;
             this.isCrew = true;
             this.isPostProduction = true;
+            console.log("called 12");
+
             // this.sortedArray(); //random array
           })
           .catch(error => {
             console.log("GET REQUEST WENT AWRY");
           });
-      }
-      if (this.actor[0].group == "Animator") {
+      } else if (this.actor[0].group == "Animator") {
         this.$axios
           .get("/api/v1/listings/", {
             params: {
@@ -439,11 +473,15 @@ export default {
             this.crewRoles = response.data;
             this.isCrew = true;
             this.isPostProduction = true;
+            console.log("Animator called");
             // this.sortedArray(); //random array
           })
           .catch(error => {
             console.log("GET REQUEST WENT AWRY");
           });
+      } else {
+        this.isCrew = false;
+        console.log("none of the above");
       }
     }
   },
@@ -494,7 +532,7 @@ export default {
     GridComponent,
     SideBarComponent
   },
-  async asyncData({ params, $axios, store }) {
+  async asyncData({ params, $axios, store, redirect }) {
     try {
       const body = store.getters.loggedInUser.id;
       const [actor, applications] = await Promise.all([
@@ -515,8 +553,11 @@ export default {
       if (error.response.status === 403) {
         const hasPermission = false;
         console.log(hasPermission, "perm");
-        console.error(error);
+        console.error("403 ERROR OOF");
+        redirect("/createprofiles");
+
         return { hasPermission };
+      } else {
       }
     }
   },
