@@ -1,13 +1,19 @@
 <template>
   <div>
     <v-app>
+      <!-- Top Melacast logo -->
       <v-toolbar flat elevation="0">
         <div>
           <img class="mx-auto" height="200px" width="200px" src="../assets/images/horizontal.png" />
         </div>
         <v-spacer></v-spacer>
       </v-toolbar>
-      <!-- First page -->
+      <!-- Test section -->
+      <v-card>
+        <v-card-title v-if="showCard" id="testCard" ref="testCard">Test text here</v-card-title>
+        <v-card-title v-if="!showCard" id="testCard2" ref="testCard2">The opposite</v-card-title>
+      </v-card>
+      <!-- Form start -->
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-row class="justify-center align-center">
           <v-spacer></v-spacer>
@@ -107,49 +113,40 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
 import TopNavbar from "~/components/TopNavbar";
 import FooterComponent from "~/components/FooterComponent";
 
 export default {
   name: "Create Profile",
-  computed: {
-    uploadButtonSize() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "md":
-          return true;
-        case "sm":
-          return true;
-        case "xs":
-          return true;
-        case "lg":
-          return 150;
-      }
-    }
-  },
   components: { FooterComponent, TopNavbar },
   methods: {
     async submitProfile() {
-      let response = await this.$refs.form.validate();
-      if (!response) {
-        console.log(response);
-        console.log("Failed Validation");
-      } else {
-        this.$axios
-          .post(`/api/v1/actors`, this.form)
-          .then(response => {
-            this.$router.push("/");
-          })
-          .catch(error => {
-            if (error) {
-              console.log(error, "ERROR WITH POST");
-            }
-          });
+      try {
+        // wait for validation to pass before POSTing
+        let response = await this.$refs.form.validate();
+        if (!response) {
+          console.log(response);
+          console.log("Failed Validation");
+        } else {
+          this.$axios
+            .post(`/api/v1/actors`, this.form)
+            .then(response => {
+              this.$router.push("/");
+            })
+            .catch(error => {
+              if (error) {
+                console.log(error, "ERROR WITH POST");
+              }
+            });
+        }
+      } catch (err) {
+        console.log(err);
       }
     }
   },
   data() {
     return {
+      showCard: false,
       genders: ["Female", "Male", "Non-Binary", "Prefer Not to Say"],
       unions: ["Non Union", "Union", "SAG", "Equity"],
       nameRules: [v => !!v || "Name is required"],

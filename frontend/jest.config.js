@@ -2,6 +2,7 @@ module.exports = {
   // tell Jest to handle `*.vue` files
   moduleFileExtensions: ["js", "json", "vue"],
   watchman: false,
+  // setupFilesAfterEnv: ["./__tests__/setup.js"],
 
   moduleNameMapper: {
     "^~/(.*)$": "<rootDir>/$1",
