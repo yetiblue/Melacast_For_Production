@@ -1028,29 +1028,19 @@
           <v-card class="mt-n10" outlined elevation="0">
             <v-btn text block class="ma-2" height="500px">
               <v-icon x-large dark right>mdi-checkbox-marked-circle</v-icon>
-              <v-card-title>Listing Successfully Submitted</v-card-title>
+              <v-card-title>Listing Successfully Submitted </v-card-title>
 
               <v-card-actions></v-card-actions>
             </v-btn>
             <v-row>
               <v-spacer></v-spacer>
               <v-col cols="6">
-                <v-btn
-                  text
-                  @click="
-                    submitForm();
-                    finishListing();
-                  "
+                <v-btn text @click="finishListing()"
                   >View Your Submitted Listings</v-btn
                 >
               </v-col>
               <v-col cols="4">
-                <v-btn
-                  text
-                  @click="
-                    submitForm();
-                    submitAnotherListing();
-                  "
+                <v-btn text @click="finishListing(submitAnother)"
                   >Submit Another Listing</v-btn
                 >
               </v-col>
@@ -1108,6 +1098,14 @@ export default {
         .sort((a, b) => a.id - b.id);
     },
     displayFifth() {
+      //displays the fifth page of the form for a pay-per-listing user
+      //purpose = because of the redirect to stripe, the data() store
+      //gets wiped. This page allows the saved data to be retrieved from Localstorage
+      //and actually posted when the user clicks either of the two buttons.
+
+      //the paying members post directly without ever redirecting to stripe on the
+      //fourthPage where they have a 'Post' button vs a 'Pay' redirect
+
       if (this.sortedActorsOldestFirst[0].return_to_page == "True") {
         return true;
         console.log("true fifth");
@@ -1192,33 +1190,34 @@ export default {
     }
   },
   methods: {
-    submitAnotherListing(store, loggedInUser) {
-      let formData = new FormData();
-      this.sortedActorsOldestFirst[0].return_to_page = false;
-      this.sortedActorsOldestFirst[0].paid_listing = false;
-      formData.append(
-        "return_to_page",
-        this.sortedActorsOldestFirst[0].return_to_page
-      );
-      formData.append(
-        "paid_listing",
-        this.sortedActorsOldestFirst[0].paid_listing
-      );
-      this.$axios
-        .patch(
-          `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
-          formData
-        )
-        .then(response => {
-          console.log("Successfully Reset success submit");
-          this.$router.push(`/createlisting`);
-        })
-        .catch(error => {
-          if (error) {
-            this.showSubmitError = true;
-          }
-        });
-    },
+    // submitAnotherListing(store, loggedInUser) {
+    //   let formData = new FormData();
+
+    //   this.sortedActorsOldestFirst[0].return_to_page = false;
+    //   this.sortedActorsOldestFirst[0].paid_listing = false;
+    //   formData.append(
+    //     "return_to_page",
+    //     this.sortedActorsOldestFirst[0].return_to_page
+    //   );
+    //   formData.append(
+    //     "paid_listing",
+    //     this.sortedActorsOldestFirst[0].paid_listing
+    //   );
+    //   this.$axios
+    //     .patch(
+    //       `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
+    //       formData
+    //     )
+    //     .then(response => {
+    //       console.log("Successfully Reset success submit");
+    //       this.$router.push(`/createlisting`);
+    //     })
+    //     .catch(error => {
+    //       if (error) {
+    //         this.showSubmitError = true;
+    //       }
+    //     });
+    // },
     checkout() {
       this.$refs.checkoutRef.redirectToCheckout();
       console.log(this.lineItems[0].price, "priceID");
@@ -1227,6 +1226,10 @@ export default {
     },
     setDatatoLocalStorage() {
       localStorage.setItem("form", JSON.stringify(this.form));
+      localStorage.setItem(
+        "listingPoster",
+        JSON.stringify(this.selectedGalleryPhoto)
+      );
       console.log("adding to localstorage");
       localStorage.setItem("fifth", "true");
     },
@@ -1282,37 +1285,71 @@ export default {
       //Close Thumbnail gallery
       this.galleryNotOpen = true;
     },
-    finishListing() {
-      //After submitting basic information and the roles
+    finishListing(decision) {
+      this.form = JSON.parse(localStorage.getItem("form"));
+      this.selectedGalleryPhoto = JSON.parse(
+        localStorage.getItem("listingPoster")
+      );
+      console.log(this.selectedGalleryPhoto, "this.form");
+      //submit the form first
+      this.submitForm();
 
-      let formData = new FormData();
-      this.sortedActorsOldestFirst[0].return_to_page = false;
-      this.sortedActorsOldestFirst[0].paid_listing = false;
-      formData.append(
-        "return_to_page",
-        this.sortedActorsOldestFirst[0].return_to_page
-      );
-      formData.append(
-        "paid_listing",
-        this.sortedActorsOldestFirst[0].paid_listing
-      );
-      this.$axios
-        .patch(
-          `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
-          formData
-        )
-        .then(response => {
-          console.log("Successfully Reset success submit");
-          this.$router.push(`/applications`);
-        })
-        .catch(error => {
-          if (error) {
-            this.showSubmitError = true;
-          }
-        });
+      // let formData = new FormData();
+      // //return_to_page and paid_listing apply only to directors who pay to post a listing
+      // //return_to_page = true if redirected back to the form after going through stripe
+      // //paid_listing = true if payment for listing was successful
+
+      // // <---------------------------------------------------------->
+
+      // //resets these two fields so that the 5th page doesn't display
+      // //upon refreshing/redirecting to /createlisting
+      // this.sortedActorsOldestFirst[0].return_to_page = false;
+      // this.sortedActorsOldestFirst[0].paid_listing = false;
+      // formData.append(
+      //   "return_to_page",
+      //   this.sortedActorsOldestFirst[0].return_to_page
+      // );
+      // formData.append(
+      //   "paid_listing",
+      //   this.sortedActorsOldestFirst[0].paid_listing
+      // );
+      // if (decision == true) {
+      //   //decision == this.submitAnother == true go back to the start of the form
+      //   this.$axios
+      //     .patch(
+      //       `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
+      //       formData
+      //     )
+      //     .then(response => {
+      //       console.log("Successfully Reset success submit");
+      //       this.$router.push(`/createlisting`);
+      //     })
+      //     .catch(error => {
+      //       if (error) {
+      //         this.showSubmitError = true;
+      //       }
+      //     });
+      // } else {
+      //   //finished with adding listings to back to dashboard
+      //   this.$axios
+      //     .patch(
+      //       `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
+      //       formData
+      //     )
+      //     .then(response => {
+      //       console.log("Successfully Reset success submit");
+      //       this.$router.push(`/applications`);
+      //     })
+      //     .catch(error => {
+      //       if (error) {
+      //         this.showSubmitError = true;
+      //       }
+      //     });
+      // }
     },
 
     submitForm() {
+      console.log("submitForm called");
       // Submit the information on page 1 and 2 of the creation form
       this.form.date_submitted = this.currentDateTime; //currentDateTime is a computed Function
       let formAnswers = this.form;
@@ -1352,7 +1389,8 @@ export default {
             }
           });
       } else {
-        // if poster came from the gallery component
+        console.log("submitting 2nd method");
+        // if poster came from the gallery component instead of file upload
         let img = this.selectedGalleryPhoto;
         console.log(img, "img");
         this.$axios
@@ -1373,7 +1411,7 @@ export default {
               )
               .then(response => {
                 console.log("Successfully Created New Listing");
-                this.finishListing();
+                // this.finishListing();
               })
               .catch(error => {
                 if (error) {
@@ -1548,6 +1586,8 @@ export default {
   },
   data() {
     return {
+      returnedForm: [],
+      submitAnother: true,
       loading: false,
       group: null,
       publishableKey: `${process.env.STRIPE_PK}`,

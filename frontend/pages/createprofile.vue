@@ -4,14 +4,24 @@
       <!-- Top Melacast logo -->
       <v-toolbar flat elevation="0">
         <div>
-          <img class="mx-auto" height="200px" width="200px" src="../assets/images/horizontal.png" />
+          <img
+            class="mx-auto"
+            height="200px"
+            width="200px"
+            src="../assets/images/horizontal.png"
+          />
         </div>
         <v-spacer></v-spacer>
       </v-toolbar>
       <!-- Test section -->
       <v-card>
-        <v-card-title v-if="showCard" id="testCard" ref="testCard">Test text here</v-card-title>
-        <v-card-title v-if="!showCard" id="testCard2" ref="testCard2">The opposite</v-card-title>
+        <v-card-title v-if="showCard" id="testCard" ref="testCard"
+          >Test text here</v-card-title
+        >
+        <v-card-title v-if="!showCard" id="testCard2" ref="testCard2"
+          >The opposite</v-card-title
+        >
+        <v-card-title id="testOverride">{{ showCard }}</v-card-title>
       </v-card>
       <!-- Form start -->
       <v-form ref="form" v-model="valid" lazy-validation>
@@ -19,7 +29,9 @@
           <v-spacer></v-spacer>
           <v-col cols="10" sm="6" md="4">
             <v-card flat>
-              <v-card-title class="ml-sm-n4">Tell Us About Yourself</v-card-title>
+              <v-card-title class="ml-sm-n4"
+                >Tell Us About Yourself</v-card-title
+              >
               <v-text-field
                 outlined
                 justify="center"
@@ -57,7 +69,9 @@
               ></v-text-field>
             </v-card>
             <v-card flat>
-              <v-card-title :rules="raceRules" class="ml-sm-n4">What is Your Race Identity?</v-card-title>
+              <v-card-title :rules="raceRules" class="ml-sm-n4"
+                >What is Your Race Identity?</v-card-title
+              >
               <v-checkbox
                 v-model="form.ethnicity"
                 label="Native Hawaiian/Pacific Islander"
@@ -70,7 +84,12 @@
                 color="brown"
                 value="Hispanic/Latino"
               ></v-checkbox>
-              <v-checkbox v-model="form.ethnicity" label="Asian" color="brown" value="Asian"></v-checkbox>
+              <v-checkbox
+                v-model="form.ethnicity"
+                label="Asian"
+                color="brown"
+                value="Asian"
+              ></v-checkbox>
               <v-checkbox
                 v-model="form.ethnicity"
                 label="Middle Eastern"
@@ -103,7 +122,8 @@
               height="5vh"
               @click.prevent="submitProfile"
               block
-            >Submit!</v-btn>
+              >Submit!</v-btn
+            >
           </v-col>
           <v-spacer></v-spacer>
         </v-row>

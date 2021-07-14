@@ -9,8 +9,8 @@ const _1f2a3b7c = () => interopDefault(import('../pages/createlisting.vue' /* we
 const _0669f021 = () => interopDefault(import('../pages/createprofile.vue' /* webpackChunkName: "pages/createprofile" */))
 const _0696e88b = () => interopDefault(import('../pages/dashboard/index.vue' /* webpackChunkName: "pages/dashboard/index" */))
 const _77911553 = () => interopDefault(import('../pages/editprofile.vue' /* webpackChunkName: "pages/editprofile" */))
+const _5558eb65 = () => interopDefault(import('../pages/editprofiletest.vue' /* webpackChunkName: "pages/editprofiletest" */))
 const _30e05924 = () => interopDefault(import('../pages/listings/index.vue' /* webpackChunkName: "pages/listings/index" */))
-const _48c5449a = () => interopDefault(import('../pages/listingsubmitted.vue' /* webpackChunkName: "pages/listingsubmitted" */))
 const _7b15e85d = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _9e92634c = () => interopDefault(import('../pages/myapps.vue' /* webpackChunkName: "pages/myapps" */))
 const _5e28b860 = () => interopDefault(import('../pages/profile/index.vue' /* webpackChunkName: "pages/profile/index" */))
@@ -53,13 +53,13 @@ export const routerOptions = {
     component: _77911553,
     name: "editprofile"
   }, {
+    path: "/editprofiletest",
+    component: _5558eb65,
+    name: "editprofiletest"
+  }, {
     path: "/listings",
     component: _30e05924,
     name: "listings"
-  }, {
-    path: "/listingsubmitted",
-    component: _48c5449a,
-    name: "listingsubmitted"
   }, {
     path: "/login",
     component: _7b15e85d,
