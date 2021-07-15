@@ -374,6 +374,7 @@
         </v-col>
         <v-spacer></v-spacer>
       </v-row>
+      <!-- Second Page -->
       <v-row v-if="secondPage && !thirdPage && !fourthPage">
         <v-spacer></v-spacer>
         <v-col class="px-10 px-sm-0" lg="6" cols="12" sm="8">
@@ -1113,14 +1114,7 @@ export default {
         return false;
       }
     },
-    memberListings() {
-      return {
-        title: this.form.title,
-        start_date: this.form.start_date,
-        genre: this.form.genre,
-        poster: this.form.poster
-      };
-    },
+
     currentDateTime() {
       const current = new Date();
       const date =
@@ -1221,8 +1215,6 @@ export default {
     checkout() {
       this.$refs.checkoutRef.redirectToCheckout();
       console.log(this.lineItems[0].price, "priceID");
-      //change the button v-if back here
-      //include a go see listings button, or a "ex" out to submit another listing
     },
     setDatatoLocalStorage() {
       localStorage.setItem("form", JSON.stringify(this.form));
@@ -1231,12 +1223,11 @@ export default {
         JSON.stringify(this.selectedGalleryPhoto)
       );
       console.log("adding to localstorage");
-      localStorage.setItem("fifth", "true");
+      localStorage.setItem("fifth", "true"); //tell form to load 5th page upon return from Stripe
     },
     setPrice(priceID) {
       this.lineItems[0].price = priceID;
       this.setDatatoLocalStorage();
-
       this.checkout();
     },
     inputFileClick() {
@@ -1257,7 +1248,7 @@ export default {
       //Used if the poster is chosen from the thumbnail galllery component
 
       //   this.$refs.testImage.src = thumbID;
-      this.dialog = false;
+      this.dialog = false; //dialog is the popup component window. False sets it to not showing
       this.galleryPhotoSelected = true;
       this.hideUploadName = true;
       console.log(thumbID, "thumbID");
@@ -1269,17 +1260,12 @@ export default {
       this.closeGallery();
     },
     filmRoleGalleryPhoto(thumbnailID) {
-      this.dialog = false;
+      this.dialog = false; //dialog is the popup component window. False sets it to not showing
       this.galleryPhotoSelected = true;
 
       this.filmRoles.role_thumbnail = thumbnailID;
       console.log(this.filmRoles.role_thumbnail);
     },
-    // onClickFromChild(thumbID) {
-    //   //Used when selecting a thumbnail for a role
-    //   console.log(thumbID, "thumbID");
-    //   this.filmRoles.role_thumbnail = thumbID;
-    // },
 
     closeGallery() {
       //Close Thumbnail gallery
@@ -1290,68 +1276,66 @@ export default {
       this.selectedGalleryPhoto = JSON.parse(
         localStorage.getItem("listingPoster")
       );
-      console.log(this.selectedGalleryPhoto, "this.form");
+      let stopRedirect = true;
       //submit the form first
-      this.submitForm();
+      this.submitForm(stopRedirect);
 
-      // let formData = new FormData();
-      // //return_to_page and paid_listing apply only to directors who pay to post a listing
-      // //return_to_page = true if redirected back to the form after going through stripe
-      // //paid_listing = true if payment for listing was successful
+      let formData = new FormData();
+      //return_to_page and paid_listing apply only to directors who pay to post a listing
+      //return_to_page = true if redirected back to the form after going through stripe
+      //paid_listing = true if payment for listing was successful
 
-      // // <---------------------------------------------------------->
+      // <---------------------------------------------------------->
 
-      // //resets these two fields so that the 5th page doesn't display
-      // //upon refreshing/redirecting to /createlisting
-      // this.sortedActorsOldestFirst[0].return_to_page = false;
-      // this.sortedActorsOldestFirst[0].paid_listing = false;
-      // formData.append(
-      //   "return_to_page",
-      //   this.sortedActorsOldestFirst[0].return_to_page
-      // );
-      // formData.append(
-      //   "paid_listing",
-      //   this.sortedActorsOldestFirst[0].paid_listing
-      // );
-      // if (decision == true) {
-      //   //decision == this.submitAnother == true go back to the start of the form
-      //   this.$axios
-      //     .patch(
-      //       `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
-      //       formData
-      //     )
-      //     .then(response => {
-      //       console.log("Successfully Reset success submit");
-      //       this.$router.push(`/createlisting`);
-      //     })
-      //     .catch(error => {
-      //       if (error) {
-      //         this.showSubmitError = true;
-      //       }
-      //     });
-      // } else {
-      //   //finished with adding listings to back to dashboard
-      //   this.$axios
-      //     .patch(
-      //       `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
-      //       formData
-      //     )
-      //     .then(response => {
-      //       console.log("Successfully Reset success submit");
-      //       this.$router.push(`/applications`);
-      //     })
-      //     .catch(error => {
-      //       if (error) {
-      //         this.showSubmitError = true;
-      //       }
-      //     });
-      // }
+      //resets these two fields so that the 5th page doesn't display
+      //upon  redirecting to /createlisting
+      this.sortedActorsOldestFirst[0].return_to_page = false;
+      this.sortedActorsOldestFirst[0].paid_listing = false;
+      formData.append(
+        "return_to_page",
+        this.sortedActorsOldestFirst[0].return_to_page
+      );
+      formData.append(
+        "paid_listing",
+        this.sortedActorsOldestFirst[0].paid_listing
+      );
+      if (decision == true) {
+        //decision == this.submitAnother == true go back to the start of the form
+        this.$axios
+          .patch(
+            `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
+            formData
+          )
+          .then(response => {
+            console.log("Successfully Reset success submit");
+            this.$router.push(`/createlisting`);
+          })
+          .catch(error => {
+            if (error) {
+              this.showSubmitError = true;
+            }
+          });
+      } else {
+        //finished with adding listings to back to dashboard
+        this.$axios
+          .patch(
+            `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
+            formData
+          )
+          .then(response => {
+            console.log("Successfully Reset success submit");
+            this.$router.push(`/applications`);
+          })
+          .catch(error => {
+            if (error) {
+              this.showSubmitError = true;
+            }
+          });
+      }
     },
 
-    submitForm() {
-      console.log("submitForm called");
-      // Submit the information on page 1 and 2 of the creation form
-      this.form.date_submitted = this.currentDateTime; //currentDateTime is a computed Function
+    async submitForm(stopRedirect) {
+      this.form.date_submitted = this.currentDateTime;
       let formAnswers = this.form;
       const config = {
         headers: {
@@ -1381,7 +1365,9 @@ export default {
           )
           .then(response => {
             console.log("Successfully Created New Listing");
-            this.$router.push("/applications");
+            if (!stopRedirect) {
+              this.$router.push("/applications");
+            }
           })
           .catch(error => {
             if (error) {
@@ -1390,34 +1376,34 @@ export default {
           });
       } else {
         console.log("submitting 2nd method");
-        // if poster came from the gallery component instead of file upload
+        // if poster came from the gallery component get the image blob first
         let img = this.selectedGalleryPhoto;
         console.log(img, "img");
+        const createImageFirst = await this.$axios.get(img, {
+          responseType: "blob"
+        });
+        console.log(createImageFirst.data, "blobby");
+        this.forMembers(createImageFirst.data);
+
+        formData.append("poster", createImageFirst.data);
         this.$axios
-          .get(img, {
-            responseType: "blob"
-          })
+          .post(
+            `/api/v1/listings/`,
+            formData,
+            config,
+            this.positionsForm,
+            this.form.random_public_id
+          )
           .then(response => {
-            console.log(response.data);
-            this.forMembers(response.data);
-            formData.append("poster", response.data);
-            this.$axios
-              .post(
-                `/api/v1/listings/`,
-                formData,
-                config,
-                this.positionsForm,
-                this.form.random_public_id
-              )
-              .then(response => {
-                console.log("Successfully Created New Listing");
-                // this.finishListing();
-              })
-              .catch(error => {
-                if (error) {
-                  this.showSubmitError = true;
-                }
-              });
+            console.log("Successfully Created New Listing");
+            if (!stopRedirect) {
+              this.$router.push("/applications");
+            }
+          })
+          .catch(error => {
+            if (error) {
+              this.showSubmitError = true;
+            }
           });
       }
     },
@@ -1431,6 +1417,9 @@ export default {
       // return result;
       this.form.random_public_id = result;
       this.filmRoles.listing_public_id = result;
+      this.productionRoles.listing_public_id = this.form.random_public_id;
+      this.postProductionRoles.listing_public_id = this.form.random_public_id;
+
       console.log(this.form.random_public_id);
       console.log(this.filmRoles.listing_public_id);
     },
@@ -1451,8 +1440,7 @@ export default {
       this.$axios
         .post(`/api/v1/memberlistings/`, formData)
         .then(response => {
-          console.log("Successfully Created New Listing");
-          //   this.$router.push(`/applications`);
+          console.log("Successfully Created New Member Listing");
         })
         .catch(error => {
           if (error) {
@@ -1462,6 +1450,7 @@ export default {
     },
     displayReturnedRoles() {
       // Return all previous roles after each new role is submitted. Keeps a running list
+      // displayed on the screen without refreshing the whole form
       this.$axios
         .get(`/api/v1/filmroles/`, {
           params: {
@@ -1477,6 +1466,7 @@ export default {
     },
     displayReturnedProductionRoles() {
       // Return all previous roles after each new role is submitted. Keeps a running list
+      // displayed on the screen without refreshing the whole form
       this.$axios
         .get(`/api/v1/productionroles/`, {
           params: {
@@ -1492,6 +1482,7 @@ export default {
     },
     displayReturnedPostProductionRoles() {
       // Return all previous roles after each new role is submitted. Keeps a running list
+      // displayed on the screen without refreshing the whole form
       this.$axios
         .get(`/api/v1/postproductionroles/`, {
           params: {
@@ -1509,7 +1500,7 @@ export default {
       // Allows for deletion of a role from the returned list of all roles
       let deletionID = roleID;
       this.$axios.delete(`/api/v1/filmroles/${deletionID}/`);
-      //called twice so that the delte button deletes, and refreshes the page instead of needing 2 clicks
+      //called twice so that the delete button deletes, and refreshes the page instead of needing 2 clicks
       this.displayReturnedRoles();
       this.displayReturnedRoles();
     },
@@ -1517,7 +1508,7 @@ export default {
       // Allows for deletion of a role from the returned list of all roles
       let deletionID = roleID;
       this.$axios.delete(`/api/v1/productionroles/${deletionID}/`);
-      //called twice so that the delte button deletes, and refreshes the page instead of needing 2 clicks
+      //called twice so that the delete button deletes, and refreshes the page instead of needing 2 clicks
       this.displayReturnedProductionRoles();
       this.displayReturnedProductionRoles();
     },
@@ -1525,16 +1516,15 @@ export default {
       // Allows for deletion of a role from the returned list of all roles
       let deletionID = roleID;
       this.$axios.delete(`/api/v1/postproductionroles/${deletionID}/`);
-      //called twice so that the delte button deletes, and refreshes the page instead of needing 2 clicks
+      //called twice so that the delete button deletes, and refreshes the page instead of needing 2 clicks
       this.displayReturnedPostProductionRoles();
       this.displayReturnedPostProductionRoles();
     },
     addRoles($axios) {
-      //  listingThatWasJustAdded array holds all listings objects. The one that was submitted before the roles
       this.$axios
         .post(`/api/v1/filmroles/`, this.filmRoles)
         .then(response => {
-          console.log("Successfully Submitted Role");
+          console.log("Successfully Submitted film Role");
           this.displayReturnedRoles();
           this.filmRoles.role_name = null; // reset the fields for the role after each one is submitted
           this.filmRoles.ethnicity = null;
@@ -1542,7 +1532,7 @@ export default {
           this.filmRoles.character_name = null;
           this.filmRoles.role_description = null;
           this.filmRoles.role_thumbnail = null;
-          this.filmRoles.listing_public_id = this.form.random_public_id;
+          this.filmRoles.listing_public_id = this.form.random_public_id; //this field is updated for the first instance under this.generatePublicID()
           console.log(this.filmRoles.listing_public_id, "roles public id");
         })
         .catch(error => {
@@ -1550,26 +1540,21 @@ export default {
         });
     },
     addProduction($axios) {
-      //  listingThatWasJustAdded array holds all listings objects. The one that was submitted before the roles
-      this.productionRoles.listing_public_id = this.form.random_public_id;
-
       this.$axios
+
         .post(`/api/v1/productionroles/`, this.productionRoles)
         .then(response => {
           console.log("Successfully Submitted Production Role");
           this.displayReturnedProductionRoles();
           this.productionRoles.role_name = null; // reset the fields for the role after each one is submitted
           this.productionRoles.tag = null;
-          this.productionRole.listing_public_id = this.form.random_public_id;
+          this.productionRole.listing_public_id = this.form.random_public_id; //this field is updated for the first instance under this.generatePublicID()
         })
         .catch(error => {
           console.log(error);
         });
     },
     addPostProduction($axios) {
-      this.postProductionRoles.listing_public_id = this.form.random_public_id;
-
-      //  listingThatWasJustAdded array holds all listings objects. The one that was submitted before the roles
       this.$axios
         .post(`/api/v1/postproductionroles/`, this.postProductionRoles)
         .then(response => {
@@ -1577,7 +1562,7 @@ export default {
           this.displayReturnedPostProductionRoles();
           this.postProductionRoles.role_name = null; // reset the fields for the role after each one is submitted
           this.postProductionRoles.tag = null;
-          this.postProductionRoles.listing_public_id = this.form.random_public_id;
+          this.postProductionRoles.listing_public_id = this.form.random_public_id; //this field is updated for the first instance under this.generatePublicID()
         })
         .catch(error => {
           console.log(error);
@@ -1588,8 +1573,6 @@ export default {
     return {
       returnedForm: [],
       submitAnother: true,
-      loading: false,
-      group: null,
       publishableKey: `${process.env.STRIPE_PK}`,
       lineItems: [
         {
@@ -1597,7 +1580,7 @@ export default {
           quantity: 1
         }
       ],
-      payment_status: "unpaid",
+      payment_status: "unpaid", //for Stripe component
       successUrl: "http://localhost:3000/createlisting",
       cancelUrl: "http://localhost:3000",
       timeCommit: ["Fulltime", "Part time"],
@@ -1607,7 +1590,7 @@ export default {
       fourthPage: false,
       hideUploadName: false,
       galleryPhotoSelected: false,
-      dialog: false,
+      dialog: false, //false = gallery component not showing | true = gallery showing
       teams: ["Art", "Camera", "Lighting", "Sound", "Hmu"],
       postTeams: ["Editor", "Color", "Sound", "VFX", "Animator"],
       professions: [
@@ -1749,10 +1732,7 @@ export default {
         tag: null,
         listing_public_id: null
       },
-      returnedFilmRoles: [],
-      listingSubmitted: false,
-      listingThatWasJustAdded: [],
-      basicInfoSectionComplete: false
+      returnedFilmRoles: []
     };
   }
 };
