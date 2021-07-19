@@ -21,21 +21,12 @@
             class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
             elevation="0"
           >
-            <v-card-title class="justify-start"
-              >Tell Us About Your Film</v-card-title
-            >
-            <v-card-subtitle
-              >Add basic details to introduce this project.</v-card-subtitle
-            >
+            <v-card-title class="justify-start">Tell Us About Your Film</v-card-title>
+            <v-card-subtitle>Add basic details to introduce this project.</v-card-subtitle>
           </v-card>
           <v-row justify="center">
             <v-col cols="12" sm="8">
-              <v-text-field
-                outlined
-                justify="center"
-                v-model="form.title"
-                label="Project Title"
-              ></v-text-field>
+              <v-text-field outlined justify="center" v-model="form.title" label="Project Title"></v-text-field>
             </v-col>
             <v-col cols="12" sm="8">
               <v-text-field
@@ -46,12 +37,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="8">
-              <v-textarea
-                label="Bio"
-                outlined
-                v-model="form.overview"
-                color="teal"
-              >
+              <v-textarea label="Bio" outlined v-model="form.overview" color="teal">
                 <template v-slot:label>
                   <div>Project Logline</div>
                 </template>
@@ -65,28 +51,19 @@
                 label="Production Studio"
               ></v-text-field>
             </v-col>
-            <v-col
-              class="ml-lg-4"
-              outlined
-              style="height=10vh"
-              cols="12"
-              sm="12"
-            >
-              <v-card
-                class="pl-md-16 ml-lg-16 ml-md-10 ml-sm-16 pl-sm-2"
-                elevation="0"
-              >
+            <v-col class="ml-lg-4" outlined style="height=10vh" cols="12" sm="12">
+              <v-card class="pl-md-16 ml-lg-16 ml-md-10 ml-sm-16 pl-sm-2" elevation="0">
                 <v-card-title
                   v-if="!posterUploaded"
                   class="text-md-h6 ml-n4 ml-sm-0 text-subtitle-2"
-                  >Upload a project banner or choose one from our
-                  gallery</v-card-title
                 >
+                  Upload a project banner or choose one from our
+                  gallery
+                </v-card-title>
                 <v-card-title
                   v-if="!hideUploadName"
                   class="text-lg-subtitle-1"
-                  >{{ displayPosterName }}</v-card-title
-                >
+                >{{ displayPosterName }}</v-card-title>
                 <v-img
                   :aspect-ratio="16 / 9"
                   class="grey mb-lg-6 ml-sm-2"
@@ -111,12 +88,7 @@
                   >
                     <v-icon left>mdi-upload</v-icon>Thumbnail
                   </v-btn>
-                  <input
-                    type="file"
-                    style="display: none"
-                    ref="poster"
-                    @change="createPoster"
-                  />
+                  <input type="file" style="display: none" ref="poster" @change="createPoster" />
                 </v-col>
 
                 <v-col cols="12" class="pl-8" sm="1">
@@ -135,9 +107,7 @@
                       </v-btn>
                     </template>
                     <v-card dark>
-                      <GalleryThumbnailComponent
-                        @clicked="generatePosterFromComponent"
-                      />
+                      <GalleryThumbnailComponent @clicked="generatePosterFromComponent" />
                     </v-card>
                   </v-dialog>
                 </v-col>
@@ -159,12 +129,7 @@
                   >
                     <v-icon left>mdi-upload</v-icon>Thumbnail
                   </v-btn>
-                  <input
-                    type="file"
-                    style="display: none"
-                    ref="poster"
-                    @change="createPoster"
-                  />
+                  <input type="file" style="display: none" ref="poster" @change="createPoster" />
                 </v-col>
 
                 <v-col cols="12" class="pl-sm-8" sm="3" lg="1">
@@ -183,9 +148,7 @@
                       </v-btn>
                     </template>
                     <v-card dark>
-                      <GalleryThumbnailComponent
-                        @clicked="generatePosterFromComponent"
-                      />
+                      <GalleryThumbnailComponent @clicked="generatePosterFromComponent" />
                     </v-card>
                   </v-dialog>
                 </v-col>
@@ -193,12 +156,7 @@
               <v-spacer></v-spacer>
             </v-col>
             <v-col cols="12" sm="8">
-              <v-select
-                outlined
-                v-model="form.location"
-                :items="states"
-                label="Location (state)"
-              ></v-select>
+              <v-select outlined v-model="form.location" :items="states" label="Location (state)"></v-select>
             </v-col>
             <v-col cols="12" sm="8">
               <v-text-field
@@ -244,19 +202,9 @@
                 min-width="290px"
               >
                 <template v-slot:activator="{ on }">
-                  <v-text-field
-                    outlined
-                    label="End Date"
-                    readonly
-                    :value="form.end_date"
-                    v-on="on"
-                  ></v-text-field>
+                  <v-text-field outlined label="End Date" readonly :value="form.end_date" v-on="on"></v-text-field>
                 </template>
-                <v-date-picker
-                  v-model="form.end_date"
-                  no-title
-                  @input="endDateMenuOpen = false"
-                ></v-date-picker>
+                <v-date-picker v-model="form.end_date" no-title @input="endDateMenuOpen = false"></v-date-picker>
               </v-menu>
             </v-col>
             <v-col cols="12" sm="8">
@@ -282,21 +230,14 @@
                 class="pl-lg-16 pl-md-16 ml-md-10 ml-n4 ml-sm-16 pl-sm-2 ml-lg-16"
                 elevation="0"
               >
-                <v-card-title
-                  class="text-lg-subtitle-1 text-subtitle-1 text-sm-h6 bold"
-                >
+                <v-card-title class="text-lg-subtitle-1 text-subtitle-1 text-sm-h6 bold">
                   <b>What Best Describes Your Film?</b>
                 </v-card-title>
                 <v-card-subtitle>Check One</v-card-subtitle>
               </v-card>
             </v-col>
             <v-col outlined style="height=10vh" cols="8" sm="5">
-              <v-checkbox
-                v-model="form.genre"
-                label="Animation"
-                color="green"
-                value="Animation"
-              ></v-checkbox>
+              <v-checkbox v-model="form.genre" label="Animation" color="green" value="Animation"></v-checkbox>
               <v-checkbox
                 v-model="form.genre"
                 label="Documentary"
@@ -309,38 +250,18 @@
                 color="green"
                 value="Experimental"
               ></v-checkbox>
-              <v-checkbox
-                v-model="form.genre"
-                label="Feature"
-                color="green"
-                value="Feature"
-              ></v-checkbox>
+              <v-checkbox v-model="form.genre" label="Feature" color="green" value="Feature"></v-checkbox>
               <v-checkbox
                 v-model="form.genre"
                 label="Music Video"
                 color="green"
                 value="Music Video"
               ></v-checkbox>
-              <v-checkbox
-                v-model="form.genre"
-                label="Short"
-                color="green"
-                value="Short"
-              ></v-checkbox>
+              <v-checkbox v-model="form.genre" label="Short" color="green" value="Short"></v-checkbox>
             </v-col>
             <v-col outlined style="height=10vh" cols="4" sm="3">
-              <v-checkbox
-                v-model="form.genre"
-                label="Student"
-                color="green"
-                value="Student"
-              ></v-checkbox>
-              <v-checkbox
-                v-model="form.genre"
-                label="Television"
-                color="green"
-                value="Television"
-              ></v-checkbox>
+              <v-checkbox v-model="form.genre" label="Student" color="green" value="Student"></v-checkbox>
+              <v-checkbox v-model="form.genre" label="Television" color="green" value="Television"></v-checkbox>
               <v-checkbox
                 v-model="form.tags"
                 label="Virtual Reality"
@@ -353,12 +274,7 @@
                 color="green"
                 value="Web/New Media"
               ></v-checkbox>
-              <v-checkbox
-                v-model="form.tags"
-                label="Theater"
-                color="green"
-                value="Theater"
-              ></v-checkbox>
+              <v-checkbox v-model="form.tags" label="Theater" color="green" value="Theater"></v-checkbox>
             </v-col>
           </v-row>
 
@@ -366,9 +282,7 @@
             <!-- <v-col cols="6"></v-col> -->
             <v-spacer></v-spacer>
             <v-col cols="4" sm="3">
-              <v-btn @click="secondPage = !secondPage" style="margin-top: 50px;"
-                >Next</v-btn
-              >
+              <v-btn @click="secondPage = !secondPage" style="margin-top: 50px;">Next</v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -383,10 +297,10 @@
             elevation="0"
           >
             <v-card-title class="justify-start">Add Roles</v-card-title>
-            <v-card-subtitle
-              >Add any non post or production crew positions. Specifications are
-              optional.</v-card-subtitle
-            >
+            <v-card-subtitle>
+              Add any non post or production crew positions. Specifications are
+              optional.
+            </v-card-subtitle>
           </v-card>
           <v-row justify="center">
             <v-col cols="12" sm="8">
@@ -407,12 +321,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="8">
-              <v-textarea
-                label="Bio"
-                outlined
-                v-model="filmRoles.role_description"
-                color="teal"
-              >
+              <v-textarea label="Bio" outlined v-model="filmRoles.role_description" color="teal">
                 <template v-slot:label>
                   <div>Role Description</div>
                 </template>
@@ -437,15 +346,11 @@
               ></v-select>
             </v-col>
             <v-col outlined style="height=10vh" cols="12" sm="12">
-              <v-card
-                class="pl-md-16 ml-xl-16 ml-md-10 ml-sm-16 pl-sm-2"
-                elevation="0"
-              >
+              <v-card class="pl-md-16 ml-xl-16 ml-md-10 ml-sm-16 pl-sm-2" elevation="0">
                 <v-card-title
                   v-if="!posterUploaded"
                   class="text-md-h6 pl-lg-8 ml-n4 ml-sm-0 ml-lg-2 text-subtitle-2"
-                  >Pick a thumbnail for this role</v-card-title
-                >
+                >Pick a thumbnail for this role</v-card-title>
 
                 <v-img
                   :aspect-ratio="16 / 9"
@@ -476,9 +381,7 @@
                       </v-btn>
                     </template>
                     <v-card dark>
-                      <GalleryThumbnailComponent
-                        @clicked="filmRoleGalleryPhoto"
-                      />
+                      <GalleryThumbnailComponent @clicked="filmRoleGalleryPhoto" />
                     </v-card>
                   </v-dialog>
                 </v-col>
@@ -492,8 +395,7 @@
                     color="brown"
                     @click.prevent="addRoles()"
                     depressed
-                    >Submit</v-btn
-                  >
+                  >Submit</v-btn>
                 </v-col>
               </v-row>
               <v-spacer></v-spacer>
@@ -518,9 +420,7 @@
                       </v-btn>
                     </template>
                     <v-card dark>
-                      <GalleryThumbnailComponent
-                        @clicked="filmRoleGalleryPhoto"
-                      />
+                      <GalleryThumbnailComponent @clicked="filmRoleGalleryPhoto" />
                     </v-card>
                   </v-dialog>
                 </v-col>
@@ -534,42 +434,33 @@
                     color="brown"
                     @click.prevent="addRoles()"
                     depressed
-                    >Submit</v-btn
-                  >
+                  >Submit</v-btn>
                 </v-col>
               </v-row>
               <v-divider></v-divider>
               <v-spacer></v-spacer>
             </v-col>
-            <v-col
-              outlined
-              class="ml-lg-n16"
-              style="height=10vh"
-              cols="12"
-              sm="12"
-            >
+            <v-col outlined class="ml-lg-n16" style="height=10vh" cols="12" sm="12">
               <template v-for="returnedRole in returnedFilmRoles">
                 <v-card
                   :key="returnedRole.id"
                   class="pl-md-16 ml-md-10 ml-sm-10 ml-md-n2 ml-lg-8 ml-xl-0 pl-sm-2"
                   elevation="0"
                 >
-                  <v-card-title class="ml-sm-n4"
-                    >{{ returnedRole.role_name }} |
+                  <v-card-title class="ml-sm-n4">
+                    {{ returnedRole.role_name }} |
                     {{ returnedRole.character_name }} |
                     {{ returnedRole.role_type }} |
-                    {{ returnedRole.ethnicity }}</v-card-title
-                  >
+                    {{ returnedRole.ethnicity }}
+                  </v-card-title>
 
-                  <v-card-subtitle class="mt-lg-6 mt-sm-2 ml-sm-n4">{{
+                  <v-card-subtitle class="mt-lg-6 mt-sm-2 ml-sm-n4">
+                    {{
                     returnedRole.role_description
-                  }}</v-card-subtitle>
+                    }}
+                  </v-card-subtitle>
 
-                  <v-img
-                    class="mr-lg-6"
-                    :aspect-ratio="16 / 9"
-                    :src="returnedRole.role_thumbnail"
-                  ></v-img>
+                  <v-img class="mr-lg-6" :aspect-ratio="16 / 9" :src="returnedRole.role_thumbnail"></v-img>
                   <v-spacer></v-spacer>
                   <v-row class="justify-end">
                     <v-btn
@@ -578,8 +469,7 @@
                       text
                       outlined
                       @click="deleteRole(returnedRole.id)"
-                      >Delete</v-btn
-                    >
+                    >Delete</v-btn>
                   </v-row>
 
                   <v-divider></v-divider>
@@ -596,16 +486,14 @@
                 class="ml-n2 ml-sm-0"
                 @click="secondPage = !secondPage"
                 style="margin-top: 50px;"
-                >Back</v-btn
-              >
+              >Back</v-btn>
             </v-col>
             <v-col cols="4" md="4" sm="4">
               <v-btn
                 @click="thirdPage = !thirdPage"
                 class="ml-md-0 ml-lg-6"
                 style="margin-top: 50px;"
-                >Next</v-btn
-              >
+              >Next</v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -619,10 +507,10 @@
             elevation="0"
           >
             <v-card-title class="justify-start">Add Crew Members</v-card-title>
-            <v-card-subtitle
-              >Add any crew member types that you will need for this
-              project.</v-card-subtitle
-            >
+            <v-card-subtitle>
+              Add any crew member types that you will need for this
+              project.
+            </v-card-subtitle>
           </v-card>
           <v-card
             class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
@@ -636,43 +524,22 @@
             <v-card-subtitle
               v-for="returnedProduction in returnedProductionRoles"
               :key="returnedProduction.id"
-              >{{ returnedProduction.role_name }}</v-card-subtitle
-            >
+            >{{ returnedProduction.role_name }}</v-card-subtitle>
           </v-card>
           <v-row class="pr-10">
             <v-spacer></v-spacer>
 
             <v-col outlined style="height=10vh" cols="8" sm="10">
-              <v-checkbox
-                color="brown"
-                value="True"
-                v-model="form.hasArt"
-                label="Art Team"
-              />
-              <v-checkbox
-                color="brown"
-                value="true"
-                v-model="form.hasCamera"
-                label="Camera Team"
-              />
+              <v-checkbox color="brown" value="True" v-model="form.hasArt" label="Art Team" />
+              <v-checkbox color="brown" value="true" v-model="form.hasCamera" label="Camera Team" />
               <v-checkbox
                 color="brown"
                 value="true"
                 v-model="form.hasLighting"
                 label="Lighting Team"
               />
-              <v-checkbox
-                color="brown"
-                value="true"
-                v-model="form.hasSound"
-                label="Sound Team"
-              />
-              <v-checkbox
-                color="brown"
-                value="true"
-                v-model="form.hasHMU"
-                label="HMU Team"
-              />
+              <v-checkbox color="brown" value="true" v-model="form.hasSound" label="Sound Team" />
+              <v-checkbox color="brown" value="true" v-model="form.hasHMU" label="HMU Team" />
               <v-col class="ml-sm-n2" cols="10">
                 <v-text-field
                   class="mt-lg-6"
@@ -684,13 +551,7 @@
                   v-model="productionRoles.tag"
                   label="Select Team This Position Belongs To"
                 ></v-select>
-                <v-btn
-                  class="brown white--text"
-                  text
-                  outlined
-                  @click="addProduction()"
-                  >Add</v-btn
-                >
+                <v-btn class="brown white--text" text outlined @click="addProduction()">Add</v-btn>
               </v-col>
             </v-col>
           </v-row>
@@ -705,42 +566,17 @@
             <v-card-subtitle
               v-for="returnedPostProduction in returnedPostProductionRoles"
               :key="returnedPostProduction.id"
-              >{{ returnedPostProduction.role_name }}</v-card-subtitle
-            >
+            >{{ returnedPostProduction.role_name }}</v-card-subtitle>
           </v-card>
           <v-row class="pr-10">
             <v-spacer></v-spacer>
 
             <v-col outlined style="height=10vh" cols="8" sm="10">
-              <v-checkbox
-                value="Editing"
-                v-model="form.post_production_positions"
-                label="Editing"
-              />
-              <v-checkbox
-                color="brown"
-                value="true"
-                v-model="form.hasEditor"
-                label="Editor Team"
-              />
-              <v-checkbox
-                color="brown"
-                value="true"
-                v-model="form.hasColor"
-                label="Color Team"
-              />
-              <v-checkbox
-                color="brown"
-                value="true"
-                v-model="form.hasSound"
-                label="Sound Team"
-              />
-              <v-checkbox
-                color="brown"
-                value="true"
-                v-model="form.hasVFX"
-                label="VFX Team"
-              />
+              <v-checkbox value="Editing" v-model="form.post_production_positions" label="Editing" />
+              <v-checkbox color="brown" value="true" v-model="form.hasEditor" label="Editor Team" />
+              <v-checkbox color="brown" value="true" v-model="form.hasColor" label="Color Team" />
+              <v-checkbox color="brown" value="true" v-model="form.hasSound" label="Sound Team" />
+              <v-checkbox color="brown" value="true" v-model="form.hasVFX" label="VFX Team" />
               <v-checkbox
                 color="brown"
                 value="true"
@@ -764,8 +600,7 @@
                 text
                 outlined
                 @click="addPostProduction()"
-                >Add</v-btn
-              >
+              >Add</v-btn>
             </v-col>
           </v-row>
           <v-row justify="center">
@@ -776,16 +611,14 @@
                 class="ml-n2 ml-sm-0"
                 @click="thirdPage = !thirdPage"
                 style="margin-top: 50px;"
-                >Back</v-btn
-              >
+              >Back</v-btn>
             </v-col>
             <v-col cols="4" md="4" sm="4">
               <v-btn
                 @click="fourthPage = !fourthPage"
                 class="ml-md-0 ml-lg-6"
                 style="margin-top: 50px;"
-                >Next</v-btn
-              >
+              >Next</v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -798,30 +631,23 @@
             class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
             elevation="0"
           >
-            <v-card-title class="justify-start"
-              >Confirm details and post listing</v-card-title
-            >
-            <v-card-subtitle
-              >Your project will now be live and searchable on The Melacast
-              Network.</v-card-subtitle
-            >
+            <v-card-title class="justify-start">Confirm details and post listing</v-card-title>
+            <v-card-subtitle>
+              Your project will now be live and searchable on The Melacast
+              Network.
+            </v-card-subtitle>
           </v-card>
           <v-card
             class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
             elevation="0"
           >
-            <v-img
-              class="grey mr-lg-6"
-              :aspect-ratio="16 / 9"
-              :src="selectedGalleryPhoto"
-            >
-              <v-row
-                height="200px"
-                class="mt-lg-12 align-center justify-center"
-              >
-                <v-card-title class="mt-lg-16 pt-lg-16" v-if="hasPoster">{{
+            <v-img class="grey mr-lg-6" :aspect-ratio="16 / 9" :src="selectedGalleryPhoto">
+              <v-row height="200px" class="mt-lg-12 align-center justify-center">
+                <v-card-title class="mt-lg-16 pt-lg-16" v-if="hasPoster">
+                  {{
                   displayPosterName
-                }}</v-card-title>
+                  }}
+                </v-card-title>
               </v-row>
             </v-img>
           </v-card>
@@ -850,9 +676,7 @@
             <v-card-title class="justify-start text-lg-h5">
               <b>Location</b>
             </v-card-title>
-            <v-card-subtitle
-              >{{ form.city_location }}, {{ form.location }}</v-card-subtitle
-            >
+            <v-card-subtitle>{{ form.city_location }}, {{ form.location }}</v-card-subtitle>
           </v-card>
           <v-card
             class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
@@ -902,23 +726,17 @@
               <v-card-subtitle v-for="role in returnedFilmRoles" :key="role.id">
                 <GridComponent>
                   <template #cardSlot>
-                    <v-card
-                      outlined
-                      class="ml-sm-n5 pr-lg-10 mr-lg-12"
-                      elevation="0"
-                    >
-                      <v-card-title class="text-lg-h6"
-                        >{{ role.role_name }} |
-                        {{ role.role_type }}</v-card-title
-                      >
-                      <v-card-title class="text-lg-h6"
-                        >Character Name:{{ role.character_name }}</v-card-title
-                      >
-                      <v-card-title class="text-lg-h6"
-                        >Role Description:{{
-                          role.role_description
-                        }}</v-card-title
-                      >
+                    <v-card outlined class="ml-sm-n5 pr-lg-10 mr-lg-12" elevation="0">
+                      <v-card-title class="text-lg-h6">
+                        {{ role.role_name }} |
+                        {{ role.role_type }}
+                      </v-card-title>
+                      <v-card-title class="text-lg-h6">Character Name:{{ role.character_name }}</v-card-title>
+                      <v-card-title class="text-lg-h6">
+                        Role Description:{{
+                        role.role_description
+                        }}
+                      </v-card-title>
                     </v-card>
 
                     <v-spacer></v-spacer>
@@ -941,14 +759,11 @@
               >
                 <GridComponent>
                   <template #cardSlot>
-                    <v-card
-                      class="ml-sm-n5 pr-lg-10 mr-lg-12 mb-sm-n16 mb-md-0"
-                      elevation="0"
-                    >
-                      <v-card-title class="text-subtitle-1"
-                        >{{ productionRole.role_name }} |
-                        {{ productionRole.tag }}</v-card-title
-                      >
+                    <v-card class="ml-sm-n5 pr-lg-10 mr-lg-12 mb-sm-n16 mb-md-0" elevation="0">
+                      <v-card-title class="text-subtitle-1">
+                        {{ productionRole.role_name }} |
+                        {{ productionRole.tag }}
+                      </v-card-title>
                     </v-card>
 
                     <v-spacer></v-spacer>
@@ -975,10 +790,10 @@
                       class="ml-sm-n5 pl-sm-n5 pr-lg-10 mr-lg-12 mb-sm-n16 mb-md-0"
                       elevation="0"
                     >
-                      <v-card-title class="text-subtitle-1"
-                        >{{ postProductionRole.role_name }} |
-                        {{ postProductionRole.tag }}</v-card-title
-                      >
+                      <v-card-title class="text-subtitle-1">
+                        {{ postProductionRole.role_name }} |
+                        {{ postProductionRole.tag }}
+                      </v-card-title>
                     </v-card>
 
                     <v-spacer></v-spacer>
@@ -997,8 +812,7 @@
                 class="ml-n2 ml-sm-16"
                 @click="fourthPage = !fourthPage"
                 style="margin-top: 50px;"
-                >Back</v-btn
-              >
+              >Back</v-btn>
             </v-col>
             <v-col cols="4">
               <v-btn
@@ -1006,15 +820,13 @@
                 class="brown white--text ml-n2 ml-sm-n16"
                 style="margin-top: 50px;"
                 @click="submitForm"
-                >Post</v-btn
-              >
+              >Post</v-btn>
               <v-btn
                 v-else
                 class="brown white--text ml-n2 ml-sm-n16"
                 style="margin-top: 50px;"
                 @click="setPrice(`price_1J4RHBIXVRhKifjK2imEv2pg`)"
-                >Pay</v-btn
-              >
+              >Pay</v-btn>
             </v-col>
 
             <v-col cols="4" md="4" sm="4"></v-col>
@@ -1029,21 +841,17 @@
           <v-card class="mt-n10" outlined elevation="0">
             <v-btn text block class="ma-2" height="500px">
               <v-icon x-large dark right>mdi-checkbox-marked-circle</v-icon>
-              <v-card-title>Listing Successfully Submitted </v-card-title>
+              <v-card-title>Listing Successfully Submitted</v-card-title>
 
               <v-card-actions></v-card-actions>
             </v-btn>
             <v-row>
               <v-spacer></v-spacer>
               <v-col cols="6">
-                <v-btn text @click="finishListing()"
-                  >View Your Submitted Listings</v-btn
-                >
+                <v-btn text @click="finishListing()">View Your Submitted Listings</v-btn>
               </v-col>
               <v-col cols="4">
-                <v-btn text @click="finishListing(submitAnother)"
-                  >Submit Another Listing</v-btn
-                >
+                <v-btn text @click="finishListing(submitAnother)">Submit Another Listing</v-btn>
               </v-col>
               <v-spacer></v-spacer>
             </v-row>
@@ -1419,7 +1227,6 @@ export default {
       this.filmRoles.listing_public_id = result;
       this.productionRoles.listing_public_id = this.form.random_public_id;
       this.postProductionRoles.listing_public_id = this.form.random_public_id;
-
       console.log(this.form.random_public_id);
       console.log(this.filmRoles.listing_public_id);
     },
@@ -1451,18 +1258,18 @@ export default {
     displayReturnedRoles() {
       // Return all previous roles after each new role is submitted. Keeps a running list
       // displayed on the screen without refreshing the whole form
-      this.$axios
-        .get(`/api/v1/filmroles/`, {
-          params: {
-            listing_public_id: this.form.random_public_id
-          }
-        })
-        .then(response => {
-          this.returnedFilmRoles = response.data;
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      const getPromise = this.$axios.get(`/api/v1/filmroles/`, {
+        params: {
+          listing_public_id: this.form.random_public_id
+        }
+      });
+      getPromise.then(response => {
+        this.returnedFilmRoles = response.data;
+      });
+      getPromise.catch(error => {
+        console.log(error);
+      });
+      return getPromise;
     },
     displayReturnedProductionRoles() {
       // Return all previous roles after each new role is submitted. Keeps a running list

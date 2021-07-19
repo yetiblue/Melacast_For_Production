@@ -1,23 +1,44 @@
-import { mount, createLocalVue } from "@vue/test-utils";
-import Vuetify from "vuetify";
-import CreateListing from "@/pages/createlisting.vue";
+jest.mock("axios", () => ({
+  get: jest.fn(() => Promise.resolve({ data: 3 }))
+}));
 
-describe("CreateProfile.vue", () => {
-  //   const localVue = createLocalVue();
-  //   let vuetify;
-  //   beforeEach(() => {
-  //     vuetify = new Vuetify();
-  //   });
-  //   it("Show card when true", async () => {
-  //     const wrapper = mount(CreateListing, {
-  //       localVue,
-  //       vuetify
-  //     });
-  //     const overRide = wrapper.find("#testOverride");
-  //     expect(overRide.text()).toBe("my-override");
-  // await wrapper.setData({ showCard: true });
-  // const byID = wrapper.find({ ref: "testCard" });
-  // // expect(byID.element.id).toBe("testCard");
-  // expect(byID.text()).toBe("Test text here");
-  //   });
+import { mount, createLocalVue } from "@vue/test-utils";
+import CreateListing from "@/pages/createlisting.vue";
+import MyApps from "@/pages/myapps.vue";
+import axios from "axios";
+import Vuetify from "vuetify";
+
+describe("CreateProfile.vue axios mock test", () => {
+  const localVue = createLocalVue();
+  let methods = { generatePublicID: jest.fn() };
+  let vuetify;
+
+  // wrapper = mount(CreateListing);
+  beforeEach(() => {
+    vuetify = new Vuetify();
+    jest.resetModules();
+    jest.clearAllMocks();
+  });
+
+  it("Checks SideBarComponent is rendered", async () => {
+    const wrapper = mount(CreateListing, {
+      vuetify,
+      methods,
+      mocks: {
+        $vuetify: { breakpoint: {} }
+      }
+
+      // stubs: {
+      //   SideBarComponent: true,
+      //   FooterComponent: true
+      // }
+    });
+    await wrapper.setData({
+      form: {
+        random_public_id: "boo"
+      }
+    });
+    expect(methods.generatePublicID).toHaveBeenCalled();
+    console.log(wrapper.html());
+  });
 });
