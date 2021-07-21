@@ -3,8 +3,7 @@
 import { mapGetters } from "vuex";
 import Navigation from "~/Components/Navigation";
 import SubscribeComponent from "~/Components/SubscribeComponent.vue";
-import PprojGrid from "~/Components/PprojGrid";
-import DashboardSideNavigation from "~/Components/DashboardSideNavigation";
+
 export default {
   head() {
     return {
@@ -12,41 +11,37 @@ export default {
     };
   },
   components: {
-    SubscribeComponent,
-    Navigation,
-    PprojGrid,
-    DashboardSideNavigation
+    // SubscribeComponent,
+    // Navigation,
+    // PprojGrid,
+    // DashboardSideNavigation
   },
   computed: {
     ...mapGetters(["loggedInUser"]),
 
-    updatedActor: function(actor) {
-      //resume field throws error since it's required. Because it's not being uploaded here, gotta
-      //restructure the data returned in 'actor' and patch that instead
-
-      //REPLACE IN THE CALL BY USING formDATA.DELETE THOSE FIELDS
-      return {
-        // headshot: this.actor[0].headshot,
-        ethnicity: this.actor[0].ethnicity,
-        age: this.actor[0].age,
-        firstname: this.actor[0].firstname,
-        lastname: this.actor[0].lastname,
-        middle: this.actor[0].middle,
-        location: this.actor[0].location,
-        website: this.actor[0].website,
-        Instagram_Handle_if_applicable: this.actor[0]
-          .Instagram_Handle_if_applicable,
-        project_types: this.actor[0].project_types,
-        writing_genres: this.actor[0].writing_genres
-      };
-    },
-    //UPDATE THIS SECTION WITH THE NEW GROUPINGS AND REMOVE DANCER
+    // updatedActor: function(actor) {
+    //   //REPLACE IN THE CALL BY USING formDATA.DELETE THOSE FIELDS
+    //   return {
+    //     // headshot: this.actor[0].headshot,
+    //     ethnicity: this.actor[0].ethnicity,
+    //     age: this.actor[0].age,
+    //     firstname: this.actor[0].firstname,
+    //     lastname: this.actor[0].lastname,
+    //     middle: this.actor[0].middle,
+    //     location: this.actor[0].location,
+    //     website: this.actor[0].website,
+    //     Instagram_Handle_if_applicable: this.actor[0]
+    //       .Instagram_Handle_if_applicable,
+    //     project_types: this.actor[0].project_types,
+    //     writing_genres: this.actor[0].writing_genres
+    //   };
+    // },
     isDirector() {
       if (this.actor[0].group == "Director") {
         return true;
       }
     },
-    isPhotographerOrMakeup() {
+    isPhotographer() {
       if (
         this.actor[0].group == "Photographers" ||
         this.actor[0].group == "Makeup"
@@ -54,7 +49,15 @@ export default {
         return true;
       }
     },
-    isActorDirectororDancer() {
+    isCrew() {
+      if (
+        this.actor[0].group == "Production" ||
+        this.actor[0].group == "Post Production"
+      ) {
+        return true;
+      }
+    },
+    isActorMakeupDancer() {
       if (
         this.actor[0].group == "Actors" ||
         this.actor[0].group == "Directors" ||
@@ -109,7 +112,6 @@ export default {
     return {
       hasPermission: true,
       actor: {}, // returned from API
-      preview: "", //probably not needed, the preview for the uploaded image isn't being used.
       addProj: false,
       hasResume: false,
       hasSample: false,
@@ -160,25 +162,11 @@ export default {
       console.log(this.headshot);
       this.hasHeadshot = true;
     },
-    // onHeadshotChange(e) {
-    //   let files = e.target.files || e.dataTransfer.files;
-    //   if (!files.length) {
-    //     return;
-    //   }
-    //   this.headshotChanged = true;
-    //   this.updatedActor.headshot = files[0];
-    //   this.createHeadshot(files[0]);
-    // },
-    // createHeadshot(file) {
-    //   let reader = new FileReader();
-    //   let vm = this;
-    //   reader.onload = e => {
-    //     vm.preview = e.target.result;
-    //   };
-    //   reader.readAsDataURL(file);
-    // },
+
     async updateProfile($axios) {
-      let editedForm = this.updatedActor;
+      //don't need async here
+      // let editedForm = this.updatedActor;
+      let editedForm = this.actor[0];
       const config = {
         headers: {
           "content-type": "multipart/form-data; "
@@ -188,7 +176,15 @@ export default {
       for (let data in editedForm) {
         formData.append(data, editedForm[data]);
       }
-      //FORMDATA.DELETE RESUME, HEADSHOT ETC ETC
+      //Bc headshots and resumes are files, they have to be added seperately from the main form
+      //If either is selected, the existing empty or non empty field is deleted from 'Actor'
+      //The first time over, both fields will be empty and will throw an error if included in this.actor
+      if (this.hasHeadshot == true) {
+        formData.delete("headshot");
+      }
+      if (this.hasResume == true) {
+        formData.delete("resume");
+      }
       try {
         let response = await this.$axios.$patch(
           `/api/v1/actors/${this.actor[0].id}/`,
@@ -196,6 +192,7 @@ export default {
           config
         );
         this.submitNewHeadshot();
+        this.submitNewResume();
         //SUBMIT NEW RESUME HERE TOO
         // this.$router.push("/profile/");
       } catch (error) {
@@ -209,7 +206,7 @@ export default {
           let headshotData = new FormData();
           let headshot = this.headshot[i];
           headshotData.append("headshot", headshot);
-          console.log(headshotData, "sampleData");
+          console.log(headshotData, "headshotData");
           const config = {
             headers: {
               "content-type": "multipart/form-data; "
@@ -225,6 +222,32 @@ export default {
             });
         }
       } else {
+      }
+    },
+
+    submitNewResume(axios) {
+      if (this.hasResume == true) {
+        //set to true if a resume is selected in the file uploader
+        for (var i = 0; i < this.newResume.length; i++) {
+          let resumeData = new FormData();
+          let newResume = this.newResume[i];
+          resumeData.append("resume", newResume);
+          const config = {
+            headers: {
+              "content-type": "multipart/form-data; "
+            }
+          };
+          this.$axios
+            .patch(`/api/v1/actors/${this.actor[0].id}/`, resumeData, config)
+            .then(response => {
+              console.log("Successfully Submitted New Resume");
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+      } else {
+        //do nothing here if someone doesn't want to change resume
       }
     },
     deletePhoto(photoID, $axios) {
@@ -243,6 +266,9 @@ export default {
       this.$router.go();
     },
     submitPhotos(axios) {
+      //gathers submitted photos and posts them to the photos Endpoint
+      //Allows for seperation of main form and side projects. Can submit and
+      //return these photos without refreshing main page.
       console.log("submit photos");
       if (this.hasPhotos == true) {
         for (var i = 0; i < this.photos.length; i++) {
@@ -268,6 +294,9 @@ export default {
       }
     },
     submitReel(axios) {
+      //gathers submitted Reels and posts them to the photos Endpoint
+      //Allows for seperation of main form and side projects. Can submit and
+      //return these reels without refreshing main page.
       console.log("submit reels");
       if (this.hasReel == true && this.hasReelThumbnail == true) {
         for (var i = 0; i < this.reel.length; i++) {
@@ -297,6 +326,9 @@ export default {
       }
     },
     submitSample(axios) {
+      //gathers submitted writing samples and posts them to the photos Endpoint
+      //Allows for seperation of main form and side projects. Can submit and
+      //return these samples without refreshing main page.
       console.log("submit reels");
       if (this.hasSample == true && this.hasSampleThumbnail == true) {
         for (var i = 0; i < this.samples.length; i++) {
@@ -323,31 +355,6 @@ export default {
             });
         }
       } else {
-      }
-    },
-
-    submitNewResume(axios) {
-      if (this.hasResume == true) {
-        for (var i = 0; i < this.newResume.length; i++) {
-          let resumeData = new FormData();
-          let newResume = this.newResume[i];
-          resumeData.append("resume", newResume);
-          const config = {
-            headers: {
-              "content-type": "multipart/form-data; "
-            }
-          };
-          this.$axios
-            .patch(`/api/v1/actors/${this.actor[0].id}/`, resumeData, config)
-            .then(response => {
-              console.log("Successfully Submitted New Resume");
-            })
-            .catch(error => {
-              console.log(error);
-            });
-        }
-      } else {
-        //do nothing here if someone doesn't want to change resume
       }
     }
   }

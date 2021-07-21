@@ -2,8 +2,9 @@ jest.mock("axios", () => ({
   get: jest.fn(() => Promise.resolve({ data: 3 }))
 }));
 
-import { mount, createLocalVue } from "@vue/test-utils";
+import { shallowMount, createLocalVue } from "@vue/test-utils";
 import CreateListing from "@/pages/createlisting.vue";
+import GalleryThumbnailComponent from "@/components/GalleryThumbnailComponent";
 import MyApps from "@/pages/myapps.vue";
 import axios from "axios";
 import Vuetify from "vuetify";
@@ -20,12 +21,23 @@ describe("CreateProfile.vue axios mock test", () => {
     jest.clearAllMocks();
   });
 
-  it("Checks SideBarComponent is rendered", async () => {
-    const wrapper = mount(CreateListing, {
+  it("make mount work", async () => {
+    const wrapper = shallowMount(CreateListing, {
       vuetify,
       methods,
+
+      // computed: {
+      //   loggedInUser: () => {
+      //     id: "1";
+      //   }
+      // },
       mocks: {
-        $vuetify: { breakpoint: {} }
+        $vuetify: { breakpoint: {} },
+        $store: {
+          getters: {
+            loggedInUser: { id: "1" }
+          }
+        }
       }
 
       // stubs: {
@@ -34,11 +46,12 @@ describe("CreateProfile.vue axios mock test", () => {
       // }
     });
     await wrapper.setData({
-      form: {
-        random_public_id: "boo"
-      }
+      actors: [
+        {
+          return_to_page: true
+        }
+      ]
     });
-    expect(methods.generatePublicID).toHaveBeenCalled();
     console.log(wrapper.html());
   });
 });

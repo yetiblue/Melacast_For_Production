@@ -872,6 +872,7 @@ import SideBarComponent from "~/components/SideBarComponent";
 import GalleryThumbnailComponent from "~/components/GalleryThumbnailComponent";
 
 export default {
+  name: "CreateListing",
   head() {
     return {
       //   title: "Create Your User Profile"

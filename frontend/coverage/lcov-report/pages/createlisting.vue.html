@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">5.45% </span>
+                <span class="strong">6.93% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/202</span>
+                <span class='fraction'>14/202</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.14% </span>
+                <span class="strong">10.71% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/56</span>
+                <span class='fraction'>6/56</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">5.5% </span>
+                <span class="strong">7% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/200</span>
+                <span class='fraction'>14/200</span>
             </div>
         
             
@@ -1603,7 +1603,8 @@
 <a name='L1544'></a><a href='#L1544'>1544</a>
 <a name='L1545'></a><a href='#L1545'>1545</a>
 <a name='L1546'></a><a href='#L1546'>1546</a>
-<a name='L1547'></a><a href='#L1547'>1547</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L1547'></a><a href='#L1547'>1547</a>
+<a name='L1548'></a><a href='#L1548'>1548</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2475,6 +2476,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2497,7 +2499,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -2507,7 +2509,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2520,7 +2522,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -4023,6 +4025,7 @@ import SideBarComponent from "~/components/SideBarComponent";
 import GalleryThumbnailComponent from "~/components/GalleryThumbnailComponent";
 &nbsp;
 export default {
+  name: "CreateListing",
 <span class="fstat-no" title="function not covered" >  head() {</span>
 <span class="cstat-no" title="statement not covered" >    return {</span>
       //   title: "Create Your User Profile"
@@ -4043,7 +4046,7 @@ export default {
     ...mapGetters(["loggedInUser"]),
     clientReference() {
       let clientID = this.$store.getters.loggedInUser.id;
-<span class="cstat-no" title="statement not covered" >      return clientID.toString();</span>
+      return clientID.toString();
     },
 <span class="fstat-no" title="function not covered" >    showPayButton() {</span>
 <span class="cstat-no" title="statement not covered" >      if (this.sortedActorsOldestFirst[0].paid_listing == "false") {</span>
@@ -4052,12 +4055,12 @@ export default {
 <span class="cstat-no" title="statement not covered" >        return false;</span>
       }
     },
-<span class="fstat-no" title="function not covered" >    sortedActorsOldestFirst() {</span>
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >      return this.actors</span></span>
+    sortedActorsOldestFirst() {
+<span class="fstat-no" title="function not covered" >      return this.actors</span>
         .map(sortedActor =&gt; sortedActor)
         .sort((a, b) =&gt; a.id - b.id);
     },
-<span class="fstat-no" title="function not covered" >    displayFifth() {</span>
+    displayFifth() {
       //displays the fifth page of the form for a pay-per-listing user
       //purpose = because of the redirect to stripe, the data() store
       //gets wiped. This page allows the saved data to be retrieved from Localstorage
@@ -4066,7 +4069,7 @@ export default {
       //the paying members post directly without ever redirecting to stripe on the
       //fourthPage where they have a 'Post' button vs a 'Pay' redirect
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (this.sortedActorsOldestFirst[0].return_to_page == "True") {</span>
+      if (this.sortedActorsOldestFirst[0].return_to_page == "True") {
 <span class="cstat-no" title="statement not covered" >        return true;</span>
 <span class="cstat-no" title="statement not covered" >        console.log("true fifth");</span>
       } else {
@@ -4702,7 +4705,7 @@ export default {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 19 2021 17:01:35 GMT-0400 (Eastern Daylight Time)
+                at Wed Jul 21 2021 15:34:06 GMT-0400 (Eastern Daylight Time)
             </div>
         </div>
         <script src="../prettify.js"></script>

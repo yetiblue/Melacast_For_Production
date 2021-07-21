@@ -266,6 +266,7 @@ export default {
     return {
       genders: ["Female", "Male", "Non-Binary", "Prefer Not to Say"],
       unions: ["Non Union", "Union", "SAG", "Equity"],
+      //SET FORM TO ACTOR AND CHANGE ABOVE TO ACTOR[0]
       form: {
         gender: null,
         firstname: null,

@@ -8,7 +8,7 @@ describe("Testing Myapps", () => {
   beforeEach(() => {
     vuetify = new Vuetify();
   });
-  it("Checks SideBarComponent is rendered", async () => {
+  it("myapps.vue", async () => {
     const wrapper = mount(MyApps, {
       //   localVue,
       vuetify,

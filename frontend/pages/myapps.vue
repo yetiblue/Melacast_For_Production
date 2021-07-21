@@ -162,7 +162,7 @@
     <FooterComponent />
   </div>
 </template>
-<script>
+ <script>
 import { mapGetters } from "vuex";
 import TopNavbar from "~/components/TopNavbar";
 import SubscribeComponent from "~/components/SubscribeComponent";
@@ -348,3 +348,4 @@ export default {
   }
 };
 </script>
+
