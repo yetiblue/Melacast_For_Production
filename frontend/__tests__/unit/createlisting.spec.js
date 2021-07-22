@@ -2,12 +2,16 @@ jest.mock("axios", () => ({
   get: jest.fn(() => Promise.resolve({ data: 3 }))
 }));
 
-import { shallowMount, createLocalVue } from "@vue/test-utils";
+import { shallowMount, config, createLocalVue } from "@vue/test-utils";
 import CreateListing from "@/pages/createlisting.vue";
 import GalleryThumbnailComponent from "@/components/GalleryThumbnailComponent";
 import MyApps from "@/pages/myapps.vue";
 import axios from "axios";
 import Vuetify from "vuetify";
+import Vue from "vue";
+
+config.silent = true;
+Vue.config.silent = true;
 
 describe("CreateProfile.vue axios mock test", () => {
   const localVue = createLocalVue();

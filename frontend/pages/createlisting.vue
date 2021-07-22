@@ -893,6 +893,7 @@ export default {
     ...mapGetters(["loggedInUser"]),
     clientReference() {
       let clientID = this.$store.getters.loggedInUser.id;
+      // let clientID = loggedInUser.id;
       return clientID.toString();
     },
     showPayButton() {
