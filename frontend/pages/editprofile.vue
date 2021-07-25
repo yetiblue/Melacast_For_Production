@@ -151,7 +151,15 @@
           </v-card>
         </v-col>
         <v-col sm="6">
-          <v-checkbox
+          {{actor[0].project_types}}
+          <MakeCheckboxesCheckedComponent
+            v-for="projectType in projectTypes"
+            :key="projectType + id"
+            :propsProjectTypes="projectType"
+            :arrayOfProjectTypes.sync="actor[0].project_types"
+            :checked="actor[0].project_types.includes(projectType)"
+          ></MakeCheckboxesCheckedComponent>
+          <!-- <v-checkbox
             v-model="actor[0].project_types"
             label="Animation"
             color="brown"
@@ -213,7 +221,7 @@
             label="Theater"
             color="brown"
             value="Theater"
-          ></v-checkbox>
+          ></v-checkbox>-->
         </v-col>
         <v-col sm="10">
           <v-card flat>
@@ -261,8 +269,10 @@
 import { mapGetters } from "vuex";
 import TopNavbar from "~/components/TopNavbar";
 import FooterComponent from "~/components/FooterComponent";
+import MakeCheckboxesCheckedComponent from "~/components/MakeCheckboxesCheckedComponent";
 
 export default {
+  components: { MakeCheckboxesCheckedComponent, TopNavbar },
   name: "Create Profile",
   computed: {
     uploadButtonSize() {
@@ -590,7 +600,20 @@ export default {
       genders: ["Female", "Male", "Non-Binary", "Prefer Not to Say"],
       unions: ["Non Union", "Union", "SAG", "Equity"],
       //SET FORM TO ACTOR AND CHANGE ABOVE TO ACTOR[0]
-      actor: []
+      actor: [],
+      projectTypes: [
+        "Animation",
+        "Documentary",
+        "Experimental",
+        "Feature",
+        "Music Video",
+        "Short",
+        "Student",
+        "Television",
+        "Virtual Reality",
+        "Web / New Media",
+        "Theater"
+      ]
     };
   }
 };
