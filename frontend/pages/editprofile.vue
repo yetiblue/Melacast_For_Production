@@ -151,77 +151,15 @@
           </v-card>
         </v-col>
         <v-col sm="6">
-          {{actor[0].project_types}}
+          {{ arrayStoringProjectTypes[0].project_types}}
           <MakeCheckboxesCheckedComponent
             v-for="projectType in projectTypes"
             :key="projectType + id"
             :propsProjectTypes="projectType"
-            :arrayOfProjectTypes.sync="actor[0].project_types"
+            :allProjectTypes="projectTypes"
+            :arrayOfProjectTypes.sync="arrayStoringProjectTypes[0].project_types"
             :checked="actor[0].project_types.includes(projectType)"
           ></MakeCheckboxesCheckedComponent>
-          <!-- <v-checkbox
-            v-model="actor[0].project_types"
-            label="Animation"
-            color="brown"
-            value="Animation"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="actor[0].project_types"
-            label="Documentary"
-            color="brown"
-            value="Documentary"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="actor[0].project_types"
-            label="Experimental"
-            color="brown"
-            value="Experimental"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="actor[0].project_types"
-            label="Feature"
-            color="brown"
-            value="Feature"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="actor[0].project_types"
-            label="Music Video"
-            color="brown"
-            value="Music Video"
-          ></v-checkbox>
-          <v-checkbox v-model="actor[0].project_types" label="Short" color="brown" value="Short"></v-checkbox>
-        </v-col>
-        <v-col sm="6">
-          <v-checkbox
-            v-model="actor[0].project_types"
-            label="Student"
-            color="brown"
-            value="Student"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="actor[0].project_types"
-            label="Television"
-            color="brown"
-            value="Television"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="actor[0].project_types"
-            label="Virtual Reality"
-            color="brown"
-            value="Virtual Reality"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="actor[0].project_types"
-            label="Web / New Media"
-            color="brown"
-            value="Web / New Media"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="actor[0].project_types"
-            label="Theater"
-            color="brown"
-            value="Theater"
-          ></v-checkbox>-->
         </v-col>
         <v-col sm="10">
           <v-card flat>
@@ -272,6 +210,15 @@ import FooterComponent from "~/components/FooterComponent";
 import MakeCheckboxesCheckedComponent from "~/components/MakeCheckboxesCheckedComponent";
 
 export default {
+  //created() is necessary since arrayStoringProjectTypes[0].property
+  //won't be available upon the DOM render otherwise.
+  //loading the array before, allows for id or project_types to be called without an error
+  created() {
+    this.arrayStoringProjectTypes = this.actor.map(({ project_types, id }) => ({
+      id,
+      project_types: project_types.split(",")
+    }));
+  },
   components: { MakeCheckboxesCheckedComponent, TopNavbar },
   name: "Create Profile",
   computed: {
@@ -613,7 +560,8 @@ export default {
         "Virtual Reality",
         "Web / New Media",
         "Theater"
-      ]
+      ],
+      arrayStoringProjectTypes: []
     };
   }
 };

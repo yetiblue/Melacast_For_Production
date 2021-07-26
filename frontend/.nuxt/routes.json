@@ -3,96 +3,112 @@
     "name": "community",
     "path": "/community",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/community/index.vue",
-    "chunkName": "pages/community/index"
+    "chunkName": "pages/community/index",
+    "_name": "_006e47a0"
   },
   {
     "name": "createlisting",
     "path": "/createlisting",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/createlisting.vue",
-    "chunkName": "pages/createlisting"
+    "chunkName": "pages/createlisting",
+    "_name": "_1f2a3b7c"
   },
   {
     "name": "createprofile",
     "path": "/createprofile",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/createprofile.vue",
-    "chunkName": "pages/createprofile"
+    "chunkName": "pages/createprofile",
+    "_name": "_0669f021"
   },
   {
     "name": "dashboard",
     "path": "/dashboard",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/dashboard/index.vue",
-    "chunkName": "pages/dashboard/index"
+    "chunkName": "pages/dashboard/index",
+    "_name": "_0696e88b"
   },
   {
     "name": "editprofile",
     "path": "/editprofile",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/editprofile.vue",
-    "chunkName": "pages/editprofile"
+    "chunkName": "pages/editprofile",
+    "_name": "_77911553"
   },
   {
     "name": "editprofiletest",
     "path": "/editprofiletest",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/editprofiletest.vue",
-    "chunkName": "pages/editprofiletest"
+    "chunkName": "pages/editprofiletest",
+    "_name": "_5558eb65"
   },
   {
     "name": "listings",
     "path": "/listings",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listings/index.vue",
-    "chunkName": "pages/listings/index"
+    "chunkName": "pages/listings/index",
+    "_name": "_30e05924"
   },
   {
     "name": "login",
     "path": "/login",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/login.vue",
-    "chunkName": "pages/login"
+    "chunkName": "pages/login",
+    "_name": "_7b15e85d"
   },
   {
     "name": "myapps",
     "path": "/myapps",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/myapps.vue",
-    "chunkName": "pages/myapps"
+    "chunkName": "pages/myapps",
+    "_name": "_9e92634c"
   },
   {
     "name": "profile",
     "path": "/profile",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/profile/index.vue",
-    "chunkName": "pages/profile/index"
+    "chunkName": "pages/profile/index",
+    "_name": "_5e28b860"
   },
   {
     "name": "registration",
     "path": "/registration",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/registration/index.vue",
-    "chunkName": "pages/registration/index"
+    "chunkName": "pages/registration/index",
+    "_name": "_07af5f38"
   },
   {
     "name": "profile-edit",
     "path": "/profile/edit",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/profile/edit.vue",
-    "chunkName": "pages/profile/edit"
+    "chunkName": "pages/profile/edit",
+    "_name": "_00eadeec"
   },
   {
     "name": "registration-awaiting_confirmation",
     "path": "/registration/awaiting_confirmation",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/registration/awaiting_confirmation.vue",
-    "chunkName": "pages/registration/awaiting_confirmation"
+    "chunkName": "pages/registration/awaiting_confirmation",
+    "_name": "_02e1ba2e"
   },
   {
     "name": "registration-activate-uid-token",
     "path": "/registration/activate/:uid?/:token?",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/registration/activate/_uid/_token.vue",
-    "chunkName": "pages/registration/activate/_uid/_token"
+    "chunkName": "pages/registration/activate/_uid/_token",
+    "_name": "_36ef8426"
   },
   {
     "name": "community-id",
     "path": "/community/:id",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/community/_id/index.vue",
-    "chunkName": "pages/community/_id/index"
+    "chunkName": "pages/community/_id/index",
+    "_name": "_fccadaea"
   },
   {
     "name": "listings-id",
     "path": "/listings/:id",
     "component": "/Users/timmyzhou/Melacast_For_Production/frontend/pages/listings/_id/index.vue",
-    "chunkName": "pages/listings/_id/index"
+    "chunkName": "pages/listings/_id/index",
+    "_name": "_bb54f14e"
   }
 ]
