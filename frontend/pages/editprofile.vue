@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app>
-      <!-- First page -->
+      <TopNavbar />
       <v-row class="justify-center align-center">
         <v-spacer></v-spacer>
         <v-col cols="6" sm="4">
@@ -118,8 +118,12 @@
             :width="uploadButtonSize"
             fab
           >
-            <v-img :src="actor[0].headshot"></v-img>
-            <v-icon>mdi-camera</v-icon>
+            <v-avatar v-if="hasHeadshot" size="150" class="ml-2">
+              <img
+                src="http://localhost:8000/media/images/Tracy_Wright_Corvo_Photography_actor_headshot_headshot-41-Square_r31xIWe.jpg"
+              />
+            </v-avatar>
+            <v-icon v-if="!hasHeadshot">mdi-camera</v-icon>
           </v-btn>
         </v-col>
         <v-col sm="6">
@@ -200,6 +204,7 @@
           ></v-text-field>
         </v-col>
       </v-row>
+      <FooterComponent />
     </v-app>
   </div>
 </template>
@@ -223,6 +228,7 @@ export default {
   name: "Create Profile",
   computed: {
     uploadButtonSize() {
+      //the headshot upload button
       switch (this.$vuetify.breakpoint.name) {
         case "md":
           return true;
@@ -232,6 +238,12 @@ export default {
           return true;
         case "lg":
           return 150;
+      }
+    },
+    hasHeadshot() {
+      //display camera icon or the user's headshot if it exists
+      if (this.actor[0].headshot !== null) {
+        return true;
       }
     },
     isDirector() {
@@ -276,11 +288,13 @@ export default {
       const [actor, photoList, writingSampleList, reelList] = await Promise.all(
         [
           $axios.$get(`/api/v1/actors/`, {
+            //user data
             params: {
               user: body
             }
           }),
           $axios.$get(`/api/v1/photos/`, {
+            //pictures used for gallery or project thumbnail
             params: {
               user: body
             }
@@ -376,7 +390,7 @@ export default {
         );
         this.submitNewHeadshot();
         this.submitNewResume();
-        //SUBMIT NEW RESUME HERE TOO
+
         // this.$router.push("/profile/");
       } catch (error) {
         console.log(error);

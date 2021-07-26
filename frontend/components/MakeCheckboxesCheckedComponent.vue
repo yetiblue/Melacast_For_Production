@@ -1,15 +1,15 @@
 <template>
   <div>
-    <v-app>
-      <v-checkbox
-        class="green"
-        ref="projectTypeCheckboxes"
-        @change="sendValueToParent(propsProjectTypes)"
-        :input-value="propsProjectTypes"
-        v-model="checked"
-      ></v-checkbox>
-      {{propsProjectTypes}} {{checked}}
-    </v-app>
+    <!-- <v-app> -->
+    <v-checkbox
+      ref="projectTypeCheckboxes"
+      @change="sendValueToParent(propsProjectTypes)"
+      :input-value="propsProjectTypes"
+      v-model="checked"
+      :label="propsProjectTypes"
+    ></v-checkbox>
+
+    <!-- </v-app> -->
   </div>
 </template>
 <script>
