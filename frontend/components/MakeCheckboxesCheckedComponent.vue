@@ -22,7 +22,7 @@ export default {
   ],
   methods: {
     sendValueToParent(value) {
-      console.log(this.allProjectTypes, "value");
+      //   console.log(this.allProjectTypes, "value");
       if (this.allProjectTypes.indexOf(value) > -1) {
         console.log(this.arrayOfProjectTypes, value, "Checked Already");
         const projectInterests = this.arrayOfProjectTypes.includes(value)
@@ -32,7 +32,7 @@ export default {
 
         this.$emit("update:arrayOfProjectTypes", projectInterests);
       } else {
-        console.log("eles");
+        console.log("else");
       }
     }
   }

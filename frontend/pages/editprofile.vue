@@ -117,13 +117,19 @@
             :height="uploadButtonSize"
             :width="uploadButtonSize"
             fab
+            @click="triggerFileInput"
           >
-            <v-avatar v-if="hasHeadshot" size="150" class="ml-2">
-              <img
-                src="http://localhost:8000/media/images/Tracy_Wright_Corvo_Photography_actor_headshot_headshot-41-Square_r31xIWe.jpg"
-              />
+            <input type="file" style="display: none" ref="headshot" @change="onHeadshotChange" />
+
+            <v-avatar v-if="headshotExists" size="150" class="ml-2">
+              <!-- for if headshot exists in database -->
+              <img :src="actor[0].headshot" />
             </v-avatar>
-            <v-icon v-if="!hasHeadshot">mdi-camera</v-icon>
+            <v-avatar v-if="headshotUploaded" size="150" class="ml-2">
+              <!-- populate this with the previewURL -->
+              <img id="previewHeadshot" ref="previewHeadshot" />
+            </v-avatar>
+            <v-icon v-if="!headshotExists">mdi-camera</v-icon>
           </v-btn>
         </v-col>
         <v-col sm="6">
@@ -155,7 +161,7 @@
           </v-card>
         </v-col>
         <v-col sm="6">
-          {{ arrayStoringProjectTypes[0].project_types}}
+          <!-- {{ arrayStoringProjectTypes[0].project_types}} -->
           <MakeCheckboxesCheckedComponent
             v-for="projectType in projectTypes"
             :key="projectType + id"
@@ -240,9 +246,14 @@ export default {
           return 150;
       }
     },
-    hasHeadshot() {
+    headshotExists() {
       //display camera icon or the user's headshot if it exists
       if (this.actor[0].headshot !== null) {
+        return true;
+      }
+    },
+    headshotUploaded() {
+      if (this.hasHeadshot == true) {
         return true;
       }
     },
@@ -359,7 +370,15 @@ export default {
       this.headshot = this.$refs.headshot.files;
       console.log(this.headshot);
       this.hasHeadshot = true;
+      const [file] = this.$refs.headshot.files;
+      if (file) {
+        this.$refs.previewHeadshot.src = URL.createObjectURL(file);
+      }
     },
+    triggerFileInput() {
+      this.$refs.headshot.click();
+    },
+
     async updateProfile($axios) {
       //don't need async here
       // let editedForm = this.updatedActor;
