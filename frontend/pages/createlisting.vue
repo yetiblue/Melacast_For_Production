@@ -21,21 +21,12 @@
             class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
             elevation="0"
           >
-            <v-card-title class="justify-start"
-              >Tell Us About Your Film</v-card-title
-            >
-            <v-card-subtitle
-              >Add basic details to introduce this project.</v-card-subtitle
-            >
+            <v-card-title class="justify-start">Tell Us About Your Film</v-card-title>
+            <v-card-subtitle>Add basic details to introduce this project.</v-card-subtitle>
           </v-card>
           <v-row justify="center">
             <v-col cols="12" sm="8">
-              <v-text-field
-                outlined
-                justify="center"
-                v-model="form.title"
-                label="Project Title"
-              ></v-text-field>
+              <v-text-field outlined justify="center" v-model="form.title" label="Project Title"></v-text-field>
             </v-col>
             <v-col cols="12" sm="8">
               <v-text-field
@@ -46,12 +37,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="8">
-              <v-textarea
-                label="Bio"
-                outlined
-                v-model="form.overview"
-                color="teal"
-              >
+              <v-textarea label="Bio" outlined v-model="form.overview" color="teal">
                 <template v-slot:label>
                   <div>Project Logline</div>
                 </template>
@@ -65,28 +51,19 @@
                 label="Production Studio"
               ></v-text-field>
             </v-col>
-            <v-col
-              class="ml-lg-4"
-              outlined
-              style="height=10vh"
-              cols="12"
-              sm="12"
-            >
-              <v-card
-                class="pl-md-16 ml-lg-16 ml-md-10 ml-sm-16 pl-sm-2"
-                elevation="0"
-              >
+            <v-col class="ml-lg-4" outlined style="height=10vh" cols="12" sm="12">
+              <v-card class="pl-md-16 ml-lg-16 ml-md-10 ml-sm-16 pl-sm-2" elevation="0">
                 <v-card-title
                   v-if="!posterUploaded"
                   class="text-md-h6 ml-n4 ml-sm-0 text-subtitle-2"
-                  >Upload a project banner or choose one from our
-                  gallery</v-card-title
                 >
+                  Upload a project banner or choose one from our
+                  gallery
+                </v-card-title>
                 <v-card-title
                   v-if="!hideUploadName"
                   class="text-lg-subtitle-1"
-                  >{{ displayPosterName }}</v-card-title
-                >
+                >{{ displayPosterName }}</v-card-title>
                 <v-img
                   :aspect-ratio="16 / 9"
                   class="grey mb-lg-6 ml-sm-2"
@@ -111,12 +88,7 @@
                   >
                     <v-icon left>mdi-upload</v-icon>Thumbnail
                   </v-btn>
-                  <input
-                    type="file"
-                    style="display: none"
-                    ref="poster"
-                    @change="createPoster"
-                  />
+                  <input type="file" style="display: none" ref="poster" @change="createPoster" />
                 </v-col>
 
                 <v-col cols="12" class="pl-8" sm="1">
@@ -135,9 +107,7 @@
                       </v-btn>
                     </template>
                     <v-card dark>
-                      <GalleryThumbnailComponent
-                        @clicked="generatePosterFromComponent"
-                      />
+                      <GalleryThumbnailComponent @clicked="generatePosterFromComponent" />
                     </v-card>
                   </v-dialog>
                 </v-col>
@@ -159,12 +129,7 @@
                   >
                     <v-icon left>mdi-upload</v-icon>Thumbnail
                   </v-btn>
-                  <input
-                    type="file"
-                    style="display: none"
-                    ref="poster"
-                    @change="createPoster"
-                  />
+                  <input type="file" style="display: none" ref="poster" @change="createPoster" />
                 </v-col>
 
                 <v-col cols="12" class="pl-sm-8" sm="3" lg="1">
@@ -183,9 +148,7 @@
                       </v-btn>
                     </template>
                     <v-card dark>
-                      <GalleryThumbnailComponent
-                        @clicked="generatePosterFromComponent"
-                      />
+                      <GalleryThumbnailComponent @clicked="generatePosterFromComponent" />
                     </v-card>
                   </v-dialog>
                 </v-col>
@@ -193,12 +156,7 @@
               <v-spacer></v-spacer>
             </v-col>
             <v-col cols="12" sm="8">
-              <v-select
-                outlined
-                v-model="form.location"
-                :items="states"
-                label="Location (state)"
-              ></v-select>
+              <v-select outlined v-model="form.location" :items="states" label="Location (state)"></v-select>
             </v-col>
             <v-col cols="12" sm="8">
               <v-text-field
@@ -244,19 +202,9 @@
                 min-width="290px"
               >
                 <template v-slot:activator="{ on }">
-                  <v-text-field
-                    outlined
-                    label="End Date"
-                    readonly
-                    :value="form.end_date"
-                    v-on="on"
-                  ></v-text-field>
+                  <v-text-field outlined label="End Date" readonly :value="form.end_date" v-on="on"></v-text-field>
                 </template>
-                <v-date-picker
-                  v-model="form.end_date"
-                  no-title
-                  @input="endDateMenuOpen = false"
-                ></v-date-picker>
+                <v-date-picker v-model="form.end_date" no-title @input="endDateMenuOpen = false"></v-date-picker>
               </v-menu>
             </v-col>
             <v-col cols="12" sm="8">
@@ -282,21 +230,14 @@
                 class="pl-lg-16 pl-md-16 ml-md-10 ml-n4 ml-sm-16 pl-sm-2 ml-lg-16"
                 elevation="0"
               >
-                <v-card-title
-                  class="text-lg-subtitle-1 text-subtitle-1 text-sm-h6 bold"
-                >
+                <v-card-title class="text-lg-subtitle-1 text-subtitle-1 text-sm-h6 bold">
                   <b>What Best Describes Your Film?</b>
                 </v-card-title>
                 <v-card-subtitle>Check One</v-card-subtitle>
               </v-card>
             </v-col>
             <v-col outlined style="height=10vh" cols="8" sm="5">
-              <v-checkbox
-                v-model="form.genre"
-                label="Animation"
-                color="green"
-                value="Animation"
-              ></v-checkbox>
+              <v-checkbox v-model="form.genre" label="Animation" color="green" value="Animation"></v-checkbox>
               <v-checkbox
                 v-model="form.genre"
                 label="Documentary"
@@ -309,38 +250,18 @@
                 color="green"
                 value="Experimental"
               ></v-checkbox>
-              <v-checkbox
-                v-model="form.genre"
-                label="Feature"
-                color="green"
-                value="Feature"
-              ></v-checkbox>
+              <v-checkbox v-model="form.genre" label="Feature" color="green" value="Feature"></v-checkbox>
               <v-checkbox
                 v-model="form.genre"
                 label="Music Video"
                 color="green"
                 value="Music Video"
               ></v-checkbox>
-              <v-checkbox
-                v-model="form.genre"
-                label="Short"
-                color="green"
-                value="Short"
-              ></v-checkbox>
+              <v-checkbox v-model="form.genre" label="Short" color="green" value="Short"></v-checkbox>
             </v-col>
             <v-col outlined style="height=10vh" cols="4" sm="3">
-              <v-checkbox
-                v-model="form.genre"
-                label="Student"
-                color="green"
-                value="Student"
-              ></v-checkbox>
-              <v-checkbox
-                v-model="form.genre"
-                label="Television"
-                color="green"
-                value="Television"
-              ></v-checkbox>
+              <v-checkbox v-model="form.genre" label="Student" color="green" value="Student"></v-checkbox>
+              <v-checkbox v-model="form.genre" label="Television" color="green" value="Television"></v-checkbox>
               <v-checkbox
                 v-model="form.tags"
                 label="Virtual Reality"
@@ -353,12 +274,7 @@
                 color="green"
                 value="Web/New Media"
               ></v-checkbox>
-              <v-checkbox
-                v-model="form.tags"
-                label="Theater"
-                color="green"
-                value="Theater"
-              ></v-checkbox>
+              <v-checkbox v-model="form.tags" label="Theater" color="green" value="Theater"></v-checkbox>
             </v-col>
           </v-row>
 
@@ -366,14 +282,13 @@
             <!-- <v-col cols="6"></v-col> -->
             <v-spacer></v-spacer>
             <v-col cols="4" sm="3">
-              <v-btn @click="secondPage = !secondPage" style="margin-top: 50px;"
-                >Next</v-btn
-              >
+              <v-btn @click="secondPage = !secondPage" style="margin-top: 50px;">Next</v-btn>
             </v-col>
           </v-row>
         </v-col>
         <v-spacer></v-spacer>
       </v-row>
+      <!-- Second Page -->
       <v-row v-if="secondPage && !thirdPage && !fourthPage">
         <v-spacer></v-spacer>
         <v-col class="px-10 px-sm-0" lg="6" cols="12" sm="8">
@@ -382,10 +297,10 @@
             elevation="0"
           >
             <v-card-title class="justify-start">Add Roles</v-card-title>
-            <v-card-subtitle
-              >Add any non post or production crew positions. Specifications are
-              optional.</v-card-subtitle
-            >
+            <v-card-subtitle>
+              Add any non post or production crew positions. Specifications are
+              optional.
+            </v-card-subtitle>
           </v-card>
           <v-row justify="center">
             <v-col cols="12" sm="8">
@@ -406,12 +321,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="8">
-              <v-textarea
-                label="Bio"
-                outlined
-                v-model="filmRoles.role_description"
-                color="teal"
-              >
+              <v-textarea label="Bio" outlined v-model="filmRoles.role_description" color="teal">
                 <template v-slot:label>
                   <div>Role Description</div>
                 </template>
@@ -436,15 +346,11 @@
               ></v-select>
             </v-col>
             <v-col outlined style="height=10vh" cols="12" sm="12">
-              <v-card
-                class="pl-md-16 ml-xl-16 ml-md-10 ml-sm-16 pl-sm-2"
-                elevation="0"
-              >
+              <v-card class="pl-md-16 ml-xl-16 ml-md-10 ml-sm-16 pl-sm-2" elevation="0">
                 <v-card-title
                   v-if="!posterUploaded"
                   class="text-md-h6 pl-lg-8 ml-n4 ml-sm-0 ml-lg-2 text-subtitle-2"
-                  >Pick a thumbnail for this role</v-card-title
-                >
+                >Pick a thumbnail for this role</v-card-title>
 
                 <v-img
                   :aspect-ratio="16 / 9"
@@ -475,9 +381,7 @@
                       </v-btn>
                     </template>
                     <v-card dark>
-                      <GalleryThumbnailComponent
-                        @clicked="filmRoleGalleryPhoto"
-                      />
+                      <GalleryThumbnailComponent @clicked="filmRoleGalleryPhoto" />
                     </v-card>
                   </v-dialog>
                 </v-col>
@@ -491,8 +395,7 @@
                     color="brown"
                     @click.prevent="addRoles()"
                     depressed
-                    >Submit</v-btn
-                  >
+                  >Submit</v-btn>
                 </v-col>
               </v-row>
               <v-spacer></v-spacer>
@@ -517,9 +420,7 @@
                       </v-btn>
                     </template>
                     <v-card dark>
-                      <GalleryThumbnailComponent
-                        @clicked="filmRoleGalleryPhoto"
-                      />
+                      <GalleryThumbnailComponent @clicked="filmRoleGalleryPhoto" />
                     </v-card>
                   </v-dialog>
                 </v-col>
@@ -533,42 +434,33 @@
                     color="brown"
                     @click.prevent="addRoles()"
                     depressed
-                    >Submit</v-btn
-                  >
+                  >Submit</v-btn>
                 </v-col>
               </v-row>
               <v-divider></v-divider>
               <v-spacer></v-spacer>
             </v-col>
-            <v-col
-              outlined
-              class="ml-lg-n16"
-              style="height=10vh"
-              cols="12"
-              sm="12"
-            >
+            <v-col outlined class="ml-lg-n16" style="height=10vh" cols="12" sm="12">
               <template v-for="returnedRole in returnedFilmRoles">
                 <v-card
                   :key="returnedRole.id"
                   class="pl-md-16 ml-md-10 ml-sm-10 ml-md-n2 ml-lg-8 ml-xl-0 pl-sm-2"
                   elevation="0"
                 >
-                  <v-card-title class="ml-sm-n4"
-                    >{{ returnedRole.role_name }} |
+                  <v-card-title class="ml-sm-n4">
+                    {{ returnedRole.role_name }} |
                     {{ returnedRole.character_name }} |
                     {{ returnedRole.role_type }} |
-                    {{ returnedRole.ethnicity }}</v-card-title
-                  >
+                    {{ returnedRole.ethnicity }}
+                  </v-card-title>
 
-                  <v-card-subtitle class="mt-lg-6 mt-sm-2 ml-sm-n4">{{
+                  <v-card-subtitle class="mt-lg-6 mt-sm-2 ml-sm-n4">
+                    {{
                     returnedRole.role_description
-                  }}</v-card-subtitle>
+                    }}
+                  </v-card-subtitle>
 
-                  <v-img
-                    class="mr-lg-6"
-                    :aspect-ratio="16 / 9"
-                    :src="returnedRole.role_thumbnail"
-                  ></v-img>
+                  <v-img class="mr-lg-6" :aspect-ratio="16 / 9" :src="returnedRole.role_thumbnail"></v-img>
                   <v-spacer></v-spacer>
                   <v-row class="justify-end">
                     <v-btn
@@ -577,8 +469,7 @@
                       text
                       outlined
                       @click="deleteRole(returnedRole.id)"
-                      >Delete</v-btn
-                    >
+                    >Delete</v-btn>
                   </v-row>
 
                   <v-divider></v-divider>
@@ -595,16 +486,14 @@
                 class="ml-n2 ml-sm-0"
                 @click="secondPage = !secondPage"
                 style="margin-top: 50px;"
-                >Back</v-btn
-              >
+              >Back</v-btn>
             </v-col>
             <v-col cols="4" md="4" sm="4">
               <v-btn
                 @click="thirdPage = !thirdPage"
                 class="ml-md-0 ml-lg-6"
                 style="margin-top: 50px;"
-                >Next</v-btn
-              >
+              >Next</v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -618,10 +507,10 @@
             elevation="0"
           >
             <v-card-title class="justify-start">Add Crew Members</v-card-title>
-            <v-card-subtitle
-              >Add any crew member types that you will need for this
-              project.</v-card-subtitle
-            >
+            <v-card-subtitle>
+              Add any crew member types that you will need for this
+              project.
+            </v-card-subtitle>
           </v-card>
           <v-card
             class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
@@ -635,43 +524,22 @@
             <v-card-subtitle
               v-for="returnedProduction in returnedProductionRoles"
               :key="returnedProduction.id"
-              >{{ returnedProduction.role_name }}</v-card-subtitle
-            >
+            >{{ returnedProduction.role_name }}</v-card-subtitle>
           </v-card>
           <v-row class="pr-10">
             <v-spacer></v-spacer>
 
             <v-col outlined style="height=10vh" cols="8" sm="10">
-              <v-checkbox
-                color="brown"
-                value="True"
-                v-model="form.hasArt"
-                label="Art Team"
-              />
-              <v-checkbox
-                color="brown"
-                value="true"
-                v-model="form.hasCamera"
-                label="Camera Team"
-              />
+              <v-checkbox color="brown" value="True" v-model="form.hasArt" label="Art Team" />
+              <v-checkbox color="brown" value="true" v-model="form.hasCamera" label="Camera Team" />
               <v-checkbox
                 color="brown"
                 value="true"
                 v-model="form.hasLighting"
                 label="Lighting Team"
               />
-              <v-checkbox
-                color="brown"
-                value="true"
-                v-model="form.hasSound"
-                label="Sound Team"
-              />
-              <v-checkbox
-                color="brown"
-                value="true"
-                v-model="form.hasHMU"
-                label="HMU Team"
-              />
+              <v-checkbox color="brown" value="true" v-model="form.hasSound" label="Sound Team" />
+              <v-checkbox color="brown" value="true" v-model="form.hasHMU" label="HMU Team" />
               <v-col class="ml-sm-n2" cols="10">
                 <v-text-field
                   class="mt-lg-6"
@@ -683,13 +551,7 @@
                   v-model="productionRoles.tag"
                   label="Select Team This Position Belongs To"
                 ></v-select>
-                <v-btn
-                  class="brown white--text"
-                  text
-                  outlined
-                  @click="addProduction()"
-                  >Add</v-btn
-                >
+                <v-btn class="brown white--text" text outlined @click="addProduction()">Add</v-btn>
               </v-col>
             </v-col>
           </v-row>
@@ -704,42 +566,17 @@
             <v-card-subtitle
               v-for="returnedPostProduction in returnedPostProductionRoles"
               :key="returnedPostProduction.id"
-              >{{ returnedPostProduction.role_name }}</v-card-subtitle
-            >
+            >{{ returnedPostProduction.role_name }}</v-card-subtitle>
           </v-card>
           <v-row class="pr-10">
             <v-spacer></v-spacer>
 
             <v-col outlined style="height=10vh" cols="8" sm="10">
-              <v-checkbox
-                value="Editing"
-                v-model="form.post_production_positions"
-                label="Editing"
-              />
-              <v-checkbox
-                color="brown"
-                value="true"
-                v-model="form.hasEditor"
-                label="Editor Team"
-              />
-              <v-checkbox
-                color="brown"
-                value="true"
-                v-model="form.hasColor"
-                label="Color Team"
-              />
-              <v-checkbox
-                color="brown"
-                value="true"
-                v-model="form.hasSound"
-                label="Sound Team"
-              />
-              <v-checkbox
-                color="brown"
-                value="true"
-                v-model="form.hasVFX"
-                label="VFX Team"
-              />
+              <v-checkbox value="Editing" v-model="form.post_production_positions" label="Editing" />
+              <v-checkbox color="brown" value="true" v-model="form.hasEditor" label="Editor Team" />
+              <v-checkbox color="brown" value="true" v-model="form.hasColor" label="Color Team" />
+              <v-checkbox color="brown" value="true" v-model="form.hasSound" label="Sound Team" />
+              <v-checkbox color="brown" value="true" v-model="form.hasVFX" label="VFX Team" />
               <v-checkbox
                 color="brown"
                 value="true"
@@ -763,8 +600,7 @@
                 text
                 outlined
                 @click="addPostProduction()"
-                >Add</v-btn
-              >
+              >Add</v-btn>
             </v-col>
           </v-row>
           <v-row justify="center">
@@ -775,16 +611,14 @@
                 class="ml-n2 ml-sm-0"
                 @click="thirdPage = !thirdPage"
                 style="margin-top: 50px;"
-                >Back</v-btn
-              >
+              >Back</v-btn>
             </v-col>
             <v-col cols="4" md="4" sm="4">
               <v-btn
                 @click="fourthPage = !fourthPage"
                 class="ml-md-0 ml-lg-6"
                 style="margin-top: 50px;"
-                >Next</v-btn
-              >
+              >Next</v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -797,30 +631,23 @@
             class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
             elevation="0"
           >
-            <v-card-title class="justify-start"
-              >Confirm details and post listing</v-card-title
-            >
-            <v-card-subtitle
-              >Your project will now be live and searchable on The Melacast
-              Network.</v-card-subtitle
-            >
+            <v-card-title class="justify-start">Confirm details and post listing</v-card-title>
+            <v-card-subtitle>
+              Your project will now be live and searchable on The Melacast
+              Network.
+            </v-card-subtitle>
           </v-card>
           <v-card
             class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
             elevation="0"
           >
-            <v-img
-              class="grey mr-lg-6"
-              :aspect-ratio="16 / 9"
-              :src="selectedGalleryPhoto"
-            >
-              <v-row
-                height="200px"
-                class="mt-lg-12 align-center justify-center"
-              >
-                <v-card-title class="mt-lg-16 pt-lg-16" v-if="hasPoster">{{
+            <v-img class="grey mr-lg-6" :aspect-ratio="16 / 9" :src="selectedGalleryPhoto">
+              <v-row height="200px" class="mt-lg-12 align-center justify-center">
+                <v-card-title class="mt-lg-16 pt-lg-16" v-if="hasPoster">
+                  {{
                   displayPosterName
-                }}</v-card-title>
+                  }}
+                </v-card-title>
               </v-row>
             </v-img>
           </v-card>
@@ -849,9 +676,7 @@
             <v-card-title class="justify-start text-lg-h5">
               <b>Location</b>
             </v-card-title>
-            <v-card-subtitle
-              >{{ form.city_location }}, {{ form.location }}</v-card-subtitle
-            >
+            <v-card-subtitle>{{ form.city_location }}, {{ form.location }}</v-card-subtitle>
           </v-card>
           <v-card
             class="mb-lg-10 ml-md-16 pl-md-10 ml-n4 ml-sm-16 pl-sm-3 ml-lg-16 pl-lg-16"
@@ -901,23 +726,17 @@
               <v-card-subtitle v-for="role in returnedFilmRoles" :key="role.id">
                 <GridComponent>
                   <template #cardSlot>
-                    <v-card
-                      outlined
-                      class="ml-sm-n5 pr-lg-10 mr-lg-12"
-                      elevation="0"
-                    >
-                      <v-card-title class="text-lg-h6"
-                        >{{ role.role_name }} |
-                        {{ role.role_type }}</v-card-title
-                      >
-                      <v-card-title class="text-lg-h6"
-                        >Character Name:{{ role.character_name }}</v-card-title
-                      >
-                      <v-card-title class="text-lg-h6"
-                        >Role Description:{{
-                          role.role_description
-                        }}</v-card-title
-                      >
+                    <v-card outlined class="ml-sm-n5 pr-lg-10 mr-lg-12" elevation="0">
+                      <v-card-title class="text-lg-h6">
+                        {{ role.role_name }} |
+                        {{ role.role_type }}
+                      </v-card-title>
+                      <v-card-title class="text-lg-h6">Character Name:{{ role.character_name }}</v-card-title>
+                      <v-card-title class="text-lg-h6">
+                        Role Description:{{
+                        role.role_description
+                        }}
+                      </v-card-title>
                     </v-card>
 
                     <v-spacer></v-spacer>
@@ -940,14 +759,11 @@
               >
                 <GridComponent>
                   <template #cardSlot>
-                    <v-card
-                      class="ml-sm-n5 pr-lg-10 mr-lg-12 mb-sm-n16 mb-md-0"
-                      elevation="0"
-                    >
-                      <v-card-title class="text-subtitle-1"
-                        >{{ productionRole.role_name }} |
-                        {{ productionRole.tag }}</v-card-title
-                      >
+                    <v-card class="ml-sm-n5 pr-lg-10 mr-lg-12 mb-sm-n16 mb-md-0" elevation="0">
+                      <v-card-title class="text-subtitle-1">
+                        {{ productionRole.role_name }} |
+                        {{ productionRole.tag }}
+                      </v-card-title>
                     </v-card>
 
                     <v-spacer></v-spacer>
@@ -974,10 +790,10 @@
                       class="ml-sm-n5 pl-sm-n5 pr-lg-10 mr-lg-12 mb-sm-n16 mb-md-0"
                       elevation="0"
                     >
-                      <v-card-title class="text-subtitle-1"
-                        >{{ postProductionRole.role_name }} |
-                        {{ postProductionRole.tag }}</v-card-title
-                      >
+                      <v-card-title class="text-subtitle-1">
+                        {{ postProductionRole.role_name }} |
+                        {{ postProductionRole.tag }}
+                      </v-card-title>
                     </v-card>
 
                     <v-spacer></v-spacer>
@@ -996,8 +812,7 @@
                 class="ml-n2 ml-sm-16"
                 @click="fourthPage = !fourthPage"
                 style="margin-top: 50px;"
-                >Back</v-btn
-              >
+              >Back</v-btn>
             </v-col>
             <v-col cols="4">
               <v-btn
@@ -1005,15 +820,13 @@
                 class="brown white--text ml-n2 ml-sm-n16"
                 style="margin-top: 50px;"
                 @click="submitForm"
-                >Post</v-btn
-              >
+              >Post</v-btn>
               <v-btn
                 v-else
                 class="brown white--text ml-n2 ml-sm-n16"
                 style="margin-top: 50px;"
                 @click="setPrice(`price_1J4RHBIXVRhKifjK2imEv2pg`)"
-                >Pay</v-btn
-              >
+              >Pay</v-btn>
             </v-col>
 
             <v-col cols="4" md="4" sm="4"></v-col>
@@ -1035,24 +848,10 @@
             <v-row>
               <v-spacer></v-spacer>
               <v-col cols="6">
-                <v-btn
-                  text
-                  @click="
-                    submitForm();
-                    finishListing();
-                  "
-                  >View Your Submitted Listings</v-btn
-                >
+                <v-btn text @click="finishListing()">View Your Submitted Listings</v-btn>
               </v-col>
               <v-col cols="4">
-                <v-btn
-                  text
-                  @click="
-                    submitForm();
-                    submitAnotherListing();
-                  "
-                  >Submit Another Listing</v-btn
-                >
+                <v-btn text @click="finishListing(submitAnother)">Submit Another Listing</v-btn>
               </v-col>
               <v-spacer></v-spacer>
             </v-row>
@@ -1073,6 +872,7 @@ import SideBarComponent from "~/components/SideBarComponent";
 import GalleryThumbnailComponent from "~/components/GalleryThumbnailComponent";
 
 export default {
+  name: "CreateListing",
   head() {
     return {
       //   title: "Create Your User Profile"
@@ -1093,6 +893,7 @@ export default {
     ...mapGetters(["loggedInUser"]),
     clientReference() {
       let clientID = this.$store.getters.loggedInUser.id;
+      // let clientID = loggedInUser.id;
       return clientID.toString();
     },
     showPayButton() {
@@ -1108,6 +909,14 @@ export default {
         .sort((a, b) => a.id - b.id);
     },
     displayFifth() {
+      //displays the fifth page of the form for a pay-per-listing user
+      //purpose = because of the redirect to stripe, the data() store
+      //gets wiped. This page allows the saved data to be retrieved from Localstorage
+      //and actually posted when the user clicks either of the two buttons.
+
+      //the paying members post directly without ever redirecting to stripe on the
+      //fourthPage where they have a 'Post' button vs a 'Pay' redirect
+
       if (this.sortedActorsOldestFirst[0].return_to_page == "True") {
         return true;
         console.log("true fifth");
@@ -1115,14 +924,7 @@ export default {
         return false;
       }
     },
-    memberListings() {
-      return {
-        title: this.form.title,
-        start_date: this.form.start_date,
-        genre: this.form.genre,
-        poster: this.form.poster
-      };
-    },
+
     currentDateTime() {
       const current = new Date();
       const date =
@@ -1192,48 +994,50 @@ export default {
     }
   },
   methods: {
-    submitAnotherListing(store, loggedInUser) {
-      let formData = new FormData();
-      this.sortedActorsOldestFirst[0].return_to_page = false;
-      this.sortedActorsOldestFirst[0].paid_listing = false;
-      formData.append(
-        "return_to_page",
-        this.sortedActorsOldestFirst[0].return_to_page
-      );
-      formData.append(
-        "paid_listing",
-        this.sortedActorsOldestFirst[0].paid_listing
-      );
-      this.$axios
-        .patch(
-          `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
-          formData
-        )
-        .then(response => {
-          console.log("Successfully Reset success submit");
-          this.$router.push(`/createlisting`);
-        })
-        .catch(error => {
-          if (error) {
-            this.showSubmitError = true;
-          }
-        });
-    },
+    // submitAnotherListing(store, loggedInUser) {
+    //   let formData = new FormData();
+
+    //   this.sortedActorsOldestFirst[0].return_to_page = false;
+    //   this.sortedActorsOldestFirst[0].paid_listing = false;
+    //   formData.append(
+    //     "return_to_page",
+    //     this.sortedActorsOldestFirst[0].return_to_page
+    //   );
+    //   formData.append(
+    //     "paid_listing",
+    //     this.sortedActorsOldestFirst[0].paid_listing
+    //   );
+    //   this.$axios
+    //     .patch(
+    //       `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
+    //       formData
+    //     )
+    //     .then(response => {
+    //       console.log("Successfully Reset success submit");
+    //       this.$router.push(`/createlisting`);
+    //     })
+    //     .catch(error => {
+    //       if (error) {
+    //         this.showSubmitError = true;
+    //       }
+    //     });
+    // },
     checkout() {
       this.$refs.checkoutRef.redirectToCheckout();
       console.log(this.lineItems[0].price, "priceID");
-      //change the button v-if back here
-      //include a go see listings button, or a "ex" out to submit another listing
     },
     setDatatoLocalStorage() {
       localStorage.setItem("form", JSON.stringify(this.form));
+      localStorage.setItem(
+        "listingPoster",
+        JSON.stringify(this.selectedGalleryPhoto)
+      );
       console.log("adding to localstorage");
-      localStorage.setItem("fifth", "true");
+      localStorage.setItem("fifth", "true"); //tell form to load 5th page upon return from Stripe
     },
     setPrice(priceID) {
       this.lineItems[0].price = priceID;
       this.setDatatoLocalStorage();
-
       this.checkout();
     },
     inputFileClick() {
@@ -1254,7 +1058,7 @@ export default {
       //Used if the poster is chosen from the thumbnail galllery component
 
       //   this.$refs.testImage.src = thumbID;
-      this.dialog = false;
+      this.dialog = false; //dialog is the popup component window. False sets it to not showing
       this.galleryPhotoSelected = true;
       this.hideUploadName = true;
       console.log(thumbID, "thumbID");
@@ -1266,26 +1070,35 @@ export default {
       this.closeGallery();
     },
     filmRoleGalleryPhoto(thumbnailID) {
-      this.dialog = false;
+      this.dialog = false; //dialog is the popup component window. False sets it to not showing
       this.galleryPhotoSelected = true;
 
       this.filmRoles.role_thumbnail = thumbnailID;
       console.log(this.filmRoles.role_thumbnail);
     },
-    // onClickFromChild(thumbID) {
-    //   //Used when selecting a thumbnail for a role
-    //   console.log(thumbID, "thumbID");
-    //   this.filmRoles.role_thumbnail = thumbID;
-    // },
 
     closeGallery() {
       //Close Thumbnail gallery
       this.galleryNotOpen = true;
     },
-    finishListing() {
-      //After submitting basic information and the roles
+    finishListing(decision) {
+      this.form = JSON.parse(localStorage.getItem("form"));
+      this.selectedGalleryPhoto = JSON.parse(
+        localStorage.getItem("listingPoster")
+      );
+      let stopRedirect = true;
+      //submit the form first
+      this.submitForm(stopRedirect);
 
       let formData = new FormData();
+      //return_to_page and paid_listing apply only to directors who pay to post a listing
+      //return_to_page = true if redirected back to the form after going through stripe
+      //paid_listing = true if payment for listing was successful
+
+      // <---------------------------------------------------------->
+
+      //resets these two fields so that the 5th page doesn't display
+      //upon  redirecting to /createlisting
       this.sortedActorsOldestFirst[0].return_to_page = false;
       this.sortedActorsOldestFirst[0].paid_listing = false;
       formData.append(
@@ -1296,25 +1109,43 @@ export default {
         "paid_listing",
         this.sortedActorsOldestFirst[0].paid_listing
       );
-      this.$axios
-        .patch(
-          `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
-          formData
-        )
-        .then(response => {
-          console.log("Successfully Reset success submit");
-          this.$router.push(`/applications`);
-        })
-        .catch(error => {
-          if (error) {
-            this.showSubmitError = true;
-          }
-        });
+      if (decision == true) {
+        //decision == this.submitAnother == true go back to the start of the form
+        this.$axios
+          .patch(
+            `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
+            formData
+          )
+          .then(response => {
+            console.log("Successfully Reset success submit");
+            this.$router.push(`/createlisting`);
+          })
+          .catch(error => {
+            if (error) {
+              this.showSubmitError = true;
+            }
+          });
+      } else {
+        //finished with adding listings to back to dashboard
+        this.$axios
+          .patch(
+            `/api/v1/actors/${this.sortedActorsOldestFirst[0].id}/`,
+            formData
+          )
+          .then(response => {
+            console.log("Successfully Reset success submit");
+            this.$router.push(`/applications`);
+          })
+          .catch(error => {
+            if (error) {
+              this.showSubmitError = true;
+            }
+          });
+      }
     },
 
-    submitForm() {
-      // Submit the information on page 1 and 2 of the creation form
-      this.form.date_submitted = this.currentDateTime; //currentDateTime is a computed Function
+    async submitForm(stopRedirect) {
+      this.form.date_submitted = this.currentDateTime;
       let formAnswers = this.form;
       const config = {
         headers: {
@@ -1344,7 +1175,9 @@ export default {
           )
           .then(response => {
             console.log("Successfully Created New Listing");
-            this.$router.push("/applications");
+            if (!stopRedirect) {
+              this.$router.push("/applications");
+            }
           })
           .catch(error => {
             if (error) {
@@ -1352,34 +1185,35 @@ export default {
             }
           });
       } else {
-        // if poster came from the gallery component
+        console.log("submitting 2nd method");
+        // if poster came from the gallery component get the image blob first
         let img = this.selectedGalleryPhoto;
         console.log(img, "img");
+        const createImageFirst = await this.$axios.get(img, {
+          responseType: "blob"
+        });
+        console.log(createImageFirst.data, "blobby");
+        this.forMembers(createImageFirst.data);
+
+        formData.append("poster", createImageFirst.data);
         this.$axios
-          .get(img, {
-            responseType: "blob"
-          })
+          .post(
+            `/api/v1/listings/`,
+            formData,
+            config,
+            this.positionsForm,
+            this.form.random_public_id
+          )
           .then(response => {
-            console.log(response.data);
-            this.forMembers(response.data);
-            formData.append("poster", response.data);
-            this.$axios
-              .post(
-                `/api/v1/listings/`,
-                formData,
-                config,
-                this.positionsForm,
-                this.form.random_public_id
-              )
-              .then(response => {
-                console.log("Successfully Created New Listing");
-                this.finishListing();
-              })
-              .catch(error => {
-                if (error) {
-                  this.showSubmitError = true;
-                }
-              });
+            console.log("Successfully Created New Listing");
+            if (!stopRedirect) {
+              this.$router.push("/applications");
+            }
+          })
+          .catch(error => {
+            if (error) {
+              this.showSubmitError = true;
+            }
           });
       }
     },
@@ -1393,6 +1227,8 @@ export default {
       // return result;
       this.form.random_public_id = result;
       this.filmRoles.listing_public_id = result;
+      this.productionRoles.listing_public_id = this.form.random_public_id;
+      this.postProductionRoles.listing_public_id = this.form.random_public_id;
       console.log(this.form.random_public_id);
       console.log(this.filmRoles.listing_public_id);
     },
@@ -1413,8 +1249,7 @@ export default {
       this.$axios
         .post(`/api/v1/memberlistings/`, formData)
         .then(response => {
-          console.log("Successfully Created New Listing");
-          //   this.$router.push(`/applications`);
+          console.log("Successfully Created New Member Listing");
         })
         .catch(error => {
           if (error) {
@@ -1424,21 +1259,23 @@ export default {
     },
     displayReturnedRoles() {
       // Return all previous roles after each new role is submitted. Keeps a running list
-      this.$axios
-        .get(`/api/v1/filmroles/`, {
-          params: {
-            listing_public_id: this.form.random_public_id
-          }
-        })
-        .then(response => {
-          this.returnedFilmRoles = response.data;
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      // displayed on the screen without refreshing the whole form
+      const getPromise = this.$axios.get(`/api/v1/filmroles/`, {
+        params: {
+          listing_public_id: this.form.random_public_id
+        }
+      });
+      getPromise.then(response => {
+        this.returnedFilmRoles = response.data;
+      });
+      getPromise.catch(error => {
+        console.log(error);
+      });
+      return getPromise;
     },
     displayReturnedProductionRoles() {
       // Return all previous roles after each new role is submitted. Keeps a running list
+      // displayed on the screen without refreshing the whole form
       this.$axios
         .get(`/api/v1/productionroles/`, {
           params: {
@@ -1454,6 +1291,7 @@ export default {
     },
     displayReturnedPostProductionRoles() {
       // Return all previous roles after each new role is submitted. Keeps a running list
+      // displayed on the screen without refreshing the whole form
       this.$axios
         .get(`/api/v1/postproductionroles/`, {
           params: {
@@ -1471,7 +1309,7 @@ export default {
       // Allows for deletion of a role from the returned list of all roles
       let deletionID = roleID;
       this.$axios.delete(`/api/v1/filmroles/${deletionID}/`);
-      //called twice so that the delte button deletes, and refreshes the page instead of needing 2 clicks
+      //called twice so that the delete button deletes, and refreshes the page instead of needing 2 clicks
       this.displayReturnedRoles();
       this.displayReturnedRoles();
     },
@@ -1479,7 +1317,7 @@ export default {
       // Allows for deletion of a role from the returned list of all roles
       let deletionID = roleID;
       this.$axios.delete(`/api/v1/productionroles/${deletionID}/`);
-      //called twice so that the delte button deletes, and refreshes the page instead of needing 2 clicks
+      //called twice so that the delete button deletes, and refreshes the page instead of needing 2 clicks
       this.displayReturnedProductionRoles();
       this.displayReturnedProductionRoles();
     },
@@ -1487,16 +1325,15 @@ export default {
       // Allows for deletion of a role from the returned list of all roles
       let deletionID = roleID;
       this.$axios.delete(`/api/v1/postproductionroles/${deletionID}/`);
-      //called twice so that the delte button deletes, and refreshes the page instead of needing 2 clicks
+      //called twice so that the delete button deletes, and refreshes the page instead of needing 2 clicks
       this.displayReturnedPostProductionRoles();
       this.displayReturnedPostProductionRoles();
     },
     addRoles($axios) {
-      //  listingThatWasJustAdded array holds all listings objects. The one that was submitted before the roles
       this.$axios
         .post(`/api/v1/filmroles/`, this.filmRoles)
         .then(response => {
-          console.log("Successfully Submitted Role");
+          console.log("Successfully Submitted film Role");
           this.displayReturnedRoles();
           this.filmRoles.role_name = null; // reset the fields for the role after each one is submitted
           this.filmRoles.ethnicity = null;
@@ -1504,7 +1341,7 @@ export default {
           this.filmRoles.character_name = null;
           this.filmRoles.role_description = null;
           this.filmRoles.role_thumbnail = null;
-          this.filmRoles.listing_public_id = this.form.random_public_id;
+          this.filmRoles.listing_public_id = this.form.random_public_id; //this field is updated for the first instance under this.generatePublicID()
           console.log(this.filmRoles.listing_public_id, "roles public id");
         })
         .catch(error => {
@@ -1512,26 +1349,21 @@ export default {
         });
     },
     addProduction($axios) {
-      //  listingThatWasJustAdded array holds all listings objects. The one that was submitted before the roles
-      this.productionRoles.listing_public_id = this.form.random_public_id;
-
       this.$axios
+
         .post(`/api/v1/productionroles/`, this.productionRoles)
         .then(response => {
           console.log("Successfully Submitted Production Role");
           this.displayReturnedProductionRoles();
           this.productionRoles.role_name = null; // reset the fields for the role after each one is submitted
           this.productionRoles.tag = null;
-          this.productionRole.listing_public_id = this.form.random_public_id;
+          this.productionRole.listing_public_id = this.form.random_public_id; //this field is updated for the first instance under this.generatePublicID()
         })
         .catch(error => {
           console.log(error);
         });
     },
     addPostProduction($axios) {
-      this.postProductionRoles.listing_public_id = this.form.random_public_id;
-
-      //  listingThatWasJustAdded array holds all listings objects. The one that was submitted before the roles
       this.$axios
         .post(`/api/v1/postproductionroles/`, this.postProductionRoles)
         .then(response => {
@@ -1539,7 +1371,7 @@ export default {
           this.displayReturnedPostProductionRoles();
           this.postProductionRoles.role_name = null; // reset the fields for the role after each one is submitted
           this.postProductionRoles.tag = null;
-          this.postProductionRoles.listing_public_id = this.form.random_public_id;
+          this.postProductionRoles.listing_public_id = this.form.random_public_id; //this field is updated for the first instance under this.generatePublicID()
         })
         .catch(error => {
           console.log(error);
@@ -1548,8 +1380,8 @@ export default {
   },
   data() {
     return {
-      loading: false,
-      group: null,
+      returnedForm: [],
+      submitAnother: true,
       publishableKey: `${process.env.STRIPE_PK}`,
       lineItems: [
         {
@@ -1557,7 +1389,7 @@ export default {
           quantity: 1
         }
       ],
-      payment_status: "unpaid",
+      payment_status: "unpaid", //for Stripe component
       successUrl: "http://localhost:3000/createlisting",
       cancelUrl: "http://localhost:3000",
       timeCommit: ["Fulltime", "Part time"],
@@ -1567,7 +1399,7 @@ export default {
       fourthPage: false,
       hideUploadName: false,
       galleryPhotoSelected: false,
-      dialog: false,
+      dialog: false, //false = gallery component not showing | true = gallery showing
       teams: ["Art", "Camera", "Lighting", "Sound", "Hmu"],
       postTeams: ["Editor", "Color", "Sound", "VFX", "Animator"],
       professions: [
@@ -1709,10 +1541,7 @@ export default {
         tag: null,
         listing_public_id: null
       },
-      returnedFilmRoles: [],
-      listingSubmitted: false,
-      listingThatWasJustAdded: [],
-      basicInfoSectionComplete: false
+      returnedFilmRoles: []
     };
   }
 };

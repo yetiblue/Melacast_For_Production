@@ -1,262 +1,41 @@
-<template>
-  <div>
-    <v-app>
-      <TopNavbar />
-      <v-row class="justify-center align-center">
-        <v-spacer></v-spacer>
-        <v-col cols="6" sm="4">
-          <v-card flat>
-            <v-card-title>Tell Us About Yourself</v-card-title>
-            <v-text-field outlined justify="center" v-model="actor[0].firstname" label="First Name"></v-text-field>
-            <v-text-field outlined justify="center" v-model="actor[0].lastname" label="Last Name"></v-text-field>
-            <v-text-field outlined justify="center" v-model="actor[0].age" label="Age"></v-text-field>
-            <v-select outlined v-model="actor[0].gender" :items="genders" label="Gender Identity"></v-select>
-
-            <v-text-field
-              outlined
-              v-model="actor[0].languages_spoken"
-              justify="center"
-              label="Spoken Languages"
-            ></v-text-field>
-          </v-card>
-          <v-card flat>
-            <v-card-title>What is Your Race Identity?</v-card-title>
-            <v-checkbox
-              v-model="actor[0].ethnicity"
-              label="Native Hawaiian/Pacific Islander"
-              color="brown"
-              value="Native Hawaiian/Pacific Islander"
-            ></v-checkbox>
-            <v-checkbox
-              v-model="actor[0].ethnicity"
-              label="Hispanic/Latino"
-              color="brown"
-              value="Hispanic/Latino"
-            ></v-checkbox>
-            <v-checkbox v-model="actor[0].ethnicity" label="Asian" color="brown" value="Asian"></v-checkbox>
-            <v-checkbox
-              v-model="actor[0].ethnicity"
-              label="Middle Eastern"
-              color="brown"
-              value="Middle Eastern"
-            ></v-checkbox>
-            <v-checkbox
-              v-model="actor[0].ethnicity"
-              label="Black/African American"
-              color="brown"
-              value="Black/African American"
-            ></v-checkbox>
-            <v-checkbox
-              v-model="actor[0].ethnicity"
-              label="Native American/Alaskan Native"
-              color="brown"
-              value="Native American/Alaskan Native"
-            ></v-checkbox>
-          </v-card>
-        </v-col>
-
-        <v-spacer></v-spacer>
-      </v-row>
-      <v-row>
-        <v-col cols="8"></v-col>
-        <v-col>
-          <v-btn class="justify-end">Next</v-btn>
-        </v-col>
-      </v-row>
-
-      <!-- second page -->
-      <v-row class="justify-center align-center">
-        <v-spacer></v-spacer>
-        <v-col cols="6" sm="4">
-          <v-card flat>
-            <v-card-title>Tell Us About Your Work</v-card-title>
-            <v-text-field
-              outlined
-              justify="center"
-              v-model="actor[0].profession"
-              label="Profession (i.e gaffer, photographer, key grip etc)"
-            ></v-text-field>
-            <v-text-field
-              outlined
-              justify="center"
-              v-model="actor[0].location"
-              label="Location (state)"
-            ></v-text-field>
-            <v-text-field
-              outlined
-              justify="center"
-              v-model="actor[0].city_location"
-              label="Location (city)"
-            ></v-text-field>
-            <v-select outlined v-model="actor[0].union" :items="unions" label="Union Status"></v-select>
-          </v-card>
-        </v-col>
-
-        <v-spacer></v-spacer>
-      </v-row>
-      <v-row>
-        <v-col cols="8"></v-col>
-        <v-col>
-          <v-btn class="justify-end">Next</v-btn>
-        </v-col>
-      </v-row>
-      <!-- Third Page -->
-      <v-row>
-        <v-col sm="8">
-          <v-card flat>
-            <v-card-title class="ml-sm-16">Build your profile</v-card-title>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col sm="2">
-          <v-btn
-            class="ml-sm-16"
-            elevation="0"
-            x-large
-            :height="uploadButtonSize"
-            :width="uploadButtonSize"
-            fab
-            @click="triggerFileInput"
-          >
-            <input type="file" style="display: none" ref="headshot" @change="onHeadshotChange" />
-
-            <v-avatar v-if="headshotExists" size="150" class="ml-2">
-              <!-- for if headshot exists in database -->
-              <img :src="actor[0].headshot" />
-            </v-avatar>
-            <v-avatar v-if="headshotUploaded" size="150" class="ml-2">
-              <!-- populate this with the previewURL -->
-              <img id="previewHeadshot" ref="previewHeadshot" />
-            </v-avatar>
-            <v-icon v-if="!headshotExists">mdi-camera</v-icon>
-          </v-btn>
-        </v-col>
-        <v-col sm="6">
-          <v-card class="ml-sm-n4" flat>
-            <v-card-title>{{ actor[0].profession }}</v-card-title>
-            <v-card-subtitle>{{ actor[0].firstname }}{{ actor[0].lastname }}</v-card-subtitle>
-            <v-text-field
-              outlined
-              justify="center"
-              v-model="actor[0].pronouns"
-              label="Pronouns (ex. They/Them)"
-            ></v-text-field>
-          </v-card>
-        </v-col>
-        <v-col sm="10">
-          <v-textarea class="ml-sm-16" label="bio" outlined v-model="actor[0].bio" color="teal">
-            <template v-slot:label>
-              <div>Bio</div>
-            </template>
-          </v-textarea>
-        </v-col>
-        <v-col sm="8">
-          <v-card flat>
-            <v-card-title>What type of projects do you want to be a part of?</v-card-title>
-            <v-card-subtitle>
-              This will help other members of the community find you for work
-              and collaboration.
-            </v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col sm="6">
-          <!-- {{ arrayStoringProjectTypes[0].project_types}} -->
-          <MakeCheckboxesCheckedComponent
-            v-for="projectType in projectTypes"
-            :key="projectType + id"
-            :propsProjectTypes="projectType"
-            :allProjectTypes="projectTypes"
-            :arrayOfProjectTypes.sync="arrayStoringProjectTypes[0].project_types"
-            :checked="actor[0].project_types.includes(projectType)"
-          ></MakeCheckboxesCheckedComponent>
-        </v-col>
-        <v-col sm="10">
-          <v-card flat>
-            <v-card-title>Connect Social Media</v-card-title>
-            <v-card-subtitle>Paste URL</v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col sm="4">
-          <v-text-field
-            outlined
-            justify="center"
-            prepend-inner-icon="mdi-earth"
-            v-model="actor[0].website"
-            label="Website"
-          ></v-text-field>
-          <v-text-field
-            outlined
-            justify="center"
-            prepend-inner-icon="mdi-instagram"
-            v-model="actor[0].Instagram_Handle_if_applicable"
-            label="Instagram"
-          ></v-text-field>
-        </v-col>
-        <v-col sm="4">
-          <v-text-field
-            outlined
-            justify="center"
-            prepend-inner-icon="mdi-linkedin"
-            v-model="actor[0].linkedIn"
-            label="linkedIn"
-          ></v-text-field>
-          <v-text-field
-            outlined
-            justify="center"
-            prepend-inner-icon="mdi-youtube"
-            v-model="actor[0].youtube_or_vimeo"
-            label="Youtube or Vimeo"
-          ></v-text-field>
-        </v-col>
-      </v-row>
-      <FooterComponent />
-    </v-app>
-  </div>
-</template>
+//
 <script>
 import { mapGetters } from "vuex";
-import TopNavbar from "~/components/TopNavbar";
-import FooterComponent from "~/components/FooterComponent";
-import MakeCheckboxesCheckedComponent from "~/components/MakeCheckboxesCheckedComponent";
+import Navigation from "~/Components/Navigation";
+import SubscribeComponent from "~/Components/SubscribeComponent.vue";
 
 export default {
-  //created() is necessary since arrayStoringProjectTypes[0].property
-  //won't be available upon the DOM render otherwise.
-  //loading the array before, allows for id or project_types to be called without an error
-  created() {
-    this.arrayStoringProjectTypes = this.actor.map(({ project_types, id }) => ({
-      id,
-      project_types: project_types.split(",")
-    }));
+  head() {
+    return {
+      title: "Edit Profile Form"
+    };
   },
-  components: { MakeCheckboxesCheckedComponent, TopNavbar },
-  name: "Create Profile",
+  components: {
+    // SubscribeComponent,
+    // Navigation,
+    // PprojGrid,
+    // DashboardSideNavigation
+  },
   computed: {
-    uploadButtonSize() {
-      //the headshot upload button
-      switch (this.$vuetify.breakpoint.name) {
-        case "md":
-          return true;
-        case "sm":
-          return true;
-        case "xs":
-          return true;
-        case "lg":
-          return 150;
-      }
-    },
-    headshotExists() {
-      //display camera icon or the user's headshot if it exists
-      if (this.actor[0].headshot !== null) {
-        return true;
-      }
-    },
-    headshotUploaded() {
-      if (this.hasHeadshot == true) {
-        return true;
-      }
-    },
+    ...mapGetters(["loggedInUser"]),
+
+    // updatedActor: function(actor) {
+    //   //REPLACE IN THE CALL BY USING formDATA.DELETE THOSE FIELDS
+    //   return {
+    //     // headshot: this.actor[0].headshot,
+    //     ethnicity: this.actor[0].ethnicity,
+    //     age: this.actor[0].age,
+    //     firstname: this.actor[0].firstname,
+    //     lastname: this.actor[0].lastname,
+    //     middle: this.actor[0].middle,
+    //     location: this.actor[0].location,
+    //     website: this.actor[0].website,
+    //     Instagram_Handle_if_applicable: this.actor[0]
+    //       .Instagram_Handle_if_applicable,
+    //     project_types: this.actor[0].project_types,
+    //     writing_genres: this.actor[0].writing_genres
+    //   };
+    // },
     isDirector() {
       if (this.actor[0].group == "Director") {
         return true;
@@ -299,13 +78,11 @@ export default {
       const [actor, photoList, writingSampleList, reelList] = await Promise.all(
         [
           $axios.$get(`/api/v1/actors/`, {
-            //user data
             params: {
               user: body
             }
           }),
           $axios.$get(`/api/v1/photos/`, {
-            //pictures used for gallery or project thumbnail
             params: {
               user: body
             }
@@ -330,6 +107,20 @@ export default {
         return { hasPermission };
       }
     }
+  },
+  data() {
+    return {
+      hasPermission: true,
+      actor: {}, // returned from API
+      addProj: false,
+      hasResume: false,
+      hasSample: false,
+      hasSampleThumbnail: false,
+      hasReel: false,
+      hasReelThumbnail: false,
+      hasPhotos: false,
+      hasHeadshot: false
+    };
   },
   methods: {
     onPhotoChange() {
@@ -370,13 +161,6 @@ export default {
       this.headshot = this.$refs.headshot.files;
       console.log(this.headshot);
       this.hasHeadshot = true;
-      const [file] = this.$refs.headshot.files;
-      if (file) {
-        this.$refs.previewHeadshot.src = URL.createObjectURL(file);
-      }
-    },
-    triggerFileInput() {
-      this.$refs.headshot.click();
     },
 
     async updateProfile($axios) {
@@ -409,7 +193,7 @@ export default {
         );
         this.submitNewHeadshot();
         this.submitNewResume();
-
+        //SUBMIT NEW RESUME HERE TOO
         // this.$router.push("/profile/");
       } catch (error) {
         console.log(error);
@@ -573,29 +357,6 @@ export default {
       } else {
       }
     }
-  },
-
-  data() {
-    return {
-      genders: ["Female", "Male", "Non-Binary", "Prefer Not to Say"],
-      unions: ["Non Union", "Union", "SAG", "Equity"],
-      //SET FORM TO ACTOR AND CHANGE ABOVE TO ACTOR[0]
-      actor: [],
-      projectTypes: [
-        "Animation",
-        "Documentary",
-        "Experimental",
-        "Feature",
-        "Music Video",
-        "Short",
-        "Student",
-        "Television",
-        "Virtual Reality",
-        "Web / New Media",
-        "Theater"
-      ],
-      arrayStoringProjectTypes: []
-    };
   }
 };
 </script>

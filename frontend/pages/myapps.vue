@@ -9,7 +9,7 @@
         <SideBarComponent :actors="actor[0]" :sideHeight="sideHeight">
           <template #userDesktopProfile>
             <v-card-title>{{actor[0].firstname}} {{actor[0].lastname}}</v-card-title>
-            <v-card-subtitle>{{actor[0].group}}</v-card-subtitle>
+            <v-card-subtitle id="testCard">{{actor[0].group}}</v-card-subtitle>
             <v-btn class="mb-2" elevation="0" :to="'/dashboard'" block>Dashboard</v-btn>
             <v-btn class="mb-2" elevation="0" block>Applications</v-btn>
             <v-btn class="pr-2 mb-1" elevation="0" :to="'/profile/edit'" block>Edit Profile</v-btn>
@@ -32,15 +32,46 @@
           </template>
         </SideBarComponent>
 
+        <!-- <SideBarComponent>
+          <template #userDesktopProfile>
+            <v-card-title>{{actor[0].firstname}} {{actor[0].lastname}}</v-card-title>
+            <v-card-subtitle id="testCard">{{actor[0].group}}</v-card-subtitle>
+            <v-btn class="mb-2" elevation="0" :to="'/dashboard'" block>Dashboard</v-btn>
+            <v-btn class="mb-2" elevation="0" block>Applications</v-btn>
+            <v-btn class="pr-2 mb-1" elevation="0" :to="'/profile/edit'" block>Edit Profile</v-btn>
+          </template>
+
+          <template #userMobileProfile>
+            <v-card-title>{{actor[0].firstname}} {{actor[0].lastname}}</v-card-title>
+            <v-card-subtitle>{{actor[0].group}}</v-card-subtitle>
+            <v-row>
+              <v-col cols="12" sm="4">
+                <v-btn class="grey" elevation="0" block :to="'/dashboard'">Dashboard</v-btn>
+              </v-col>
+              <v-col cols="12" sm="4">
+                <v-btn elevation="0" block>Applications</v-btn>
+              </v-col>
+              <v-col cols="12" sm="4">
+                <v-btn elevation="0" block :to="'/profile/edit'">Edit Profile</v-btn>
+              </v-col>
+            </v-row>
+          </template>
+        </SideBarComponent>-->
+
         <v-col v-if="hasApps" cols="12" lg="10">
           <v-card flat class="text-center text-lg-left ml-lg-n6">
             <v-card-title class="justify-center justify-lg-start">
-              <h1 class="mb-2 pt-3 pl-lg-10 text-h4 brown--text">Applications</h1>
+              <h1 ref="applications" class="mb-2 pt-3 pl-lg-10 text-h4 brown--text">Applications</h1>
             </v-card-title>
           </v-card>
           <v-row class="pr-lg-16 px-auto">
             <v-col cols="3">
-              <v-btn text @click="getAcceptedApplications" elevation="0" block>Accepted</v-btn>
+              <v-btn
+                text
+                @click="getAcceptedApplications"
+                elevation="0"
+                block
+              >Accepted {{actor[0].lastname}}</v-btn>
             </v-col>
             <v-col cols="3">
               <v-btn text @click="getPendingApplications" elevation="0" block>Pending</v-btn>
@@ -131,7 +162,7 @@
     <FooterComponent />
   </div>
 </template>
-<script>
+ <script>
 import { mapGetters } from "vuex";
 import TopNavbar from "~/components/TopNavbar";
 import SubscribeComponent from "~/components/SubscribeComponent";
@@ -300,6 +331,7 @@ export default {
   },
   data() {
     return {
+      actor: [],
       gridWidth: "10",
       sideHeight: `0vh`,
 
@@ -316,3 +348,4 @@ export default {
   }
 };
 </script>
+
